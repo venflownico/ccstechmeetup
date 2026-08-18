@@ -35,12 +35,26 @@ pnpm dev
 
 El embed actual es `https://luma.com/embed/calendar/cal-u2swYaAgKESq0h1/events?lt=dark`. Si Luma rota el ID: Calendar → Settings → Embed.
 
-## Deploy (Railway)
+## Publicar (GitHub + Railway)
 
-1. Crea un servicio desde este repo
-2. Railway detecta el `Dockerfile`
-3. Configura las env vars
-4. Custom domain: `ccstechmeetup.com` y `www.ccstechmeetup.com`
+El commit inicial ya está en `main`. Desde esta carpeta:
+
+```bash
+# Repo en la cuenta venflownico
+gh repo create venflownico/ccstechmeetup --public --source=. --remote=origin --push
+
+# Proyecto en Railway (sesión ya autenticada como venflow)
+railway init --name ccstechmeetup
+railway up
+railway variable set SLACK_WEBHOOK_URL="https://hooks.slack.com/services/..."
+railway variable set SLACK_MENTION_USER_ID=U097WQWPUTV
+railway domain
+```
+
+Luego en Railway: **Settings → Networking → Custom Domain** → `ccstechmeetup.com` y `www`.
+
+1. Railway detecta el `Dockerfile`
+2. Custom domain: `ccstechmeetup.com` y `www.ccstechmeetup.com`
 
 ## DNS en GoDaddy
 
