@@ -17,6 +17,7 @@ export const site = {
 
 export const navItems = [
   { href: "/#eventos", label: "Eventos" },
+  { href: "/recursos", label: "Recursos" },
   { href: "/#como-asistir", label: "Cómo asistir" },
   { href: "/#por-que", label: "Por qué" },
   { href: "/#equipo", label: "Equipo" },
@@ -127,25 +128,7 @@ export const resourceHub = {
   path: "/recursos",
   eyebrow: "Para founders",
   title: "Recursos gratis para tu startup",
-  lead: "En el meetup hay un QR. Lo escaneas y llegas aquí: créditos, capacidad, pagos y lo que un aliado pone para que escales — sin convertir esa noche en un pitch.",
-  categories: [
-    {
-      title: "Capacidad de servidores",
-      body: "Infra para que el producto aguante mientras creces.",
-    },
-    {
-      title: "Créditos de infraestructura",
-      body: "Un pool acotado para el stack.",
-    },
-    {
-      title: "Procesamiento de pagos",
-      body: "Herramientas para cobrar y operar, puestas como grant.",
-    },
-    {
-      title: "Costos para escalar",
-      body: "Oficio, herramientas o cupos que bajen el costo de construir.",
-    },
-  ],
+  lead: "Elige un aliado, aplica, y el proveedor te responde. Grants acotados para bajar el costo de construir — disponibles aquí, no solo en el meetup.",
 } as const;
 
 export const resourceExamples = [
