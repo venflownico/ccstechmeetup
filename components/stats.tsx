@@ -12,7 +12,11 @@ export function Stats() {
           <BlurFade key={stat.label} delay={0.08 * index} inView>
             <div className="text-center">
               <p className="font-heading text-4xl font-semibold text-teal-300 sm:text-5xl">
-                <NumberTicker value={stat.value} className="text-teal-300" />
+                <NumberTicker
+                  value={stat.value}
+                  decimalPlaces={stat.decimalPlaces}
+                  className="text-teal-300"
+                />
                 {stat.suffix}
               </p>
               <p className="mt-2 text-sm text-white/55">{stat.label}</p>

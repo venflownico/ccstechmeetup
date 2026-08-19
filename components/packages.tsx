@@ -4,8 +4,7 @@ import { useState } from "react";
 
 import { SponsorForm } from "@/components/sponsor-form";
 import { MagicCard } from "@/components/ui/magic-card";
-import { ShineBorder } from "@/components/ui/shine-border";
-import { packages, type PackageId } from "@/lib/site";
+import { packages, resourceExamples, type PackageId } from "@/lib/site";
 
 function formatPrice(value: number) {
   return new Intl.NumberFormat("en-US", {
@@ -16,22 +15,33 @@ function formatPrice(value: number) {
 }
 
 export function Packages() {
-  const [selected, setSelected] = useState<PackageId>("destacado");
+  const [selected, setSelected] = useState<PackageId>("recurso");
 
   return (
-    <section id="patrocinar" className="mx-auto max-w-6xl px-4 py-24 sm:px-6">
+    <section id="paquetes" className="mx-auto max-w-6xl px-4 py-24 sm:px-6">
       <div className="mx-auto max-w-2xl text-center">
         <p className="text-sm font-semibold tracking-[0.2em] text-teal-300 uppercase">
           Patrocinio
         </p>
         <h2 className="font-heading mt-3 text-3xl font-semibold text-white sm:text-5xl">
-          Paquetes para estar en cada edición
+          Paquetes para poner recursos en manos de founders
         </h2>
         <p className="mt-4 text-white/60">
-          Elige el nivel. Completa el formulario y Nicolas te escribe para cerrar el acuerdo.
-          El Presentador es el paquete actual de Banco Activo ($2,000 / mes).
+          Banco Activo e Impulsa VC presentan el meetup. Ese lockup no está a la venta.
+          Los paquetes abiertos son para aliados que desbloquean talento, recursos o
+          mentoría. Completa el formulario y Nicolas te escribe para cerrar el acuerdo.
         </p>
       </div>
+      <ul className="mx-auto mt-10 flex max-w-3xl flex-wrap justify-center gap-2">
+        {resourceExamples.map((example) => (
+          <li
+            key={example}
+            className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-xs text-white/65"
+          >
+            {example}
+          </li>
+        ))}
+      </ul>
       <div className="mt-12 grid gap-6 lg:grid-cols-3">
         {packages.map((pkg) => {
           const isSelected = selected === pkg.id;
@@ -48,12 +58,9 @@ export function Packages() {
                     ? "border-teal-300/40 bg-teal-400/5"
                     : "border-white/10 bg-white/[0.03]"
                 } ${isSelected ? "ring-2 ring-teal-300/70" : ""}`}
-                gradientFrom="#5eead4"
-                gradientTo="#2dd4bf"
+                gradientFrom="#46C536"
+                gradientTo="#74d468"
               >
-                {pkg.featured ? (
-                  <ShineBorder shineColor={["#5eead4", "#99f6e4", "#2dd4bf"]} />
-                ) : null}
                 <p className="text-sm font-medium text-teal-300">{pkg.name}</p>
                 <p className="mt-3 font-heading text-4xl font-semibold text-white">
                   {formatPrice(pkg.price)}

@@ -1,6 +1,6 @@
 # Caracas Tech Meetup
 
-Sitio oficial de [ccstechmeetup.com](https://ccstechmeetup.com): eventos en Luma, logos de sponsors y captación de patrocinio.
+Sitio oficial de [ccstechmeetup.com](https://ccstechmeetup.com): landing para la comunidad (eventos en Luma, Instagram) y página `/patrocinar` para marcas.
 
 ## Stack
 
@@ -33,7 +33,7 @@ pnpm dev
 
 ### Luma
 
-El embed actual es `https://luma.com/embed/calendar/cal-u2swYaAgKESq0h1/events?lt=dark`. Si Luma rota el ID: Calendar → Settings → Embed.
+La agenda se carga desde el calendario público de Luma (`cal-u2swYaAgKESq0h1`) y muestra próximos y pasados. Si la API no responde, el sitio cae al iframe. Si Luma rota el ID, actualiza `lib/luma.ts` y `NEXT_PUBLIC_LUMA_EMBED_URL`.
 
 ## Publicar (GitHub + Railway)
 
@@ -67,4 +67,4 @@ Propaga y espera el certificado TLS.
 
 ## Contenido editable
 
-Copy, precios, logos y equipo viven en `lib/site.ts`. Logos en `public/sponsors/`, fotos en `public/team/`.
+Copy, precios, logos, métricas y equipo viven en `lib/site.ts`. Logos en `public/sponsors/`, fotos en `public/team/`. El formulario de patrocinio está en `/patrocinar`.

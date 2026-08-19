@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 
+import { BrandMark } from "@/components/brand-mark";
 import { AnimatedGradientText } from "@/components/ui/animated-gradient-text";
-import { Particles } from "@/components/ui/particles";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
 import { site } from "@/lib/site";
 
@@ -11,39 +11,29 @@ export function Hero() {
   return (
     <section
       id="inicio"
-      className="relative isolate flex min-h-[92vh] items-center overflow-hidden pt-16"
+      className="relative flex min-h-[92vh] items-center pt-16"
     >
-      <Particles
-        className="absolute inset-0"
-        quantity={90}
-        color="#5eead4"
-        ease={80}
-        size={0.6}
-      />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(45,212,191,0.16),transparent_55%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(7,11,20,0.55)_0%,rgba(7,11,20,0.2)_45%,transparent_70%)]" />
       <div className="relative mx-auto flex w-full max-w-6xl flex-col items-center px-4 py-24 text-center sm:px-6">
-        <p className="mb-6 text-xs font-semibold tracking-[0.28em] text-white/55 uppercase">
-          Ecosistema Startup Venezuela presenta
+        <p className="mb-6 max-w-3xl text-xs font-semibold tracking-[0.22em] text-white/90 uppercase [text-shadow:0_2px_18px_rgba(0,0,0,0.7)]">
+          Ecosistema Startup Venezuela, Impulsa VC, y Banco Activo presentan
         </p>
-        <h1 className="font-heading text-5xl leading-none font-semibold tracking-tight text-white sm:text-7xl md:text-8xl">
-          CARACAS TECH
-          <span className="mt-2 block font-[family-name:var(--font-caveat)] text-6xl font-normal text-teal-300 italic sm:text-8xl">
-            meetup
-          </span>
+        <h1 className="flex w-full justify-center">
+          <BrandMark size="hero" align="center" />
         </h1>
-        <p className="mt-8 max-w-2xl text-lg text-white/70 sm:text-xl">
-          <AnimatedGradientText colorFrom="#5eead4" colorTo="#99f6e4">
+        <p className="mt-8 max-w-2xl text-lg text-white sm:text-xl">
+          <AnimatedGradientText colorFrom="#7dff6c" colorTo="#b6ff9a">
             {site.tagline}
           </AnimatedGradientText>
         </p>
-        <p className="mt-4 max-w-xl text-base text-white/60">
+        <p className="mt-4 max-w-xl text-base text-white/90 [text-shadow:0_2px_18px_rgba(0,0,0,0.7)]">
           El after office mensual de founders, builders e inversionistas en Caracas. Informal,
           con cupos limitados, y hecho por gente que emprende en el país.
         </p>
         <div className="mt-10 flex flex-col items-center gap-3 sm:flex-row">
           <ShimmerButton
-            background="rgba(45, 212, 191, 0.95)"
-            shimmerColor="#ecfeff"
+            background="rgba(70, 197, 54, 0.95)"
+            shimmerColor="#f0fdf4"
             className="px-7 py-3 text-slate-950 shadow-lg"
             onClick={() =>
               document.getElementById("eventos")?.scrollIntoView({ behavior: "smooth" })
@@ -52,12 +42,20 @@ export function Hero() {
             Ver próximos eventos
           </ShimmerButton>
           <Link
-            href="#patrocinar"
-            className="inline-flex h-12 items-center rounded-full border border-white/20 px-6 text-sm font-medium text-white/85 transition hover:border-teal-300/50 hover:text-white"
+            href={site.instagram}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex h-12 items-center rounded-full border border-white/45 bg-black/25 px-6 text-sm font-medium text-white transition hover:border-teal-300/70 hover:bg-black/40 hover:text-white"
           >
-            Quiero patrocinar
+            Seguir en Instagram
           </Link>
         </div>
+        <p className="mt-6 text-sm text-white/80 [text-shadow:0_2px_18px_rgba(0,0,0,0.7)]">
+          ¿Eres una marca?{" "}
+          <Link href="/patrocinar" className="text-white underline-offset-4 hover:text-teal-300 hover:underline">
+            Patrocina el meetup
+          </Link>
+        </p>
       </div>
     </section>
   );
