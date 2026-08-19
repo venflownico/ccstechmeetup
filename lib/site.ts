@@ -72,9 +72,9 @@ export const supporters = [
 
 export const sponsorFit = {
   eyebrow: "Qué buscamos",
-  title: "Aliados que resuelven problemas reales de founders",
-  lead: "Los founders de este meetup ya los venden diez veces al mes. No vienen a que les ofrezcan un producto. Vienen a conectar, a construir y a acceder a lo que les falta para crecer.",
-  body: "Por eso no buscamos stands ni activaciones comerciales. Buscamos entidades que apoyen el emprendimiento: una empresa de infraestructura que pone créditos para que las startups crezcan su stack, o una agencia que ofrece su oficio como recurso — no como pitch.",
+  title: "Que el founder te recuerde cuando triunfe",
+  lead: "El meetup existe para que la gente se conozca. Drinks, personas y espacio para construir relaciones: la noche no tiene agenda, para que esas conversaciones no se compriman a media hora al final.",
+  body: "La presencia de marca — flyers, sitio, evento — es cómo esta comunidad te recuerda como alguien que los apoya. El recurso es un grant acotado, siempre disponible en un QR en el venue, y se canjea después. El escenario no se llena: uno o dos anuncios de cinco minutos por edición, rotados.",
   pillars: [
     {
       title: "Capital",
@@ -113,7 +113,7 @@ export const sponsorGrowth = {
     {
       kicker: "Más allá del meetup",
       title: "Formatos que conectan talento y startups",
-      body: "El after office mensual no es el único formato que el ecosistema necesita. Queremos abrir espacios más precisos para hacer match.",
+      body: "El after office mensual se queda como está: drinks, gente, pitches. Los formatos más precisos viven aparte, para no comerse la noche de networking.",
       items: [
         "Speed dating 1:1 entre founders con una idea y CTOs que quieren construir",
         "Matchmaking entre quienes buscan un rol en una startup y quienes están contratando",
@@ -123,12 +123,52 @@ export const sponsorGrowth = {
   ],
 } as const;
 
+export const resourceHub = {
+  path: "/recursos",
+  eyebrow: "Para founders",
+  title: "Recursos gratis para tu startup",
+  lead: "En el meetup hay un QR. Lo escaneas y llegas aquí: créditos, capacidad, pagos y lo que un aliado pone para que escales — sin convertir esa noche en un pitch.",
+  categories: [
+    {
+      title: "Capacidad de servidores",
+      body: "Infra para que el producto aguante mientras creces.",
+    },
+    {
+      title: "Créditos de infraestructura",
+      body: "Un pool acotado para el stack.",
+    },
+    {
+      title: "Procesamiento de pagos",
+      body: "Herramientas para cobrar y operar, puestas como grant.",
+    },
+    {
+      title: "Costos para escalar",
+      body: "Oficio, herramientas o cupos que bajen el costo de construir.",
+    },
+  ],
+} as const;
+
 export const resourceExamples = [
-  "Créditos de infraestructura para el stack",
+  "Capacidad de servidores",
+  "Créditos de infraestructura",
+  "Procesamiento de pagos",
   "Horas de oficio como grant — legal, diseño, growth",
-  "Office hours de operadores o inversionistas",
-  "Hiring sprint o pipeline de talento",
-  "Matching de mentoría",
+  "Office hours que se agendan después del meetup",
+] as const;
+
+export const packagePromise = [
+  {
+    title: "Presencia",
+    body: "Logo en flyers, sitio y evento, cada edición. Así te recuerdan: como alguien que apoya a esta comunidad.",
+  },
+  {
+    title: "El QR",
+    body: "Un código en el venue hacia recursos gratis para tu startup. Siempre encendido. No come networking.",
+  },
+  {
+    title: "El escenario",
+    body: "Uno o dos anuncios de 5 minutos por edición, rotados. Un recordatorio al trimestre — no el mismo pitch todos los meses.",
+  },
 ] as const;
 
 export const packages = [
@@ -138,13 +178,14 @@ export const packages = [
     price: 500,
     period: "/ mes",
     description:
-      "Acompañas cada edición con un recurso pequeño y concreto. La visibilidad es consecuencia, no el producto.",
+      "Tu marca en flyers, sitio y evento, y tu grant en el QR. La presencia es mensual; el escenario no.",
     featured: false,
     benefits: [
-      "Un recurso nombrado y canjeable para founders (créditos, horas u office hours)",
-      "Logo en el sitio oficial y en los posters del meetup",
-      "Mención en vivo y agradecimiento en Instagram @caracastech_meetup",
-      "2 invitaciones para operadores que puedan ayudar — no un equipo de ventas",
+      "Logo en flyers, sitio oficial y materiales del evento, cada edición",
+      "Tu recurso listado en el QR del venue — recursos gratis para startups",
+      "Grant acotado (pool o N cupos) que los founders aplican después",
+      "Mención en Instagram @caracastech_meetup",
+      "2 invitaciones para operadores que puedan ayudar",
     ],
   },
   {
@@ -153,13 +194,13 @@ export const packages = [
     price: 1000,
     period: "/ mes",
     description:
-      "El paquete central: cada edición pones algo real en manos de founders. Cloud, agencias, fondos u operadores.",
+      "Cinco minutos, rotados: “esto es gratis, apliquen aquí o escaneen el QR”. Destacado en flyers y en el hub.",
     featured: true,
     benefits: [
       "Todo lo de Comunidad",
-      "5 minutos en vivo para presentar el recurso — no la empresa",
-      "El recurso se canjea esa edición: código, form u office hours",
-      "Logo destacado en materiales",
+      "5 minutos en vivo, en rotación: 1 o 2 marcas por edición",
+      "Un recordatorio en escenario cada trimestre o semestre — no el mismo anuncio todos los meses",
+      "Lugar destacado en el QR y en los flyers",
       "4 invitaciones confirmadas por edición",
       "Recap de asistencia post-evento",
     ],
@@ -170,15 +211,14 @@ export const packages = [
     price: 1500,
     period: "/ mes",
     description:
-      "Aliado exclusivo de un problema de founders: talento, recursos o mentoría. Un aliado por pilar.",
+      "La marca que esta comunidad asocia a un problema de founders mientras crece — en flyers, en el QR y en la rotación del escenario.",
     featured: false,
     benefits: [
       "Todo lo de Recurso",
-      "Exclusividad de categoría en tu pilar (talento, recursos o mentoría)",
-      "Lockup “Aliado de [Pilar]” en materiales de la edición",
-      "Mesa de office hours en el meetup — un recurso, no un stand",
-      "Prioridad para anclar el formato de tu pilar: feria de talento, clínica o workshop",
-      "Una sesión más profunda por trimestre",
+      "Exclusividad de categoría (talento, recursos o mentoría)",
+      "Lockup “Aliado de [Pilar]” en flyers y materiales",
+      "Prioridad en la rotación de los 5 minutos y lugar fijo en el QR",
+      "Prioridad para un formato aparte del after office mensual",
       "6 invitaciones confirmadas por edición",
     ],
   },
@@ -293,41 +333,56 @@ export const sponsorFaqs = [
   {
     question: "¿A qué se destina el patrocinio?",
     answer:
-      "A crecer el evento: más capacidad en el venue (baños portátiles, sonido, iluminación) y formatos nuevos — speed dating entre founders y CTOs, matchmaking de talento y ferias de empleo startup. No se va a stands ni a pauta.",
+      "A crecer el evento: más capacidad en el venue (baños portátiles, sonido, iluminación) y, aparte del after office mensual, formatos nuevos — speed dating entre founders y CTOs, matchmaking de talento y ferias de empleo startup.",
   },
   {
     question: "¿Qué tipo de patrocinador buscan?",
     answer:
-      "Entidades que apoyen el emprendimiento: que puedan abrir acceso a talento, recursos o mentoría — y, en el formato correcto, a capital. No buscamos activaciones comerciales. Los founders vienen a conectar y a construir, no a que les vendan.",
+      "Marcas que pueden ayudar a que un founder tenga éxito — con talento, recursos, mentoría o, en el formato correcto, capital — y que quieran que esa comunidad las recuerde cuando crezca.",
   },
   {
     question: "¿Puedo ser presentador del meetup?",
     answer:
-      "El lockup de Presentan está reservado a Banco Activo e Impulsa VC. No vendemos un segundo presentador. Si tu marca pone un recurso concreto, los paquetes abiertos son Comunidad, Recurso y Pilar.",
+      "El lockup de Presentan está reservado a Banco Activo e Impulsa VC. Si tu marca pone un recurso acotado, los paquetes abiertos son Comunidad, Recurso y Pilar.",
   },
   {
-    question: "¿Puedo tener un stand o hacer un pitch?",
+    question: "¿Puedo tener un stand, una mesa u office hours en el meetup?",
     answer:
-      "Este meetup no está pensado para vender. Si tu marca puede poner un recurso concreto a disposición de founders —créditos, talento, office hours, mentoría— conversamos. Un stand o un brief de ventas no es el formato.",
+      "El after office no se organiza: drinks, gente, pitches. Una mesa o office hours en el piso come el tiempo para conocerse. El recurso vive en un QR en el venue y, si toca, en cinco minutos rotados.",
+  },
+  {
+    question: "¿Voy a anunciar el mismo recurso todos los meses en escenario?",
+    answer:
+      "No. La presencia en flyers, sitio y evento es mensual. El escenario es escaso: uno o dos anuncios de cinco minutos por edición, rotados entre aliados. Un recordatorio cada trimestre o semestre alcanza — cerca del 30% vuelve cada mes; el resto conoce el recurso por el QR y los flyers.",
+  },
+  {
+    question: "¿Qué es el QR del evento?",
+    answer:
+      "Un código en el venue que abre recursos gratis para tu startup: capacidad de servidores, créditos, procesamiento de pagos, y lo que un aliado ponga para bajar el costo de escalar. Está siempre encendido. No sustituye el networking.",
+  },
+  {
+    question: "¿El recurso es una cuenta abierta por cada startup que aplique?",
+    answer:
+      "No. El fee mensual compra la presencia — flyers, evento, memoria. El recurso es un grant acotado: un pool o un número fijo de cupos. Así sigue siendo un regalo, y un filtro: solo marcas que de verdad pueden apoyar founders se sientan en esta mesa.",
   },
   {
     question: "¿Qué cuenta como recurso?",
     answer:
-      "Algo que un founder puede usar: créditos de infraestructura, horas de oficio como grant, office hours, un hiring sprint, matching de mentoría. Un catálogo, una cuenta bancaria o un préstamo para quien aún no tiene flujo no cuentan.",
+      "Algo que un founder puede usar después: créditos de infraestructura, capacidad de servidores, pagos, horas de oficio como grant, office hours que se agendan luego. Un catálogo o un préstamo para quien aún no tiene flujo no cuentan.",
   },
   {
     question: "¿Qué es el paquete Pilar?",
     answer:
-      "Un aliado exclusivo por problema de founders: talento, recursos o mentoría. Capital y el título de Presentan ya tienen aliados. El Pilar incluye mesa de office hours y prioridad para anclar el formato de tu pilar — feria de talento, clínica o workshop.",
+      "Ser la marca que la comunidad asocia a un problema de founders mientras crece: exclusividad de categoría, lockup en flyers, lugar fijo en el QR y prioridad en la rotación de los 5 minutos. Capital y Presentan ya tienen aliados.",
   },
   {
     question: "¿Cómo patrocino?",
     answer:
-      "Elige un paquete, completa el formulario y Nicolas te contacta para cerrar el acuerdo. No hay checkout en el sitio: primero conversamos — sobre todo para confirmar que el recurso es real y canjeable.",
+      "Elige un paquete, completa el formulario y Nicolas te contacta para cerrar el acuerdo. Conversamos el recurso: qué es, cuál es el tope de la edición, y dónde aplican los founders.",
   },
   {
     question: "¿Puedo patrocinar una sola edición?",
     answer:
-      "Comunidad y Recurso pueden ser de una edición si el recurso está listo. Pilar tiene más sentido a 3–6 meses, porque la exclusividad de categoría es el producto.",
+      "Comunidad y Recurso pueden ser de una edición si el recurso acotado está listo. Pilar tiene más sentido a 3–6 meses: la exclusividad es cómo la comunidad te recuerda.",
   },
 ] as const;

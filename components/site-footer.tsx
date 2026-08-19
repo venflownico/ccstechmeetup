@@ -18,6 +18,7 @@ export function SiteFooter() {
           <Link href={site.instagram} target="_blank" rel="noreferrer">
             {site.instagramHandle}
           </Link>
+          <Link href="/recursos">Recursos</Link>
           <Link href="/contacto">Contacto</Link>
           <Link href="/patrocinar">Patrocinar</Link>
         </div>

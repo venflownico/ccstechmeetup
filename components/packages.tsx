@@ -1,10 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 
 import { SponsorForm } from "@/components/sponsor-form";
 import { MagicCard } from "@/components/ui/magic-card";
-import { packages, resourceExamples, type PackageId } from "@/lib/site";
+import { packagePromise, packages, resourceExamples, resourceHub, type PackageId } from "@/lib/site";
 
 function formatPrice(value: number) {
   return new Intl.NumberFormat("en-US", {
@@ -24,15 +25,29 @@ export function Packages() {
           Patrocinio
         </p>
         <h2 className="font-heading mt-3 text-3xl font-semibold text-white sm:text-5xl">
-          Paquetes para poner recursos en manos de founders
+          Presencia cada mes. El escenario, de vez en cuando.
         </h2>
         <p className="mt-4 text-white/60">
           Banco Activo e Impulsa VC presentan el meetup. Ese lockup no está a la venta.
-          Los paquetes abiertos son para aliados que desbloquean talento, recursos o
-          mentoría. Completa el formulario y Nicolas te escribe para cerrar el acuerdo.
+          Flyers, evento y un QR de recursos gratis son el valor mensual. Uno o dos
+          anuncios de cinco minutos por edición, rotados. Completa el formulario y
+          Nicolas te escribe.
         </p>
       </div>
-      <ul className="mx-auto mt-10 flex max-w-3xl flex-wrap justify-center gap-2">
+      <div className="mx-auto mt-10 grid max-w-4xl gap-4 sm:grid-cols-3">
+        {packagePromise.map((item) => (
+          <article
+            key={item.title}
+            className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 text-left"
+          >
+            <p className="text-xs font-semibold tracking-[0.18em] text-teal-300/80 uppercase">
+              {item.title}
+            </p>
+            <p className="mt-2 text-sm text-white/65">{item.body}</p>
+          </article>
+        ))}
+      </div>
+      <ul className="mx-auto mt-8 flex max-w-3xl flex-wrap justify-center gap-2">
         {resourceExamples.map((example) => (
           <li
             key={example}
@@ -42,6 +57,13 @@ export function Packages() {
           </li>
         ))}
       </ul>
+      <p className="mx-auto mt-4 max-w-2xl text-center text-sm text-white/45">
+        El QR del evento abre{" "}
+        <Link href={resourceHub.path} className="text-teal-300/80 underline-offset-4 hover:underline">
+          ccstechmeetup.com{resourceHub.path}
+        </Link>
+        .
+      </p>
       <div className="mt-12 grid gap-6 lg:grid-cols-3">
         {packages.map((pkg) => {
           const isSelected = selected === pkg.id;

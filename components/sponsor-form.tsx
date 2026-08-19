@@ -96,7 +96,7 @@ export function SponsorForm({
           id="message"
           name="message"
           rows={4}
-          placeholder="Qué recurso concreto puedes poner en manos de founders, y en qué pilar (talento, recursos o mentoría)..."
+          placeholder="Qué recurso acotado ofreces (créditos, pagos, capacidad…), y si quieres estar en la rotación del escenario..."
           className="min-h-24 text-white"
         />
       </div>
