@@ -70,7 +70,7 @@ export function Packages() {
           const isTaken = !pkg.available;
           const canSelect = sponsorshipIntakeOpen && pkg.available;
           const isSelected = canSelect && selected === pkg.id;
-          const cardClass = `relative h-full rounded-2xl border p-6 text-left ${
+          const cardClass = `relative flex h-full flex-col items-stretch justify-start rounded-2xl border p-6 text-left ${
             isTaken
               ? "cursor-default border-white/10 bg-white/[0.02] opacity-55"
               : pkg.featured
@@ -79,7 +79,7 @@ export function Packages() {
           } ${isSelected ? "ring-2 ring-teal-300/70" : ""} ${canSelect ? "" : "cursor-default"}`;
 
           const body = (
-            <>
+            <div>
               <div className="flex items-center justify-between gap-3">
                 <p className="text-sm font-medium text-teal-300">{pkg.name}</p>
                 {isTaken && "takenLabel" in pkg ? (
@@ -117,7 +117,7 @@ export function Packages() {
                   </li>
                 ))}
               </ul>
-            </>
+            </div>
           );
 
           if (!canSelect) {

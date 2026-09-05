@@ -13,7 +13,16 @@ export const site = {
   lumaEmbedUrl:
     process.env.NEXT_PUBLIC_LUMA_EMBED_URL ??
     "https://luma.com/embed/calendar/cal-u2swYaAgKESq0h1/events?lt=dark",
+  sponsorshipCalendlyUrl:
+    "https://calendly.com/venflow/ccs-tech-meetup-sponsorships",
 } as const;
+
+export function sponsorshipCallUrl(prefill?: { name?: string; email?: string }) {
+  const url = new URL(site.sponsorshipCalendlyUrl);
+  if (prefill?.name) url.searchParams.set("name", prefill.name);
+  if (prefill?.email) url.searchParams.set("email", prefill.email);
+  return url.toString();
+}
 
 export const navItems = [
   { href: "/#eventos", label: "Eventos" },
@@ -51,15 +60,33 @@ export const presentingSponsors = [
 ] as const;
 
 /**
- * Intake for paid annual sponsors. Flip to `false` when the year cohort is full
- * to hide recruitment CTAs (hero, nav, open slots, form). Logos stay visible.
+ * Annual sponsorship intake window.
+ * Closes on the deadline (inclusive, America/Caracas), or earlier if
+ * `cohortFilled` is flipped when all paid slots are taken.
  */
-export const sponsorshipIntakeOpen = true;
+export const sponsorshipWindow = {
+  deadlineISO: "2026-10-31",
+  deadlineLabel: "31 de octubre",
+  deadlineLabelLong: "31 de octubre de 2026",
+  /** Set true when the year cohort is full before the deadline. */
+  cohortFilled: false,
+} as const;
+
+function isBeforeSponsorshipDeadline(now = new Date()) {
+  const deadlineEnd = new Date(
+    `${sponsorshipWindow.deadlineISO}T23:59:59.999-04:00`,
+  );
+  return now.getTime() <= deadlineEnd.getTime();
+}
+
+/** Hide recruitment CTAs when the cohort is full or the deadline has passed. */
+export const sponsorshipIntakeOpen =
+  !sponsorshipWindow.cohortFilled && isBeforeSponsorshipDeadline();
 
 /** Paid sponsor lockup under Presentan. Fill `paidSponsorsByPlan` as deals close. */
 export const paidSponsorSlots = {
   label: "Patrocinan",
-  lead: "Cuatro cupos por año: dos Recurso a $1,000/mes y dos Comunidad a $500/mes. Cuando se llenan, cerramos la ventana.",
+  lead: `Cuatro cupos anuales. Ventana abierta hasta el ${sponsorshipWindow.deadlineLabelLong}.`,
   emptyHint: "Tu marca aquí",
   closedLead: "Cupos del año tomados. Estas son las marcas del ciclo.",
 } as const;
@@ -130,15 +157,15 @@ export const resourceExamples = [
 export const packagePitch = {
   eyebrow: "Patrocinio anual",
   title: "Apoyo para founders con impacto real.",
-  lead: "Abrimos una ventana al año para compromisos de 12 meses. Cuando llenamos los cupos, esas son las marcas del meetup — y dejamos de buscar más.",
+  lead: `Abrimos una ventana al año para compromisos de 12 meses. Cierra el ${sponsorshipWindow.deadlineLabelLong}: cuando llenamos los cupos o llega la fecha, esas son las marcas del meetup.`,
   includedLabel: "Qué incluye",
   fitLabel: "A quién buscamos",
   fitLead:
     "No solo tech. Fondos, angels, HR, aceleradoras, coworking — si ayudas a que una startup nazca o escale, este es tu lugar.",
   priceNote: "Todos los precios en USD a tasa BCV.",
-  commitmentNote:
-    "Acuerdo a 1 año, cuota domiciliada cada mes. Cupos limitados: dos Recurso y dos Comunidad.",
-  closedNote: "Los cupos de este ciclo ya están tomados. Volvemos a abrir en el próximo año.",
+  commitmentNote: `Acuerdo a 1 año, cuota domiciliada cada mes. Cupos limitados · cierra ${sponsorshipWindow.deadlineLabel}.`,
+  closedNote:
+    "Los cupos de este ciclo ya no están disponibles. Volvemos a abrir el próximo año.",
 } as const;
 
 export const packagePromise = [
@@ -163,17 +190,17 @@ export const packages = [
     price: 500,
     period: "/ mes",
     description:
-      "Tu marca en flyers, sitio y evento, y tu grant en el QR. Sin pitch: la noche es para conocerse.",
+      "Tu marca en flyers, sitio y evento. En el venue hay un código QR con recursos gratis para startups — el tuyo incluido.",
     featured: false,
     available: true,
     slotCount: 2,
     slotsTaken: 0,
     benefits: [
       "Logo en flyers, sitio oficial y materiales del evento, cada edición",
-      "Tu recurso listado en el QR del venue — recursos gratis para startups",
+      "Tu recurso en el QR del venue: founders lo escanean y ven grants gratis",
       "Grant acotado (pool o N cupos) que los founders aplican después",
       "Mención en Instagram @caracastech_meetup",
-      "2 invitaciones para operadores que puedan ayudar",
+      "2 cupos reservados cada mes: gente de tu equipo u otros que invites, sin pasar por aprobación",
     ],
   },
   {
@@ -182,16 +209,16 @@ export const packages = [
     price: 1000,
     period: "/ mes",
     description:
-      "Tu categoría, tu lugar en el hub. El grant vive en el QR — no en un micrófono.",
+      "Tu categoría, tu lugar destacado. Tu grant aparece en el QR del venue — el mismo código donde founders encuentran recursos gratis.",
     featured: true,
     available: true,
     slotCount: 2,
     slotsTaken: 0,
     benefits: [
       "Todo lo de Comunidad",
-      "Lugar destacado en el QR y en los flyers",
+      "Lugar destacado en el QR del venue y en los flyers",
       "Exclusividad de categoría (talento, recursos o mentoría)",
-      "6 invitaciones confirmadas por edición",
+      "6 cupos reservados cada mes: tu equipo o quien invites, sin pasar por aprobación",
       "Recap de asistencia post-evento — para seguir la conversación",
     ],
   },
@@ -331,7 +358,12 @@ export const sponsorFaqs = [
   {
     question: "¿Cómo funciona el patrocinio anual?",
     answer:
-      "Abrimos una ventana al año para compromisos de 12 meses. Hay cuatro cupos pagos: dos Recurso y dos Comunidad (Presentan ya está tomado). Cuando se llenan, cerramos: esas son las marcas del ciclo, y los materiales — flyers, sitio, evento — quedan fijos sin sumar logos a mitad de año.",
+      `Abrimos una ventana al año para compromisos de 12 meses. Hay cuatro cupos pagos: dos Recurso y dos Comunidad (Presentan ya está tomado). La ventana cierra el ${sponsorshipWindow.deadlineLabelLong}, o antes si se llenan los cupos. Esas son las marcas del ciclo, y los materiales — flyers, sitio, evento — quedan fijos sin sumar logos a mitad de año.`,
+  },
+  {
+    question: "¿Hasta cuándo puedo patrocinar?",
+    answer:
+      `Hasta el ${sponsorshipWindow.deadlineLabelLong}, o hasta que se llenen los cuatro cupos pagos — lo que ocurra primero. Después de esa fecha no abrimos más marcas hasta el próximo ciclo.`,
   },
   {
     question: "¿Emiten factura fiscal?",
@@ -386,7 +418,7 @@ export const sponsorFaqs = [
   {
     question: "¿Cómo patrocino?",
     answer:
-      "Mientras la ventana esté abierta: elige un paquete, completa el formulario y Nicolas te contacta para cerrar el acuerdo a 1 año. Conversamos el recurso: qué es, cuál es el tope, y dónde aplican los founders.",
+      `Mientras la ventana esté abierta (hasta el ${sponsorshipWindow.deadlineLabelLong}): elige un paquete, completa el formulario y agenda una llamada de 30 minutos con Nicolas para cerrar el acuerdo a 1 año. Conversamos el recurso: qué es, cuál es el tope, y dónde aplican los founders.`,
   },
   {
     question: "¿Puedo patrocinar un solo mes o una sola edición?",

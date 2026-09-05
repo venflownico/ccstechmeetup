@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { packages, type PackageId } from "@/lib/site";
+import { packages, sponsorshipCallUrl, type PackageId } from "@/lib/site";
 
 type Status = "idle" | "loading" | "success" | "error";
 
@@ -46,7 +46,9 @@ export function SponsorForm({
         throw new Error(payload.error || "No se pudo enviar el formulario.");
       }
       setStatus("success");
-      form.reset();
+      const name = String(data.get("name") ?? "").trim();
+      const email = String(data.get("email") ?? "").trim();
+      window.location.assign(sponsorshipCallUrl({ name, email }));
     } catch (err) {
       setStatus("error");
       setError(err instanceof Error ? err.message : "Error inesperado.");
@@ -62,7 +64,8 @@ export function SponsorForm({
         Cuéntanos quién eres
       </h3>
       <p className="mt-2 text-sm text-white/55">
-        Nicolas recibe un mensaje en Slack apenas envías esto.
+        Nicolas recibe tu solicitud. Después te llevamos a agendar una llamada de 30
+        minutos.
       </p>
       <div className="mt-6 grid gap-4 sm:grid-cols-2">
         <Field label="Nombre" name="name" required />
@@ -117,7 +120,7 @@ export function SponsorForm({
       </Button>
       {status === "success" ? (
         <p className="mt-3 text-sm text-teal-300">
-          Listo. Nicolas te contacta para cerrar el acuerdo.
+          Listo. Te llevamos a agendar una llamada de 30 minutos.
         </p>
       ) : null}
       {status === "error" ? <p className="mt-3 text-sm text-red-400">{error}</p> : null}

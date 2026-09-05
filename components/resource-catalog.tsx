@@ -14,7 +14,7 @@ import {
   type FounderResource,
   type ResourceFilterId,
 } from "@/lib/resources";
-import { packagePitch, sponsorshipIntakeOpen } from "@/lib/site";
+import { packagePitch, sponsorshipIntakeOpen, sponsorshipWindow } from "@/lib/site";
 
 type Status = "idle" | "loading" | "success" | "error";
 
@@ -97,8 +97,8 @@ export function ResourceCatalog() {
             ¿Quieres que tu recurso aparezca aquí?
           </p>
           <p className="mt-2 text-sm text-white/60">
-            Los founders canjean grants acotados desde esta página. Cupos anuales limitados:
-            patrocina el meetup mientras la ventana esté abierta.
+            Los founders canjean grants acotados desde esta página. Cupos anuales limitados —
+            ventana abierta hasta el {sponsorshipWindow.deadlineLabelLong}.
           </p>
           <Button className="mt-4 h-10 w-full bg-teal-400 text-slate-950 hover:bg-teal-200" asChild>
             <Link href="/patrocinar">Ir a Patrocinar</Link>
