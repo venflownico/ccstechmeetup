@@ -52,9 +52,9 @@ export const presentingSponsors = [
 
 /** Paid sponsor lockup under Presentan. Fill `paidSponsorsByPlan` as deals close. */
 export const paidSponsorSlots = {
-  label: "Patrocinan",
-  lead: "Dos cupos Recurso a $1,000 y dos Comunidad a $500.",
-  emptyHint: "Tu marca aquí",
+  label: "Patrocinado Por",
+  lead: "¿Quieres que tu marca aparezca aquí?",
+  learnMore: "Conoce cómo patrocinar",
 } as const;
 
 export const supporters = [
@@ -131,7 +131,6 @@ export const packagePitch = {
   fitLabel: "A quién buscamos",
   fitLead:
     "No solo tech. Fondos, angels, HR, aceleradoras, coworking — si ayudas a que una startup nazca o escale, este es tu lugar.",
-  priceNote: "Todos los precios en USD a tasa BCV.",
   commitmentNote: "Acuerdos a 1 año. La cuota se domicilia cada mes.",
 } as const;
 
@@ -211,7 +210,7 @@ export const packages = [
 
 export type PackageId = Extract<(typeof packages)[number], { available: true }>["id"];
 
-/** Logos under Patrocinan, by plan. Empty entries keep an open slot. */
+/** Logos under Patrocinado Por, by plan. */
 export const paidSponsorsByPlan: Record<PackageId, { name: string; src: string }[]> = {
   recurso: [],
   comunidad: [],
@@ -326,7 +325,7 @@ export const sponsorFaqs = [
   {
     question: "¿Emiten factura fiscal?",
     answer:
-      "Sí. Emitimos factura fiscal cada mes, durante el año del acuerdo. Los precios están en USD a tasa BCV.",
+      "Sí. Emitimos factura fiscal cada mes, durante el año del acuerdo.",
   },
   {
     question: "¿Cómo se paga?",
