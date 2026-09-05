@@ -52,14 +52,6 @@ export const founderResources = [
     detail: "Aplica para créditos o acceso a infraestructura y comunidad de builders.",
   },
   {
-    id: "kurios",
-    name: "Kurios",
-    src: "/sponsors/kurios.png",
-    category: "talento",
-    offer: "Formación",
-    detail: "Aplica para cupos de formación para el equipo que estás construyendo.",
-  },
-  {
     id: "impulsa",
     name: "Impulsa VC",
     src: "/sponsors/impulsa-vc.png",
