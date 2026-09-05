@@ -2,7 +2,22 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { Marquee } from "@/components/ui/marquee";
-import { presentingSponsors, supporters } from "@/lib/site";
+import {
+  lockupPlanOrder,
+  packages,
+  paidSponsorsByPlan,
+  paidSponsorSlots,
+  presentingSponsors,
+  supporters,
+} from "@/lib/site";
+
+function formatSlotPrice(value: number) {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 0,
+  }).format(value);
+}
 
 function Logo({ name, src, tall }: { name: string; src: string; tall?: boolean }) {
   return (
@@ -18,9 +33,60 @@ function Logo({ name, src, tall }: { name: string; src: string; tall?: boolean }
   );
 }
 
+function OpenSponsorSlot({
+  href,
+  plan,
+  price,
+  index,
+  total,
+}: {
+  href: string;
+  plan: string;
+  price: number;
+  index: number;
+  total: number;
+}) {
+  const className =
+    "flex h-[5.25rem] w-[10.5rem] flex-col items-center justify-center rounded-xl border border-dashed border-white/20 px-3 text-center transition hover:border-teal-300/50 hover:bg-white/[0.03]";
+  const content = (
+    <>
+      <span className="text-[0.7rem] font-semibold tracking-[0.16em] text-teal-300/90 uppercase">
+        {plan}
+      </span>
+      <span className="mt-1 text-xs text-white/70">{formatSlotPrice(price)} / mes</span>
+      <span className="mt-0.5 text-[11px] text-white/40">{paidSponsorSlots.emptyHint}</span>
+      <span className="sr-only">
+        {plan}: cupo {index + 1} de {total}
+      </span>
+    </>
+  );
+
+  if (href.startsWith("#")) {
+    return (
+      <a href={href} className={className}>
+        {content}
+      </a>
+    );
+  }
+
+  return (
+    <Link href={href} className={className}>
+      {content}
+    </Link>
+  );
+}
+
 export function Sponsors({ compact = false }: { compact?: boolean }) {
   const first = supporters.slice(0, Math.ceil(supporters.length / 2));
   const second = supporters.slice(Math.ceil(supporters.length / 2));
+  const slotHref = compact ? "#paquetes" : "/patrocinar#paquetes";
+  const lockupPlans = lockupPlanOrder.map((id) => {
+    const pkg = packages.find((item) => item.id === id);
+    if (!pkg || !pkg.available) {
+      throw new Error(`Missing lockup package: ${id}`);
+    }
+    return pkg;
+  });
 
   return (
     <section id={compact ? undefined : "sponsors"} className={compact ? "pb-16" : "py-24"}>
@@ -33,8 +99,8 @@ export function Sponsors({ compact = false }: { compact?: boolean }) {
             Quienes lo hacen posible
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-white/60">
-            Banco Activo e Impulsa VC presentan el meetup. Empresas, universidades y aliados del
-            ecosistema acompañan cada edición.
+            Banco Activo e Impulsa VC presentan. Buscamos dos marcas Recurso y dos Comunidad.
+            Empresas, universidades y aliados del ecosistema acompañan cada edición.
           </p>
           <Link
             href="/patrocinar"
@@ -59,6 +125,50 @@ export function Sponsors({ compact = false }: { compact?: boolean }) {
               className="h-16 w-auto object-contain sm:h-[4.5rem]"
             />
           ))}
+        </div>
+        <p className="mt-14 text-xs font-semibold tracking-[0.22em] text-white/40 uppercase">
+          {paidSponsorSlots.label}
+        </p>
+        <p className="mt-3 text-sm text-white/50">{paidSponsorSlots.lead}</p>
+        <div className="mt-8 grid gap-10 sm:grid-cols-2">
+          {lockupPlans.map((pkg) => {
+            const filled = paidSponsorsByPlan[pkg.id];
+            const openCount = Math.max(0, pkg.slotCount - filled.length);
+            return (
+              <div key={pkg.id}>
+                <p className="text-sm font-medium text-teal-300">{pkg.name}</p>
+                <p className="mt-1 text-xs text-white/45">
+                  {formatSlotPrice(pkg.price)} / mes · {openCount} de {pkg.slotCount} cupos
+                </p>
+                <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
+                  {filled.map((sponsor) => (
+                    <div
+                      key={sponsor.name}
+                      className="flex h-[5.25rem] w-[10.5rem] items-center justify-center rounded-xl border border-white/10 bg-white/[0.02] px-4"
+                    >
+                      <Image
+                        src={sponsor.src}
+                        alt={sponsor.name}
+                        width={160}
+                        height={48}
+                        className="h-10 w-auto max-w-[140px] object-contain"
+                      />
+                    </div>
+                  ))}
+                  {Array.from({ length: openCount }, (_, index) => (
+                    <OpenSponsorSlot
+                      key={`${pkg.id}-open-${index}`}
+                      href={slotHref}
+                      plan={pkg.name}
+                      price={pkg.price}
+                      index={index}
+                      total={pkg.slotCount}
+                    />
+                  ))}
+                </div>
+              </div>
+            );
+          })}
         </div>
         <p className="mt-14 text-xs font-semibold tracking-[0.22em] text-white/40 uppercase">
           Acompañan

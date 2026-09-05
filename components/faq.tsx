@@ -27,9 +27,11 @@ function FaqAnswer({ answer }: { answer: FaqItem["answer"] }) {
 export function Faq({
   items = defaultFaqs,
   title = "Preguntas frecuentes",
+  compact = false,
 }: {
   items?: readonly FaqItem[];
   title?: string;
+  compact?: boolean;
 }) {
   const [value, setValue] = useState("item-0");
 
@@ -48,7 +50,12 @@ export function Faq({
   }, [items]);
 
   return (
-    <section id="faq" className="mx-auto max-w-3xl scroll-mt-24 px-4 py-24 sm:px-6">
+    <section
+      id="faq"
+      className={`mx-auto max-w-3xl scroll-mt-24 ${
+        compact ? "mt-16 px-0 py-0" : "px-4 py-24 sm:px-6"
+      }`}
+    >
       <h2 className="font-heading text-center text-3xl font-semibold text-white sm:text-5xl">
         {title}
       </h2>

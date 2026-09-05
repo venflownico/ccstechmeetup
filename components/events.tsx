@@ -5,26 +5,37 @@ import { useState, type ReactNode } from "react";
 
 import { Button } from "@/components/ui/button";
 import type { LumaEvent } from "@/lib/luma";
+import { isRsvpOpen } from "@/lib/schedule";
 import { site } from "@/lib/site";
 
 type Period = "upcoming" | "past";
 
+function formatInTimezone(
+  iso: string,
+  timezone: string,
+  options: Intl.DateTimeFormatOptions,
+) {
+  return new Intl.DateTimeFormat("es-VE", { ...options, timeZone: timezone })
+    .format(new Date(iso))
+    // ICU and the browser disagree on NBSP vs regular space in "p. m."
+    .replace(/[\u00a0\u202f\u2007\u2009]/g, " ");
+}
+
 function formatDate(iso: string, timezone: string) {
-  return new Intl.DateTimeFormat("es-VE", {
+  return formatInTimezone(iso, timezone, {
     weekday: "short",
     day: "numeric",
     month: "short",
     year: "numeric",
-    timeZone: timezone,
-  }).format(new Date(iso));
+  });
 }
 
 function formatTime(iso: string, timezone: string) {
-  return new Intl.DateTimeFormat("es-VE", {
+  return formatInTimezone(iso, timezone, {
     hour: "numeric",
     minute: "2-digit",
-    timeZone: timezone,
-  }).format(new Date(iso));
+    hour12: true,
+  });
 }
 
 export function Events({
@@ -51,9 +62,8 @@ export function Events({
             Próximos eventos agendados
           </h2>
           <p className="mt-3 max-w-xl text-white/60">
-            Nos reunimos el tercer jueves de cada mes. La agenda se actualiza sola desde
-            nuestro calendario en Luma; el RSVP te lleva a la página del evento para
-            registrarte.
+            Nos reunimos el tercer jueves de cada mes. El RSVP se publica una semana
+            antes, cuando abrimos el registro en Luma.
           </p>
         </div>
         <Link
@@ -119,14 +129,7 @@ export function Events({
                     </p>
                   </td>
                   <td className="px-5 py-4 text-right">
-                    <Button
-                      className="bg-teal-400 text-slate-950 hover:bg-teal-200"
-                      asChild
-                    >
-                      <a href={event.url} target="_blank" rel="noreferrer">
-                        {period === "past" ? "Ver" : "RSVP"}
-                      </a>
-                    </Button>
+                    <EventAction event={event} period={period} />
                   </td>
                 </tr>
               ))}
@@ -149,6 +152,31 @@ export function Events({
       )}
     </section>
   );
+}
+
+function EventAction({ event, period }: { event: LumaEvent; period: Period }) {
+  if (period === "past") {
+    if (!event.url) return null;
+    return (
+      <Button className="bg-teal-400 text-slate-950 hover:bg-teal-200" asChild>
+        <a href={event.url} target="_blank" rel="noreferrer">
+          Ver
+        </a>
+      </Button>
+    );
+  }
+
+  if (event.url && isRsvpOpen(event)) {
+    return (
+      <Button className="bg-teal-400 text-slate-950 hover:bg-teal-200" asChild>
+        <a href={event.url} target="_blank" rel="noreferrer">
+          RSVP
+        </a>
+      </Button>
+    );
+  }
+
+  return <span className="text-sm text-white/40">RSVP una semana antes</span>;
 }
 
 function ToggleButton({

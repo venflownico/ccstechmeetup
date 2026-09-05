@@ -81,11 +81,13 @@ export function SponsorForm({
           onChange={(event) => onPackageChange(event.target.value as PackageId)}
           className="h-9 w-full rounded-lg border border-input bg-transparent px-2.5 text-sm text-white dark:bg-input/30"
         >
-          {packages.map((pkg) => (
-            <option key={pkg.id} value={pkg.id} className="bg-slate-950">
-              {pkg.name} — ${pkg.price}/mes
-            </option>
-          ))}
+          {packages
+            .filter((pkg) => pkg.available)
+            .map((pkg) => (
+              <option key={pkg.id} value={pkg.id} className="bg-slate-950">
+                {pkg.name} — ${pkg.price}/mes · 1 año, domiciliado · USD a tasa BCV
+              </option>
+            ))}
         </select>
       </div>
       <div className="mt-4 space-y-2">
@@ -96,7 +98,7 @@ export function SponsorForm({
           id="message"
           name="message"
           rows={4}
-          placeholder="Qué recurso acotado ofreces (créditos, pagos, capacidad…), y si quieres estar en la rotación del escenario..."
+          placeholder="Qué recurso acotado ofreces (créditos, pagos, capacidad…) y cómo lo canjean los founders..."
           className="min-h-24 text-white"
         />
       </div>

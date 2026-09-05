@@ -50,6 +50,13 @@ export const presentingSponsors = [
   { name: "Impulsa VC", src: "/sponsors/impulsa-vc.png" },
 ] as const;
 
+/** Paid sponsor lockup under Presentan. Fill `paidSponsorsByPlan` as deals close. */
+export const paidSponsorSlots = {
+  label: "Patrocinan",
+  lead: "Dos cupos Recurso a $1,000 y dos Comunidad a $500.",
+  emptyHint: "Tu marca aquí",
+} as const;
+
 export const supporters = [
   { name: "Venecápital", src: "/sponsors/venecapital.png" },
   { name: "Innoven", src: "/sponsors/innoven.png" },
@@ -74,8 +81,8 @@ export const supporters = [
 export const sponsorFit = {
   eyebrow: "Qué buscamos",
   title: "Que el founder te recuerde cuando triunfe",
-  lead: "El meetup existe para que la gente se conozca. Drinks, personas y espacio para construir relaciones: la noche no tiene agenda, para que esas conversaciones no se compriman a media hora al final.",
-  body: "La presencia de marca — flyers, sitio, evento — es cómo esta comunidad te recuerda como alguien que los apoya. El recurso es un grant acotado, siempre disponible en un QR en el venue, y se canjea después. El escenario no se llena: uno o dos anuncios de cinco minutos por edición, rotados.",
+  lead: "El meetup existe para que la gente se conozca. Drinks, personas y espacio para construir relaciones: la noche no tiene agenda, para que esas conversaciones no se compriman, y se creen relaciones reales.",
+  body: "La presencia de marca — flyers, sitio, evento — es cómo esta comunidad te recuerda como alguien que los apoya. El recurso es un grant acotado, siempre disponible en un QR en el venue, y se canjea después. La noche no tiene escenario: nadie presenta.",
   pillars: [
     {
       title: "Capital",
@@ -96,34 +103,6 @@ export const sponsorFit = {
   ],
 } as const;
 
-export const sponsorGrowth = {
-  eyebrow: "A dónde va",
-  title: "El patrocinio agranda el meetup — y abre lo que viene después",
-  lead: "Hoy el cupo se queda corto. Con más fondos podemos recibir a más gente sin bajar la calidad, y crear formatos que el ecosistema pide más allá del after office mensual.",
-  groups: [
-    {
-      kicker: "El venue",
-      title: "Más capacidad, misma calidad",
-      body: "El meetup crece más rápido que el espacio. Invertimos en lo que hace falta para que quepan más personas y la noche se sienta bien.",
-      items: [
-        "Baños portátiles para subir el aforo",
-        "Mejor sonido para que se escuche en todo el venue",
-        "Mejor iluminación para el escenario y el after",
-      ],
-    },
-    {
-      kicker: "Más allá del meetup",
-      title: "Formatos que conectan talento y startups",
-      body: "El after office mensual se queda como está: drinks, gente, pitches. Los formatos más precisos viven aparte, para no comerse la noche de networking.",
-      items: [
-        "Speed dating 1:1 entre founders con una idea y CTOs que quieren construir",
-        "Matchmaking entre quienes buscan un rol en una startup y quienes están contratando",
-        "Ferias de empleo para que las startups del ecosistema contraten en persona",
-      ],
-    },
-  ],
-} as const;
-
 export const resourceHub = {
   path: "/recursos",
   eyebrow: "Para founders",
@@ -132,25 +111,42 @@ export const resourceHub = {
 } as const;
 
 export const resourceExamples = [
+  "VCs, angels e inversionistas",
+  "Aceleradoras",
+  "HR y talento",
+  "Coworking",
   "Capacidad de servidores",
   "Créditos de infraestructura",
   "Procesamiento de pagos",
-  "Horas de oficio como grant — legal, diseño, growth",
-  "Office hours que se agendan después del meetup",
+  "Horas de oficio — legal, diseño, growth",
+  "Office hours después del meetup",
+  "Mentoría",
 ] as const;
+
+export const packagePitch = {
+  eyebrow: "Patrocinio",
+  title: "Apoyo para founders con impacto real.",
+  lead: "Tu aporte nos ayuda a mantener y crecer el meetup: más cupos, mejor sonido, más espacios para que founders y el ecosistema startup crezcan juntos.",
+  includedLabel: "Qué incluye",
+  fitLabel: "A quién buscamos",
+  fitLead:
+    "No solo tech. Fondos, angels, HR, aceleradoras, coworking — si ayudas a que una startup nazca o escale, este es tu lugar.",
+  priceNote: "Todos los precios en USD a tasa BCV.",
+  commitmentNote: "Acuerdos a 1 año. La cuota se domicilia cada mes.",
+} as const;
 
 export const packagePromise = [
   {
     title: "Presencia",
-    body: "Logo en flyers, sitio y evento, cada edición. Así te recuerdan: como alguien que apoya a esta comunidad.",
+    body: "Logo en flyers, sitio y evento, cada mes.",
   },
   {
-    title: "El QR",
-    body: "Un código en el venue hacia recursos gratis para tu startup. Siempre encendido. No come networking.",
+    title: "La red",
+    body: "Puedes seguir la conversación con quienes se registraron.",
   },
   {
-    title: "El escenario",
-    body: "Uno o dos anuncios de 5 minutos por edición, rotados. Un recordatorio al trimestre — no el mismo pitch todos los meses.",
+    title: "Recursos",
+    body: "La oportunidad de ofrecerle a startups grants de tus servicios. Apoyo real para que puedan crecer contigo.",
   },
 ] as const;
 
@@ -161,8 +157,11 @@ export const packages = [
     price: 500,
     period: "/ mes",
     description:
-      "Tu marca en flyers, sitio y evento, y tu grant en el QR. La presencia es mensual; el escenario no.",
+      "Tu marca en flyers, sitio y evento, y tu grant en el QR. Sin pitch: la noche es para conocerse.",
     featured: false,
+    available: true,
+    slotCount: 2,
+    slotsTaken: 0,
     benefits: [
       "Logo en flyers, sitio oficial y materiales del evento, cada edición",
       "Tu recurso listado en el QR del venue — recursos gratis para startups",
@@ -177,37 +176,48 @@ export const packages = [
     price: 1000,
     period: "/ mes",
     description:
-      "Cinco minutos, rotados: “esto es gratis, apliquen aquí o escaneen el QR”. Destacado en flyers y en el hub.",
+      "Tu categoría, tu lugar en el hub. El grant vive en el QR — no en un micrófono.",
     featured: true,
+    available: true,
+    slotCount: 2,
+    slotsTaken: 0,
     benefits: [
       "Todo lo de Comunidad",
-      "5 minutos en vivo, en rotación: 1 o 2 marcas por edición",
-      "Un recordatorio en escenario cada trimestre o semestre — no el mismo anuncio todos los meses",
       "Lugar destacado en el QR y en los flyers",
-      "4 invitaciones confirmadas por edición",
-      "Recap de asistencia post-evento",
+      "Exclusividad de categoría (talento, recursos o mentoría)",
+      "6 invitaciones confirmadas por edición",
+      "Recap de asistencia post-evento — para seguir la conversación",
     ],
   },
   {
-    id: "pilar",
-    name: "Pilar",
-    price: 1500,
+    id: "presentan",
+    name: "Presentan",
+    price: 2000,
     period: "/ mes",
-    description:
-      "La marca que esta comunidad asocia a un problema de founders mientras crece — en flyers, en el QR y en la rotación del escenario.",
+    description: "Quien presenta el meetup. Este cupo ya está tomado.",
     featured: false,
+    available: false,
+    takenLabel: "Tomado",
+    slotCount: 2,
+    slotsTaken: 2,
     benefits: [
       "Todo lo de Recurso",
-      "Exclusividad de categoría (talento, recursos o mentoría)",
-      "Lockup “Aliado de [Pilar]” en flyers y materiales",
-      "Prioridad en la rotación de los 5 minutos y lugar fijo en el QR",
+      "Lockup Presentan en flyers, sitio y evento",
+      "La marca que abre cada edición",
       "Prioridad para un formato aparte del after office mensual",
-      "6 invitaciones confirmadas por edición",
     ],
   },
 ] as const;
 
-export type PackageId = (typeof packages)[number]["id"];
+export type PackageId = Extract<(typeof packages)[number], { available: true }>["id"];
+
+/** Logos under Patrocinan, by plan. Empty entries keep an open slot. */
+export const paidSponsorsByPlan: Record<PackageId, { name: string; src: string }[]> = {
+  recurso: [],
+  comunidad: [],
+};
+
+export const lockupPlanOrder: PackageId[] = ["recurso", "comunidad"];
 
 export const team = [
   {
@@ -314,6 +324,16 @@ export const faqs = [
 
 export const sponsorFaqs = [
   {
+    question: "¿Emiten factura fiscal?",
+    answer:
+      "Sí. Emitimos factura fiscal cada mes, durante el año del acuerdo. Los precios están en USD a tasa BCV.",
+  },
+  {
+    question: "¿Cómo se paga?",
+    answer:
+      "La cuota del plan se domicilia cada mes, en USD a tasa BCV de esa fecha. Firmamos a 1 año: no es un cobro suelto por edición.",
+  },
+  {
     question: "¿A qué se destina el patrocinio?",
     answer:
       "A crecer el evento: más capacidad en el venue (baños portátiles, sonido, iluminación) y, aparte del after office mensual, formatos nuevos — speed dating entre founders y CTOs, matchmaking de talento y ferias de empleo startup.",
@@ -326,17 +346,17 @@ export const sponsorFaqs = [
   {
     question: "¿Puedo ser presentador del meetup?",
     answer:
-      "El lockup de Presentan está reservado a Banco Activo e Impulsa VC. Si tu marca pone un recurso acotado, los paquetes abiertos son Comunidad, Recurso y Pilar.",
+      "El lockup de Presentan está reservado. Si tu marca pone un recurso acotado, los paquetes abiertos son Comunidad y Recurso.",
   },
   {
     question: "¿Puedo tener un stand, una mesa u office hours en el meetup?",
     answer:
-      "El after office no se organiza: drinks, gente, pitches. Una mesa o office hours en el piso come el tiempo para conocerse. El recurso vive en un QR en el venue y, si toca, en cinco minutos rotados.",
+      "El after office no se organiza: drinks, gente, conversaciones. Una mesa o office hours en el piso come el tiempo para conocerse. El recurso vive en un QR en el venue — nadie presenta en el evento.",
   },
   {
-    question: "¿Voy a anunciar el mismo recurso todos los meses en escenario?",
+    question: "¿Puedo presentar mi marca o mi recurso en el meetup?",
     answer:
-      "No. La presencia en flyers, sitio y evento es mensual. El escenario es escaso: uno o dos anuncios de cinco minutos por edición, rotados entre aliados. Un recordatorio cada trimestre o semestre alcanza — cerca del 30% vuelve cada mes; el resto conoce el recurso por el QR y los flyers.",
+      "No. La noche no tiene agenda ni escenario: nadie presenta. Tu marca está en flyers, sitio y evento; el recurso, en un QR. Las conversaciones son el punto.",
   },
   {
     question: "¿Qué es el QR del evento?",
@@ -346,7 +366,7 @@ export const sponsorFaqs = [
   {
     question: "¿El recurso es una cuenta abierta por cada startup que aplique?",
     answer:
-      "No. El fee mensual compra la presencia — flyers, evento, memoria. El recurso es un grant acotado: un pool o un número fijo de cupos. Así sigue siendo un regalo, y un filtro: solo marcas que de verdad pueden apoyar founders se sientan en esta mesa.",
+      "No. El acuerdo es anual. La cuota mensual compra la presencia — flyers, evento, memoria — durante esos 12 meses. El recurso es un grant acotado: un pool o un número fijo de cupos. Así sigue siendo un regalo, y un filtro: solo marcas que de verdad pueden apoyar founders se sientan en esta mesa.",
   },
   {
     question: "¿Qué cuenta como recurso?",
@@ -354,18 +374,23 @@ export const sponsorFaqs = [
       "Algo que un founder puede usar después: créditos de infraestructura, capacidad de servidores, pagos, horas de oficio como grant, office hours que se agendan luego. Un catálogo o un préstamo para quien aún no tiene flujo no cuentan.",
   },
   {
-    question: "¿Qué es el paquete Pilar?",
-    answer:
-      "Ser la marca que la comunidad asocia a un problema de founders mientras crece: exclusividad de categoría, lockup en flyers, lugar fijo en el QR y prioridad en la rotación de los 5 minutos. Capital y Presentan ya tienen aliados.",
-  },
-  {
     question: "¿Cómo patrocino?",
     answer:
-      "Elige un paquete, completa el formulario y Nicolas te contacta para cerrar el acuerdo. Conversamos el recurso: qué es, cuál es el tope de la edición, y dónde aplican los founders.",
+      "Elige un paquete, completa el formulario y Nicolas te contacta para cerrar el acuerdo a 1 año. Conversamos el recurso: qué es, cuál es el tope, y dónde aplican los founders.",
   },
   {
-    question: "¿Puedo patrocinar una sola edición?",
+    question: "¿Puedo patrocinar un solo mes o una sola edición?",
     answer:
-      "Comunidad y Recurso pueden ser de una edición si el recurso acotado está listo. Pilar tiene más sentido a 3–6 meses: la exclusividad es cómo la comunidad te recuerda.",
+      "No. Los cupos se cierran a 1 año, con la cuota domiciliada. Así tu marca está en cada edición sin que tengamos que reabrir la conversación cada mes.",
+  },
+  {
+    question: "¿Mi marca aparece desde el primer mes?",
+    answer:
+      "Sí. Logo en flyers, sitio y evento de esa edición. Nadie toma el micrófono: el recurso se conoce por el QR y los materiales.",
+  },
+  {
+    question: "¿Qué pasa si el grant todavía no está definido?",
+    answer:
+      "Podemos cerrar el cupo y publicar la marca, y dejar el QR listo cuando el tope y la vía de aplicación estén claros. El recurso no se anuncia en vacío.",
   },
 ] as const;

@@ -18,7 +18,7 @@ function rateLimit(ip: string) {
 }
 
 function isPackageId(value: unknown): value is PackageId {
-  return packages.some((pkg) => pkg.id === value);
+  return packages.some((pkg) => pkg.available && pkg.id === value);
 }
 
 export async function POST(request: Request) {
@@ -79,7 +79,7 @@ export async function POST(request: Request) {
     `*Contacto:* ${name}`,
     `*Email:* ${email}`,
     `*Teléfono:* ${phone}`,
-    `*Paquete:* ${pkg.name} ($${pkg.price}/mes)`,
+    `*Paquete:* ${pkg.name} ($${pkg.price}/mes · 1 año, domiciliado)`,
     message ? `*Mensaje:* ${message}` : "*Mensaje:* (sin notas)",
   ].join("\n");
 

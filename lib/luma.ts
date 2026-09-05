@@ -1,9 +1,14 @@
+import {
+  caracasDayKey,
+  remainingScheduledMeetups,
+} from "@/lib/schedule";
+
 export type LumaEvent = {
   id: string;
   name: string;
   startAt: string;
   timezone: string;
-  url: string;
+  url: string | null;
   guestCount: number | null;
   city: string | null;
   requireApproval: boolean;
@@ -111,6 +116,30 @@ async function fetchPeriod(
   return { events, hasMore };
 }
 
+function asScheduledEvent(meetup: ReturnType<typeof remainingScheduledMeetups>[number]): LumaEvent {
+  return {
+    id: meetup.id,
+    name: meetup.name,
+    startAt: meetup.startAt,
+    timezone: meetup.timezone,
+    url: null,
+    guestCount: null,
+    city: "Caracas",
+    requireApproval: true,
+  };
+}
+
+function mergeUpcomingSchedule(lumaUpcoming: LumaEvent[], from = new Date()): LumaEvent[] {
+  const takenDays = new Set(lumaUpcoming.map((event) => caracasDayKey(event.startAt)));
+  const placeholders = remainingScheduledMeetups(from)
+    .filter((event) => !takenDays.has(caracasDayKey(event.startAt)))
+    .map(asScheduledEvent);
+
+  return [...lumaUpcoming, ...placeholders].sort(
+    (a, b) => +new Date(a.startAt) - +new Date(b.startAt),
+  );
+}
+
 export async function getLumaEvents(): Promise<{
   upcoming: LumaEvent[];
   past: LumaEvent[];
@@ -122,11 +151,11 @@ export async function getLumaEvents(): Promise<{
       fetchPeriod("past", PAST_LIMIT),
     ]);
     return {
-      upcoming: upcomingResult.events,
+      upcoming: mergeUpcomingSchedule(upcomingResult.events),
       past: pastResult.events,
       hasMorePast: pastResult.hasMore,
     };
   } catch {
-    return { upcoming: [], past: [], hasMorePast: false };
+    return { upcoming: mergeUpcomingSchedule([]), past: [], hasMorePast: false };
   }
 }
