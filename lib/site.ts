@@ -198,8 +198,7 @@ export const packages = [
   {
     id: "presentan",
     name: "Presentan",
-    price: 2000,
-    period: "/ mes",
+    priceOnRequest: true,
     description: "Quien presenta el meetup. Este cupo ya está tomado.",
     featured: false,
     available: false,

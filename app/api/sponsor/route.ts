@@ -79,7 +79,7 @@ export async function POST(request: Request) {
     `*Contacto:* ${name}`,
     `*Email:* ${email}`,
     `*Teléfono:* ${phone}`,
-    `*Paquete:* ${pkg.name} ($${pkg.price}/mes · 1 año, domiciliado)`,
+    `*Paquete:* ${pkg.name} (${"price" in pkg ? `$${pkg.price}/mes · 1 año, domiciliado` : "a consultar"})`,
     message ? `*Mensaje:* ${message}` : "*Mensaje:* (sin notas)",
   ].join("\n");
 

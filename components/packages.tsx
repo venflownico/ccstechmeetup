@@ -88,12 +88,23 @@ export function Packages() {
                   </span>
                 ) : null}
               </div>
-              <p className="mt-3 font-heading text-4xl font-semibold text-white">
-                {formatPrice(pkg.price)}
-                <span className="text-base font-normal text-white/50">{pkg.period}</span>
-              </p>
-              <p className="mt-1 text-xs text-white/40">USD a tasa BCV</p>
-              <p className="mt-1 text-xs text-white/40">1 año · cuota domiciliada</p>
+              {"price" in pkg ? (
+                <>
+                  <p className="mt-3 font-heading text-4xl font-semibold text-white">
+                    {formatPrice(pkg.price)}
+                    <span className="text-base font-normal text-white/50">{pkg.period}</span>
+                  </p>
+                  <p className="mt-1 text-xs text-white/40">USD a tasa BCV</p>
+                  <p className="mt-1 text-xs text-white/40">1 año · cuota domiciliada</p>
+                </>
+              ) : (
+                <>
+                  <p className="mt-3 font-heading text-4xl font-semibold text-white">
+                    A consultar
+                  </p>
+                  <p className="mt-1 text-xs text-white/40">Solo por contacto con el equipo</p>
+                </>
+              )}
               <p className="mt-2 text-xs font-medium tracking-[0.12em] text-teal-300/80 uppercase">
                 {slotCopy(pkg.slotCount, pkg.slotsTaken)}
               </p>
