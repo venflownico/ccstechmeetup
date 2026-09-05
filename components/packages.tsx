@@ -157,15 +157,15 @@ export function Packages() {
         </ul>
       </div>
       <Faq items={sponsorFaqs} title="Preguntas de patrocinio" compact />
-      {sponsorshipIntakeOpen ? (
-        <div className="mt-14">
+      <div id="formulario" className="mt-14 scroll-mt-24">
+        {sponsorshipIntakeOpen ? (
           <SponsorForm selectedPackage={selected} onPackageChange={setSelected} />
-        </div>
-      ) : (
-        <p className="mx-auto mt-14 max-w-xl text-center text-sm text-white/55">
-          {packagePitch.closedNote}
-        </p>
-      )}
+        ) : (
+          <p className="mx-auto max-w-xl text-center text-sm text-white/55">
+            {packagePitch.closedNote}
+          </p>
+        )}
+      </div>
     </section>
   );
 }

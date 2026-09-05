@@ -109,6 +109,30 @@ export const supporters = [
   { name: "Chapeau House", src: "/sponsors/chapeau-house.png" },
 ] as const;
 
+export const sponsorWhy = {
+  title: "Por qué las marcas patrocinan el Caracas Tech Meetup",
+  footnote: "Datos de 9 ediciones · Agosto 2025 – Agosto 2026 · 1.320 asistentes únicos",
+  cta: "Quiero patrocinar",
+  ctaHref: "#formulario",
+  stats: [
+    {
+      value: "528",
+      label: "Founders y CEOs",
+      body: "El 40% de la comunidad dirige su propia empresa, junto a 74 inversionistas entre fondos, hubs y ángeles.",
+    },
+    {
+      value: "723",
+      label: "Personas en lista de espera",
+      body: "La demanda superó el aforo en cada edición del año. Tu patrocinio es la palanca directa para ampliar el cupo.",
+    },
+    {
+      value: "402",
+      label: "Asistentes recurrentes",
+      body: "3 de cada 10 vuelven a dos o más ediciones, y cada evento suma ~150 caras nuevas. Presencia repetida, no una sola noche.",
+    },
+  ],
+} as const;
+
 export const sponsorFit = {
   eyebrow: "Qué buscamos",
   title: "Impactar la creación y el crecimiento de startups es la meta",
@@ -393,7 +417,7 @@ export const sponsorFaqs = [
   {
     question: "¿Puedo tener un stand, una mesa u office hours en el meetup?",
     answer:
-      "El after office no se organiza: drinks, gente, conversaciones. Una mesa o office hours en el piso come el tiempo para conocerse. El recurso vive en un QR en el venue — nadie presenta en el evento.",
+      "El after office no se organiza: drinks, gente, conversaciones. Un stand, una mesa u office hours en el piso interrumpe el networking: la atracción pasa a ser el stand, no la gente — y ese networking es lo que hace que vuelvan. El recurso vive en un QR en el venue — nadie presenta en el evento.",
   },
   {
     question: "¿Puedo presentar mi marca o mi recurso en el meetup?",

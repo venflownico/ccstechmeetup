@@ -4,6 +4,7 @@ import { Packages } from "@/components/packages";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { SponsorFit } from "@/components/sponsor-fit";
+import { SponsorWhy } from "@/components/sponsor-why";
 import { Sponsors } from "@/components/sponsors";
 import { site, sponsorshipWindow } from "@/lib/site";
 
@@ -30,6 +31,7 @@ export default function PatrocinarPage() {
         </section>
         <Sponsors compact />
         <SponsorFit />
+        <SponsorWhy />
         <Packages />
       </main>
       <SiteFooter />
