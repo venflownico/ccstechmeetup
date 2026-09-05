@@ -85,7 +85,7 @@ export function SponsorForm({
             .filter((pkg) => pkg.available)
             .map((pkg) => (
               <option key={pkg.id} value={pkg.id} className="bg-slate-950">
-                {pkg.name} — ${pkg.price}/mes · 1 año, domiciliado · USD a tasa BCV
+                {pkg.name}
               </option>
             ))}
         </select>

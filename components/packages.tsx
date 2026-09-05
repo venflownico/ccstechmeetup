@@ -13,20 +13,6 @@ import {
   type PackageId,
 } from "@/lib/site";
 
-function formatPrice(value: number) {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    maximumFractionDigits: 0,
-  }).format(value);
-}
-
-function slotCopy(slotCount: number, slotsTaken: number) {
-  const open = Math.max(0, slotCount - slotsTaken);
-  const noun = slotCount === 1 ? "cupo disponible" : "cupos disponibles";
-  return `${open} de ${slotCount} ${noun}`;
-}
-
 export function Packages() {
   const [selected, setSelected] = useState<PackageId>("recurso");
 
@@ -60,8 +46,7 @@ export function Packages() {
       <h3 className="mt-16 text-center font-heading text-2xl font-semibold text-white sm:text-3xl">
         Nuestros Planes
       </h3>
-      <p className="mt-3 text-center text-sm text-white/55">{packagePitch.priceNote}</p>
-      <p className="mt-1 text-center text-sm text-white/55">{packagePitch.commitmentNote}</p>
+      <p className="mt-3 text-center text-sm text-white/55">{packagePitch.commitmentNote}</p>
       <div className="mt-8 grid gap-6 lg:grid-cols-3">
         {packages.map((pkg) => {
           const isTaken = !pkg.available;
@@ -84,15 +69,7 @@ export function Packages() {
                   </span>
                 ) : null}
               </div>
-              <p className="mt-3 font-heading text-4xl font-semibold text-white">
-                {formatPrice(pkg.price)}
-                <span className="text-base font-normal text-white/50">{pkg.period}</span>
-              </p>
-              <p className="mt-1 text-xs text-white/40">USD a tasa BCV</p>
-              <p className="mt-1 text-xs text-white/40">1 año · cuota domiciliada</p>
-              <p className="mt-2 text-xs font-medium tracking-[0.12em] text-teal-300/80 uppercase">
-                {slotCopy(pkg.slotCount, pkg.slotsTaken)}
-              </p>
+              <p className="mt-3 text-xs text-white/40">Acuerdo a 1 año · cuota domiciliada</p>
               <p className="mt-3 text-sm text-white/60">{pkg.description}</p>
               <ul className="mt-6 space-y-2 text-sm text-white/75">
                 {pkg.benefits.map((benefit) => (

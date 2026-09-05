@@ -25,8 +25,8 @@ export default function PatrocinarPage() {
             Patrocina el meetup
           </h1>
           <p className="mt-5 text-lg text-white/65">
-            Cada mes reunimos a founders, builders e inversionistas en Caracas. Buscamos
-            dos marcas Recurso y dos Comunidad.
+            Cada mes reunimos a founders, builders e inversionistas en Caracas. Si tu
+            marca puede apoyar founders, queremos conversar.
           </p>
         </section>
         <Sponsors compact />
