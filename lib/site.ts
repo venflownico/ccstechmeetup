@@ -80,7 +80,7 @@ export const supporters = [
 
 export const sponsorFit = {
   eyebrow: "Qué buscamos",
-  title: "Que el founder te recuerde cuando triunfe",
+  title: "Impactar la creación y el crecimiento de startups es la meta",
   lead: "El meetup existe para que la gente se conozca. Drinks, personas y espacio para construir relaciones: la noche no tiene agenda, para que esas conversaciones no se compriman, y se creen relaciones reales.",
   body: "La presencia de marca — flyers, sitio, evento — es cómo esta comunidad te recuerda como alguien que los apoya. El recurso es un grant acotado, siempre disponible en un QR en el venue, y se canjea después. La noche no tiene escenario: nadie presenta.",
   pillars: [
