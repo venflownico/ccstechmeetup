@@ -14,6 +14,7 @@ import {
   type FounderResource,
   type ResourceFilterId,
 } from "@/lib/resources";
+import { packagePitch, sponsorshipIntakeOpen } from "@/lib/site";
 
 type Status = "idle" | "loading" | "success" | "error";
 
@@ -73,29 +74,47 @@ export function ResourceCatalog() {
         </div>
         {visible.length === 0 ? (
           <p className="mt-8 text-sm text-white/50">
-            Aún no hay grants en esta categoría. Si tu marca puede poner uno,{" "}
-            <Link href="/patrocinar" className="text-teal-300 underline-offset-4 hover:underline">
-              visita Patrocinar
-            </Link>
-            .
+            Aún no hay grants en esta categoría.
+            {sponsorshipIntakeOpen ? (
+              <>
+                {" "}
+                Si tu marca puede poner uno,{" "}
+                <Link href="/patrocinar" className="text-teal-300 underline-offset-4 hover:underline">
+                  visita Patrocinar
+                </Link>
+                .
+              </>
+            ) : null}
           </p>
         ) : null}
       </div>
-      <aside className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 lg:sticky lg:top-24">
-        <p className="text-xs font-semibold tracking-[0.18em] text-teal-300/80 uppercase">
-          Para marcas
-        </p>
-        <p className="font-heading mt-2 text-lg font-semibold text-white">
-          ¿Quieres que tu recurso aparezca aquí?
-        </p>
-        <p className="mt-2 text-sm text-white/60">
-          Los founders canjean grants acotados desde esta página. Para listarte, patrocina el
-          meetup.
-        </p>
-        <Button className="mt-4 h-10 w-full bg-teal-400 text-slate-950 hover:bg-teal-200" asChild>
-          <Link href="/patrocinar">Ir a Patrocinar</Link>
-        </Button>
-      </aside>
+      {sponsorshipIntakeOpen ? (
+        <aside className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 lg:sticky lg:top-24">
+          <p className="text-xs font-semibold tracking-[0.18em] text-teal-300/80 uppercase">
+            Para marcas
+          </p>
+          <p className="font-heading mt-2 text-lg font-semibold text-white">
+            ¿Quieres que tu recurso aparezca aquí?
+          </p>
+          <p className="mt-2 text-sm text-white/60">
+            Los founders canjean grants acotados desde esta página. Cupos anuales limitados:
+            patrocina el meetup mientras la ventana esté abierta.
+          </p>
+          <Button className="mt-4 h-10 w-full bg-teal-400 text-slate-950 hover:bg-teal-200" asChild>
+            <Link href="/patrocinar">Ir a Patrocinar</Link>
+          </Button>
+        </aside>
+      ) : (
+        <aside className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 lg:sticky lg:top-24">
+          <p className="text-xs font-semibold tracking-[0.18em] text-teal-300/80 uppercase">
+            Para marcas
+          </p>
+          <p className="font-heading mt-2 text-lg font-semibold text-white">
+            Cupos del ciclo tomados
+          </p>
+          <p className="mt-2 text-sm text-white/60">{packagePitch.closedNote}</p>
+        </aside>
+      )}
       {selected ? (
         <RedeemDialog resource={selected} onClose={() => setSelected(null)} />
       ) : null}

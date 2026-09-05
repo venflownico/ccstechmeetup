@@ -8,16 +8,9 @@ import {
   paidSponsorsByPlan,
   paidSponsorSlots,
   presentingSponsors,
+  sponsorshipIntakeOpen,
   supporters,
 } from "@/lib/site";
-
-function formatSlotPrice(value: number) {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    maximumFractionDigits: 0,
-  }).format(value);
-}
 
 function Logo({ name, src, tall }: { name: string; src: string; tall?: boolean }) {
   return (
@@ -36,13 +29,11 @@ function Logo({ name, src, tall }: { name: string; src: string; tall?: boolean }
 function OpenSponsorSlot({
   href,
   plan,
-  price,
   index,
   total,
 }: {
   href: string;
   plan: string;
-  price: number;
   index: number;
   total: number;
 }) {
@@ -53,8 +44,7 @@ function OpenSponsorSlot({
       <span className="text-[0.7rem] font-semibold tracking-[0.16em] text-teal-300/90 uppercase">
         {plan}
       </span>
-      <span className="mt-1 text-xs text-white/70">{formatSlotPrice(price)} / mes</span>
-      <span className="mt-0.5 text-[11px] text-white/40">{paidSponsorSlots.emptyHint}</span>
+      <span className="mt-1 text-[11px] text-white/40">{paidSponsorSlots.emptyHint}</span>
       <span className="sr-only">
         {plan}: cupo {index + 1} de {total}
       </span>
@@ -99,15 +89,18 @@ export function Sponsors({ compact = false }: { compact?: boolean }) {
             Quienes lo hacen posible
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-white/60">
-            Banco Activo e Impulsa VC presentan. Buscamos dos marcas Recurso y dos Comunidad.
+            Banco Activo e Impulsa VC presentan. Cuatro cupos de patrocinio por año — dos
+            Recurso y dos Comunidad. Cuando se llenan, cerramos la ventana.
             Empresas, universidades y aliados del ecosistema acompañan cada edición.
           </p>
-          <Link
-            href="/patrocinar"
-            className="mt-5 inline-block text-sm font-medium text-teal-300 hover:text-teal-200"
-          >
-            Conoce cómo patrocinar →
-          </Link>
+          {sponsorshipIntakeOpen ? (
+            <Link
+              href="/patrocinar"
+              className="mt-5 inline-block text-sm font-medium text-teal-300 hover:text-teal-200"
+            >
+              Conoce cómo patrocinar →
+            </Link>
+          ) : null}
         </div>
       ) : null}
       <div className={`mx-auto max-w-6xl px-4 text-center sm:px-6 ${compact ? "" : "mt-12"}`}>
@@ -129,16 +122,22 @@ export function Sponsors({ compact = false }: { compact?: boolean }) {
         <p className="mt-14 text-xs font-semibold tracking-[0.22em] text-white/40 uppercase">
           {paidSponsorSlots.label}
         </p>
-        <p className="mt-3 text-sm text-white/50">{paidSponsorSlots.lead}</p>
+        <p className="mt-3 text-sm text-white/50">
+          {sponsorshipIntakeOpen ? paidSponsorSlots.lead : paidSponsorSlots.closedLead}
+        </p>
         <div className="mt-8 grid gap-10 sm:grid-cols-2">
           {lockupPlans.map((pkg) => {
             const filled = paidSponsorsByPlan[pkg.id];
-            const openCount = Math.max(0, pkg.slotCount - filled.length);
+            const openCount = sponsorshipIntakeOpen
+              ? Math.max(0, pkg.slotCount - filled.length)
+              : 0;
             return (
               <div key={pkg.id}>
                 <p className="text-sm font-medium text-teal-300">{pkg.name}</p>
                 <p className="mt-1 text-xs text-white/45">
-                  {formatSlotPrice(pkg.price)} / mes · {openCount} de {pkg.slotCount} cupos
+                  {sponsorshipIntakeOpen
+                    ? `${openCount} de ${pkg.slotCount} cupos`
+                    : `${filled.length} de ${pkg.slotCount} cupos`}
                 </p>
                 <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
                   {filled.map((sponsor) => (
@@ -160,7 +159,6 @@ export function Sponsors({ compact = false }: { compact?: boolean }) {
                       key={`${pkg.id}-open-${index}`}
                       href={slotHref}
                       plan={pkg.name}
-                      price={pkg.price}
                       index={index}
                       total={pkg.slotCount}
                     />

@@ -50,11 +50,18 @@ export const presentingSponsors = [
   { name: "Impulsa VC", src: "/sponsors/impulsa-vc.png" },
 ] as const;
 
+/**
+ * Intake for paid annual sponsors. Flip to `false` when the year cohort is full
+ * to hide recruitment CTAs (hero, nav, open slots, form). Logos stay visible.
+ */
+export const sponsorshipIntakeOpen = true;
+
 /** Paid sponsor lockup under Presentan. Fill `paidSponsorsByPlan` as deals close. */
 export const paidSponsorSlots = {
   label: "Patrocinan",
-  lead: "Dos cupos Recurso a $1,000 y dos Comunidad a $500.",
+  lead: "Cuatro cupos por año: dos Recurso a $1,000/mes y dos Comunidad a $500/mes. Cuando se llenan, cerramos la ventana.",
   emptyHint: "Tu marca aquí",
+  closedLead: "Cupos del año tomados. Estas son las marcas del ciclo.",
 } as const;
 
 export const supporters = [
@@ -121,15 +128,17 @@ export const resourceExamples = [
 ] as const;
 
 export const packagePitch = {
-  eyebrow: "Patrocinio",
+  eyebrow: "Patrocinio anual",
   title: "Apoyo para founders con impacto real.",
-  lead: "Tu aporte nos ayuda a mantener y crecer el meetup: más cupos, mejor sonido, más espacios para que founders y el ecosistema startup crezcan juntos.",
+  lead: "Abrimos una ventana al año para compromisos de 12 meses. Cuando llenamos los cupos, esas son las marcas del meetup — y dejamos de buscar más.",
   includedLabel: "Qué incluye",
   fitLabel: "A quién buscamos",
   fitLead:
     "No solo tech. Fondos, angels, HR, aceleradoras, coworking — si ayudas a que una startup nazca o escale, este es tu lugar.",
   priceNote: "Todos los precios en USD a tasa BCV.",
-  commitmentNote: "Acuerdos a 1 año. La cuota se domicilia cada mes.",
+  commitmentNote:
+    "Acuerdo a 1 año, cuota domiciliada cada mes. Cupos limitados: dos Recurso y dos Comunidad.",
+  closedNote: "Los cupos de este ciclo ya están tomados. Volvemos a abrir en el próximo año.",
 } as const;
 
 export const packagePromise = [
@@ -321,6 +330,11 @@ export const faqs = [
 
 export const sponsorFaqs = [
   {
+    question: "¿Cómo funciona el patrocinio anual?",
+    answer:
+      "Abrimos una ventana al año para compromisos de 12 meses. Hay cuatro cupos pagos: dos Recurso y dos Comunidad (Presentan ya está tomado). Cuando se llenan, cerramos: esas son las marcas del ciclo, y los materiales — flyers, sitio, evento — quedan fijos sin sumar logos a mitad de año.",
+  },
+  {
     question: "¿Emiten factura fiscal?",
     answer:
       "Sí. Emitimos factura fiscal cada mes, durante el año del acuerdo. Los precios están en USD a tasa BCV.",
@@ -373,12 +387,12 @@ export const sponsorFaqs = [
   {
     question: "¿Cómo patrocino?",
     answer:
-      "Elige un paquete, completa el formulario y Nicolas te contacta para cerrar el acuerdo a 1 año. Conversamos el recurso: qué es, cuál es el tope, y dónde aplican los founders.",
+      "Mientras la ventana esté abierta: elige un paquete, completa el formulario y Nicolas te contacta para cerrar el acuerdo a 1 año. Conversamos el recurso: qué es, cuál es el tope, y dónde aplican los founders.",
   },
   {
     question: "¿Puedo patrocinar un solo mes o una sola edición?",
     answer:
-      "No. Los cupos se cierran a 1 año, con la cuota domiciliada. Así tu marca está en cada edición sin que tengamos que reabrir la conversación cada mes.",
+      "No. Solo compromisos anuales, con cuota domiciliada. Así tu marca está en cada edición y no reabrimos materiales cada vez que entra una marca nueva.",
   },
   {
     question: "¿Mi marca aparece desde el primer mes?",

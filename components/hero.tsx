@@ -5,7 +5,7 @@ import Link from "next/link";
 import { BrandMark } from "@/components/brand-mark";
 import { AnimatedGradientText } from "@/components/ui/animated-gradient-text";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
-import { site } from "@/lib/site";
+import { site, sponsorshipIntakeOpen } from "@/lib/site";
 
 export function Hero() {
   return (
@@ -50,12 +50,14 @@ export function Hero() {
             Seguir en Instagram
           </Link>
         </div>
-        <p className="mt-6 text-sm text-white/80 [text-shadow:0_2px_18px_rgba(0,0,0,0.7)]">
-          ¿Eres una marca?{" "}
-          <Link href="/patrocinar" className="text-white underline-offset-4 hover:text-teal-300 hover:underline">
-            Patrocina el meetup
-          </Link>
-        </p>
+        {sponsorshipIntakeOpen ? (
+          <p className="mt-6 text-sm text-white/80 [text-shadow:0_2px_18px_rgba(0,0,0,0.7)]">
+            ¿Eres una marca?{" "}
+            <Link href="/patrocinar" className="text-white underline-offset-4 hover:text-teal-300 hover:underline">
+              Patrocina el meetup
+            </Link>
+          </p>
+        ) : null}
       </div>
     </section>
   );

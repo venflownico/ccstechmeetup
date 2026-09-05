@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { BrandMark } from "@/components/brand-mark";
 import { Button } from "@/components/ui/button";
-import { navItems } from "@/lib/site";
+import { navItems, sponsorshipIntakeOpen } from "@/lib/site";
 
 export function SiteHeader() {
   return (
@@ -22,9 +22,11 @@ export function SiteHeader() {
           <Button variant="ghost" className="text-white/80 sm:hidden" asChild>
             <Link href="/recursos">Recursos</Link>
           </Button>
-          <Button variant="ghost" className="hidden text-white/80 sm:inline-flex" asChild>
-            <Link href="/patrocinar">Patrocinar</Link>
-          </Button>
+          {sponsorshipIntakeOpen ? (
+            <Button variant="ghost" className="hidden text-white/80 sm:inline-flex" asChild>
+              <Link href="/patrocinar">Patrocinar</Link>
+            </Button>
+          ) : null}
           <Button className="bg-teal-400 text-slate-950 hover:bg-teal-200" asChild>
             <Link href="/#eventos">Ver eventos</Link>
           </Button>

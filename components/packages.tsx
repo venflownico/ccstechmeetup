@@ -10,6 +10,7 @@ import {
   packages,
   resourceExamples,
   sponsorFaqs,
+  sponsorshipIntakeOpen,
   type PackageId,
 } from "@/lib/site";
 
@@ -61,18 +62,21 @@ export function Packages() {
         Nuestros Planes
       </h3>
       <p className="mt-3 text-center text-sm text-white/55">{packagePitch.priceNote}</p>
-      <p className="mt-1 text-center text-sm text-white/55">{packagePitch.commitmentNote}</p>
+      <p className="mt-1 text-center text-sm text-white/55">
+        {sponsorshipIntakeOpen ? packagePitch.commitmentNote : packagePitch.closedNote}
+      </p>
       <div className="mt-8 grid gap-6 lg:grid-cols-3">
         {packages.map((pkg) => {
           const isTaken = !pkg.available;
-          const isSelected = pkg.available && selected === pkg.id;
+          const canSelect = sponsorshipIntakeOpen && pkg.available;
+          const isSelected = canSelect && selected === pkg.id;
           const cardClass = `relative h-full rounded-2xl border p-6 text-left ${
             isTaken
-              ? "cursor-not-allowed border-white/10 bg-white/[0.02] opacity-55"
+              ? "cursor-default border-white/10 bg-white/[0.02] opacity-55"
               : pkg.featured
                 ? "border-teal-300/40 bg-teal-400/5"
                 : "border-white/10 bg-white/[0.03]"
-          } ${isSelected ? "ring-2 ring-teal-300/70" : ""}`;
+          } ${isSelected ? "ring-2 ring-teal-300/70" : ""} ${canSelect ? "" : "cursor-default"}`;
 
           const body = (
             <>
@@ -105,7 +109,7 @@ export function Packages() {
             </>
           );
 
-          if (isTaken) {
+          if (!canSelect) {
             return (
               <article key={pkg.id} className={cardClass} aria-disabled="true">
                 {body}
@@ -142,9 +146,15 @@ export function Packages() {
         </ul>
       </div>
       <Faq items={sponsorFaqs} title="Preguntas de patrocinio" compact />
-      <div className="mt-14">
-        <SponsorForm selectedPackage={selected} onPackageChange={setSelected} />
-      </div>
+      {sponsorshipIntakeOpen ? (
+        <div className="mt-14">
+          <SponsorForm selectedPackage={selected} onPackageChange={setSelected} />
+        </div>
+      ) : (
+        <p className="mx-auto mt-14 max-w-xl text-center text-sm text-white/55">
+          {packagePitch.closedNote}
+        </p>
+      )}
     </section>
   );
 }

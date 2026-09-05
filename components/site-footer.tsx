@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import { BrandMark } from "@/components/brand-mark";
-import { site } from "@/lib/site";
+import { site, sponsorshipIntakeOpen } from "@/lib/site";
 
 export function SiteFooter() {
   return (
@@ -20,7 +20,7 @@ export function SiteFooter() {
           </Link>
           <Link href="/recursos">Recursos</Link>
           <Link href="/contacto">Contacto</Link>
-          <Link href="/patrocinar">Patrocinar</Link>
+          {sponsorshipIntakeOpen ? <Link href="/patrocinar">Patrocinar</Link> : null}
         </div>
       </div>
     </footer>
