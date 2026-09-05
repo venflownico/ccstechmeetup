@@ -60,7 +60,6 @@ export const paidSponsorSlots = {
 export const supporters = [
   { name: "Venecápital", src: "/sponsors/venecapital.png" },
   { name: "Innoven", src: "/sponsors/innoven.png" },
-  { name: "Ridery", src: "/sponsors/ridery.png" },
   { name: "Venflow", src: "/sponsors/venflow.png" },
   { name: "Venezuela Mobility Ventures", src: "/sponsors/venezuela-mobility-ventures.png" },
   { name: "Rial", src: "/sponsors/rial.png" },
@@ -70,8 +69,6 @@ export const supporters = [
   { name: "Fina", src: "/sponsors/fina.png" },
   { name: "Money", src: "/sponsors/money.png" },
   { name: "UCAB", src: "/sponsors/ucab.png" },
-  { name: "Kurios", src: "/sponsors/kurios.png" },
-  { name: "Ávila Holding Group", src: "/sponsors/avila-holding-group.png" },
   { name: "Universidad Metropolitana", src: "/sponsors/unimet.png" },
   { name: "UCV", src: "/sponsors/ucv.png" },
   { name: "ASAP", src: "/sponsors/asap.png" },
