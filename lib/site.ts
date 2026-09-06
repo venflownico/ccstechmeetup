@@ -137,7 +137,7 @@ export const sponsorFit = {
   eyebrow: "Qué buscamos",
   title: "Impactar la creación y el crecimiento de startups es la meta",
   lead: "El meetup existe para que la gente se conozca. Drinks, personas y espacio para construir relaciones: la noche no tiene agenda, para que esas conversaciones no se compriman, y se creen relaciones reales.",
-  body: "La presencia de marca — flyers, sitio, evento — es cómo esta comunidad te recuerda como alguien que los apoya. El recurso es un grant acotado, siempre disponible en un QR en el venue, y se canjea después ([ver cómo funciona](/recursos)). La noche no tiene escenario: nadie presenta.",
+  body: "La presencia de marca — flyers, sitio, evento — es cómo esta comunidad te recuerda como alguien que los apoya. El recurso es un grant acotado, siempre disponible en un QR en el venue, y se canjea después ([ver cómo funciona](/recursos)). Comunidad y Recurso no toman el micrófono: el recurso se conoce por el QR.",
   pillars: [
     {
       title: "Capital",
@@ -254,13 +254,15 @@ export const packages = [
     featured: false,
     available: false,
     takenLabel: "Tomado",
-    slotCount: 2,
-    slotsTaken: 2,
+    slotCount: 1,
+    slotsTaken: 1,
     benefits: [
       "Todo lo de Recurso",
       "Lockup Presentan en flyers, sitio y evento",
       "La marca que abre cada edición",
-      "Prioridad para un formato aparte del after office mensual",
+      "Cupos ilimitados cada mes: tu equipo o quien invites, sin pasar por aprobación",
+      "Estacionamiento prioritario",
+      "Cuando lo necesites, presentas lo que quieras a la comunidad: en los pitches o en el escenario",
     ],
   },
 ] as const;
@@ -412,17 +414,17 @@ export const sponsorFaqs = [
   {
     question: "¿Puedo ser presentador del meetup?",
     answer:
-      "El lockup de Presentan está reservado. Si tu marca pone un recurso acotado, los paquetes abiertos son Comunidad y Recurso.",
+      "El lockup Presentan es un solo cupo, y ya está tomado. Quien presenta abre cada edición y puede hablarle a la comunidad — en los pitches o en el escenario — cuando lo necesite. Si tu marca pone un recurso acotado, los paquetes abiertos son Comunidad y Recurso.",
   },
   {
     question: "¿Puedo tener un stand, una mesa u office hours en el meetup?",
     answer:
-      "El after office no se organiza: drinks, gente, conversaciones. Un stand, una mesa u office hours en el piso interrumpe el networking: la atracción pasa a ser el stand, no la gente — y ese networking es lo que hace que vuelvan. El recurso vive en un QR en el venue — nadie presenta en el evento.",
+      "El after office no se organiza alrededor de un stand: drinks, gente, conversaciones. Un stand, una mesa u office hours en el piso interrumpe el networking: la atracción pasa a ser el stand, no la gente — y ese networking es lo que hace que vuelvan. El recurso vive en un QR en el venue.",
   },
   {
     question: "¿Puedo presentar mi marca o mi recurso en el meetup?",
     answer:
-      "No. La noche no tiene agenda ni escenario: nadie presenta. Tu marca está en flyers, sitio y evento; el recurso, en un QR. Las conversaciones son el punto.",
+      "En Comunidad y Recurso, no. Tu marca está en flyers, sitio y evento; el recurso, en un QR. Presentar en los pitches o en el escenario es de Presentan, y ese cupo ya está tomado.",
   },
   {
     question: "¿Qué es el QR del evento?",
@@ -430,9 +432,9 @@ export const sponsorFaqs = [
       "Un código QR solo accesible durante el evento que abre una página donde startups y fundadores pueden acceder a recursos gratis ofrecidos por los sponsors. La idea es que sean cosas que necesitan para escalar y que normalmente requieren capital: capacidad de servidores, créditos, procesamiento de pagos. [Ver cómo funciona](/recursos).",
   },
   {
-    question: "¿El recurso es una cuenta abierta por cada startup que aplique?",
+    question: "¿El recurso es una cuenta abierta por cada startup que aplique vía el QR?",
     answer:
-      "No. El acuerdo es anual. La cuota mensual compra la presencia — flyers, evento, memoria — durante esos 12 meses. El recurso es un grant acotado: un pool o un número fijo de cupos. Así sigue siendo un regalo, y un filtro: solo marcas que de verdad pueden apoyar founders se sientan en esta mesa.",
+      "Tú decides cuánto de los recursos le das a aquellos que aplican vía el QR para acceder a los recursos que tú ofreces.",
   },
   {
     question: "¿Qué cuenta como recurso?",
@@ -452,7 +454,7 @@ export const sponsorFaqs = [
   {
     question: "¿Mi marca aparece desde el primer mes?",
     answer:
-      "Sí. Logo en flyers, sitio y evento de esa edición. Nadie toma el micrófono: el recurso se conoce por el QR y los materiales.",
+      "Sí. Logo en flyers, sitio y evento de esa edición. En Comunidad y Recurso el recurso se conoce por el QR y los materiales: no toman el micrófono.",
   },
   {
     question: "¿Qué pasa si el grant todavía no está definido?",
