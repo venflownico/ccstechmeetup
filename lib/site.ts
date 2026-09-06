@@ -203,7 +203,7 @@ export const packagePromise = [
   },
   {
     title: "Recursos",
-    body: "La oportunidad de ofrecerle a startups grants de tus servicios. Apoyo real para que puedan crecer contigo.",
+    body: "Founders que se autoseleccionan, aplican y llegan a tu producto con el respaldo de la comunidad. Te ayudamos a diseñar un grant de alto valor percibido y bajo costo marginal para tu empresa.",
   },
 ] as const;
 
