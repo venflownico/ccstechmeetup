@@ -113,7 +113,7 @@ export const sponsorWhy = {
   title: "Por qué las marcas patrocinan el Caracas Tech Meetup",
   footnote: "Datos de 9 ediciones · Agosto 2025 – Agosto 2026 · 1.320 asistentes únicos",
   cta: "Quiero patrocinar",
-  ctaHref: "#formulario",
+  ctaHref: "#paquetes",
   stats: [
     {
       value: "528",
