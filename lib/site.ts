@@ -137,7 +137,7 @@ export const sponsorFit = {
   eyebrow: "Qué buscamos",
   title: "Impactar la creación y el crecimiento de startups es la meta",
   lead: "El meetup existe para que la gente se conozca. Drinks, personas y espacio para construir relaciones: la noche no tiene agenda, para que esas conversaciones no se compriman, y se creen relaciones reales.",
-  body: "La presencia de marca — flyers, sitio, evento — es cómo esta comunidad te recuerda como alguien que los apoya. El recurso es un grant acotado, siempre disponible en un QR en el venue, y se canjea después. La noche no tiene escenario: nadie presenta.",
+  body: "La presencia de marca — flyers, sitio, evento — es cómo esta comunidad te recuerda como alguien que los apoya. El recurso es un grant acotado, siempre disponible en un QR en el venue, y se canjea después ([ver cómo funciona](/recursos)). La noche no tiene escenario: nadie presenta.",
   pillars: [
     {
       title: "Capital",
@@ -427,7 +427,7 @@ export const sponsorFaqs = [
   {
     question: "¿Qué es el QR del evento?",
     answer:
-      "Un código en el venue que abre recursos gratis para tu startup: capacidad de servidores, créditos, procesamiento de pagos, y lo que un aliado ponga para bajar el costo de escalar. Está siempre encendido. No sustituye el networking.",
+      "Un código QR solo accesible durante el evento que abre una página donde startups y fundadores pueden acceder a recursos gratis ofrecidos por los sponsors. La idea es que sean cosas que necesitan para escalar y que normalmente requieren capital: capacidad de servidores, créditos, procesamiento de pagos. [Ver cómo funciona](/recursos).",
   },
   {
     question: "¿El recurso es una cuenta abierta por cada startup que aplique?",

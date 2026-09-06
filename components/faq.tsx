@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 
+import { InlineMarkdown } from "@/components/inline-markdown";
 import {
   Accordion,
   AccordionContent,
@@ -18,10 +19,14 @@ type FaqItem = {
 
 function FaqAnswer({ answer }: { answer: FaqItem["answer"] }) {
   if (typeof answer === "string") {
-    return answer;
+    return <InlineMarkdown text={answer} />;
   }
 
-  return answer.map((paragraph) => <p key={paragraph}>{paragraph}</p>);
+  return answer.map((paragraph) => (
+    <p key={paragraph}>
+      <InlineMarkdown text={paragraph} />
+    </p>
+  ));
 }
 
 export function Faq({

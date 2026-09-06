@@ -1,3 +1,4 @@
+import { InlineMarkdown } from "@/components/inline-markdown";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { sponsorFit } from "@/lib/site";
 
@@ -12,7 +13,9 @@ export function SponsorFit() {
           {sponsorFit.title}
         </h2>
         <p className="mt-6 max-w-2xl text-lg text-white/65">{sponsorFit.lead}</p>
-        <p className="mt-4 max-w-2xl text-white/55">{sponsorFit.body}</p>
+        <p className="mt-4 max-w-2xl text-white/55">
+          <InlineMarkdown text={sponsorFit.body} />
+        </p>
       </BlurFade>
       <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {sponsorFit.pillars.map((pillar, index) => (
