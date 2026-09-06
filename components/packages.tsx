@@ -32,7 +32,7 @@ export function Packages() {
   const [selected, setSelected] = useState<PackageId>("recurso");
 
   return (
-    <section id="paquetes" className="mx-auto max-w-6xl px-4 py-24 sm:px-6">
+    <section id="paquetes" className="mx-auto max-w-6xl scroll-mt-24 px-4 py-24 sm:px-6">
       <div className="mx-auto max-w-2xl text-center">
         <p className="text-sm font-semibold tracking-[0.2em] text-teal-300 uppercase">
           {packagePitch.eyebrow}
