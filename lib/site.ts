@@ -87,6 +87,7 @@ export const paidSponsorSlots = {
   label: "Patrocinan",
   lead: `Cuatro cupos anuales. Ventana abierta hasta el ${sponsorshipWindow.deadlineLabelLong}.`,
   emptyHint: "Tu marca aquí",
+  reserveHint: "Reserva este cupo →",
   closedLead: "Cupos del año tomados. Estas son las marcas del ciclo.",
 } as const;
 
@@ -224,6 +225,7 @@ export const packages = [
       "Grant acotado (pool o N cupos) que los founders aplican después",
       "Mención en Instagram @caracastech_meetup",
       "2 cupos reservados cada mes: gente de tu equipo u otros que invites, sin pasar por aprobación",
+      "Recap anual del ecosistema: la data del año con tu marca presente, lista para compartir internamente.",
     ],
   },
   {
@@ -243,6 +245,7 @@ export const packages = [
       "Exclusividad de categoría (talento, recursos o mentoría)",
       "6 cupos reservados cada mes: tu equipo o quien invites, sin pasar por aprobación",
       "Recap de asistencia post-evento — para seguir la conversación",
+      "Recap anual del ecosistema: la data del año con tu marca presente, lista para compartir internamente.",
     ],
   },
   {

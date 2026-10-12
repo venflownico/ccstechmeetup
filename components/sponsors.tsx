@@ -49,34 +49,66 @@ function Logo({ name, src, tall }: { name: string; src: string; tall?: boolean }
 function OpenSponsorSlot({
   href,
   sizeClass,
-  index,
+  plan,
+  slotNumber,
   total,
 }: {
   href: string;
   sizeClass: string;
-  index: number;
+  plan: string;
+  slotNumber: number;
   total: number;
 }) {
-  const className = `flex ${sizeClass} flex-col items-center justify-center rounded-xl border border-dashed border-white/20 px-3 text-center transition hover:border-teal-300/50 hover:bg-white/[0.03]`;
+  const scarcity = `Cupo ${slotNumber} de ${total}`;
+  const className = `group flex ${sizeClass} flex-col items-center justify-center rounded-xl border border-dashed border-white/20 px-3 text-center transition hover:border-teal-300/50 hover:bg-white/[0.03]`;
   const content = (
     <>
-      <span className="text-[11px] text-white/40">{paidSponsorSlots.emptyHint}</span>
-      <span className="sr-only">
-        Cupo disponible {index + 1} de {total}
+      <p>
+        <span className="sr-only">
+          {plan}, {scarcity}
+        </span>
+        <span
+          aria-hidden="true"
+          className="block text-[10px] font-semibold tracking-[0.16em] text-white/40 uppercase"
+        >
+          {plan}
+        </span>
+        <span aria-hidden="true" className="mt-0.5 block text-[10px] text-white/40">
+          {scarcity}
+        </span>
+      </p>
+      <span
+        aria-hidden="true"
+        className="relative mt-1 grid min-h-[1.25rem] w-full place-items-center text-[11px]"
+      >
+        <span className="col-start-1 row-start-1 text-white/45 transition-opacity duration-200 group-hover:opacity-0 group-focus-visible:opacity-0">
+          {paidSponsorSlots.emptyHint}
+        </span>
+        <span className="col-start-1 row-start-1 text-teal-300/90 opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100">
+          {paidSponsorSlots.reserveHint}
+        </span>
       </span>
     </>
   );
 
   if (href.startsWith("#")) {
     return (
-      <a href={href} className={className}>
+      <a
+        href={href}
+        className={className}
+        aria-label={`${plan}, ${scarcity.toLowerCase()}. ${paidSponsorSlots.reserveHint}`}
+      >
         {content}
       </a>
     );
   }
 
   return (
-    <Link href={href} className={className}>
+    <Link
+      href={href}
+      className={className}
+      aria-label={`${plan}, ${scarcity.toLowerCase()}. ${paidSponsorSlots.reserveHint}`}
+    >
       {content}
     </Link>
   );
@@ -172,7 +204,8 @@ export function Sponsors({ compact = false }: { compact?: boolean }) {
                     key={`${pkg.id}-open-${index}`}
                     href={slotHref}
                     sizeClass={size.slot}
-                    index={index}
+                    plan={pkg.name}
+                    slotNumber={filled.length + index + 1}
                     total={pkg.slotCount}
                   />
                 ))}
