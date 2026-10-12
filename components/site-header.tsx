@@ -19,9 +19,6 @@ export function SiteHeader() {
           ))}
         </nav>
         <div className="flex items-center gap-2">
-          <Button variant="ghost" className="text-white/80 sm:hidden" asChild>
-            <Link href="/recursos">Recursos</Link>
-          </Button>
           {sponsorshipIntakeOpen ? (
             <Button variant="ghost" className="hidden text-white/80 sm:inline-flex" asChild>
               <Link href="/patrocinar">Patrocinar</Link>

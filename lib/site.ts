@@ -26,7 +26,6 @@ export function sponsorshipCallUrl(prefill?: { name?: string; email?: string }) 
 
 export const navItems = [
   { href: "/#eventos", label: "Eventos" },
-  { href: "/recursos", label: "Recursos" },
   { href: "/#como-asistir", label: "Cómo asistir" },
   { href: "/#por-que", label: "Por qué" },
   { href: "/#equipo", label: "Equipo" },
