@@ -308,7 +308,7 @@ export const team = [
   {
     name: "Amintore Confalonieri",
     role: "Co-organizador",
-    bio: "Founder & CEO de Amalia. Impulsa healthtech y el after-office del ecosistema.",
+    bio: "Founder & CEO de Amalia. Impulsa healthtech.",
     image: "/team/amintore-confalonieri.jpg",
     linkedin: "https://www.linkedin.com/in/amintoreconfalonieri/",
     web: "https://amaliasalud.app/",
@@ -329,7 +329,7 @@ export const team = [
     name: "Enderson Leal",
     role: "Co-organizador",
     bio: "Founder de Ecosistema Startup Venezuela. Conecta founders, VCs y operadores.",
-    image: "/team/enderson-leal.jpg",
+    image: "/team/enderson-leal-perfil.jpg",
     linkedin: "https://www.linkedin.com/in/lealabreu",
     web: "https://www.startupvenezuela.tech/",
     proyecto: "Ecosistema Startup Venezuela",
@@ -338,7 +338,7 @@ export const team = [
   {
     name: "Sebastián Lobo",
     role: "Co-organizador",
-    bio: "Founder de Hango. Diseña los formatos y la propuesta de patrocinio 2027.",
+    bio: "Founder de Hango.",
     image: "/team/sebastian-lobo.jpg",
     linkedin: "https://www.linkedin.com/in/sebastianlobot/",
     web: "https://hango.live/",
