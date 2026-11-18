@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useScroll, useTransform } from "motion/react";
 import { BellRing, CalendarCheck, Camera, Check, LoaderCircle, Mail } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import type { FormEvent, RefObject } from "react";
@@ -39,6 +39,10 @@ export function Aviso({
   secRef: RefObject<HTMLElement | null>;
 }) {
   const quieto = useQuieto();
+  // Parallax leve del encabezado y de la bajada, a distinta velocidad.
+  const { scrollYProgress: pasa } = useScroll({ target: secRef, offset: ["start end", "end start"] });
+  const tituloY = useTransform(pasa, [0, 1], quieto ? [0, 0] : [18, -18]);
+  const bajadaY = useTransform(pasa, [0, 1], quieto ? [0, 0] : [8, -8]);
   const [rol, setRol] = useState("");
   const [error, setError] = useState("");
   const [fase, setFase] = useState<Fase>("reposo");
@@ -94,11 +98,15 @@ export function Aviso({
 
   return (
     <section ref={secRef} className={`${s.aviso} ${s.envoltura}`} id="avisame" aria-labelledby="t-aviso">
-      <TextoTipeado as="h2" id="t-aviso" texto="Te avisamos cuando abra cada uno" />
-      <TextoTipeado
-        className={s.intro}
-        texto="Deja tu correo y te escribimos cuando haya fecha, solo de los formatos que marques."
-      />
+      <motion.div style={{ y: tituloY }}>
+        <TextoTipeado as="h2" id="t-aviso" texto="Te avisamos cuando abra cada uno" />
+      </motion.div>
+      <motion.div style={{ y: bajadaY }}>
+        <TextoTipeado
+          className={s.intro}
+          texto="Deja tu correo y te escribimos cuando haya fecha, solo de los formatos que marques."
+        />
+      </motion.div>
       {!enviado ? (
         <form className={s.form} noValidate onSubmit={enviar}>
           <fieldset className={s.grupo}>

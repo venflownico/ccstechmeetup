@@ -17,12 +17,13 @@ import { FORMATOS } from "../tipos";
 import type { Estilo } from "../tipos";
 import { Cliente, Cofounder, Inversionista } from "./ilustraciones-a";
 import { Mentor, Talento, YaPaso } from "./ilustraciones-b";
-import type { Escena } from "./trazos";
+import { PlanosCtx } from "./trazos";
+import type { Escena, Planos } from "./trazos";
 
 export const ILUSTRACIONES: ComponentType<Escena>[] = [Inversionista, Cofounder, Cliente, Talento, YaPaso, Mentor];
 
-/** Alto fijo de arriba: header (64) + progreso (3) + índice (44). */
-export const ALTO_FIJO = 111;
+/** Alto fijo de arriba: header (64) + barra de progreso (3). */
+export const ALTO_FIJO = 67;
 
 export function Capitulo({
   k,
@@ -73,7 +74,17 @@ export function Capitulo({
   const n = useTransform(p, [0.4, 0.52], [0, total + 1]);
   const fraseO = useTransform(p, [0.62, 0.7], [1, 0]);
   const dondeO = useTransform(p, [0.68, 0.78], [0, 1]);
-  const dondeY = useTransform(p, [0.68, 0.78], [16, 0]);
+
+  // Parallax: cada plano de la ilustración y el bloque de texto se mueven a distinta velocidad con el avance.
+  // Con menos movimiento todo queda en su sitio (rango 0).
+  const z = (v: number) => (quieto ? 0 : v);
+  const planos: Planos = {
+    fondo: { x: useTransform(p, [0, 1], [z(-3), z(3)]), y: useTransform(p, [0, 1], [z(7), z(-7)]) },
+    medio: { x: useTransform(p, [0, 1], [z(4), z(-4)]), y: useTransform(p, [0, 1], [z(14), z(-14)]) },
+    frente: { x: useTransform(p, [0, 1], [z(-9), z(9)]), y: useTransform(p, [0, 1], [z(24), z(-24)]) },
+  };
+  const textoY = useTransform(p, [0, 1], [z(-12), z(12)]);
+  const dondeP = useTransform(p, [0.68, 0.78, 1], [16, 0, z(-10)]);
 
   const estilo: Estilo = { "--c": b.c, "--cl": b.cl };
   const Icono = b.Icono;
@@ -84,9 +95,11 @@ export function Capitulo({
       id={`c-${b.id}`} className={s.cap} style={estilo} aria-labelledby={`t-${b.id}`}>
       <div className={s.capEsc}>
         <div className={s.capIlus}>
-          <Ilustracion d={d} a={a} />
+          <PlanosCtx.Provider value={planos}>
+            <Ilustracion d={d} a={a} />
+          </PlanosCtx.Provider>
         </div>
-        <div className={s.capTexto}>
+        <motion.div className={s.capTexto} style={{ y: textoY }}>
           <motion.div className={`${s.capCab} ${s.capA}`} style={{ opacity: cabO, y: cabY }}>
             <span className={s.capIcono} aria-hidden="true">
               <Icono strokeWidth={1.75} />
@@ -97,9 +110,8 @@ export function Capitulo({
             <motion.p className={`${s.capFrase} ${s.capA}`} style={{ opacity: fraseO }}>
               <Letras texto={b.frase} n={n} />
             </motion.p>
-            <motion.div className={`${s.capDonde} ${s.capA}`} style={{ opacity: dondeO, y: dondeY }} inert={!quieto && !ver}>
-              <h3>Dónde coincidir</h3>
-              <ul className={s.capFm}>
+            <motion.div className={`${s.capDonde} ${s.capA}`} style={{ opacity: dondeO, y: dondeP }} inert={!quieto && !ver}>
+              <ul className={s.capFm} aria-label="Dónde coincidir">
                 {formatos.map((f) => {
                   const IconoF = ICONOS_FORMATO[f.icono];
                   return (
@@ -155,7 +167,7 @@ export function Capitulo({
               </motion.button>
             </motion.div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

@@ -6,8 +6,29 @@ import { useEffect, useState } from "react";
 import type { RefObject } from "react";
 
 import s from "./estilos.module.css";
+import { useQuieto } from "./quieto";
 import { FORMATOS } from "./tipos";
 import type { Estilo } from "./tipos";
+
+/** Manchas de luz muy tenues con parallax lento: cada una viaja en un sentido distinto con el scroll. */
+const MANCHAS = [
+  { f: 1, cls: "manchaA", y: [180, -320], x: [0, 140] },
+  { f: 4, cls: "manchaB", y: [-220, 340], x: [0, -120] },
+  { f: 2, cls: "manchaC", y: [120, -200], x: [0, -160] },
+] as const;
+
+function Mancha({ f, cls, y, x }: (typeof MANCHAS)[number]) {
+  const quieto = useQuieto();
+  const { scrollYProgress } = useScroll();
+  const ty = useTransform(scrollYProgress, [0, 1], quieto ? [0, 0] : [y[0], y[1]]);
+  const tx = useTransform(scrollYProgress, [0, 1], quieto ? [0, 0] : [x[0], x[1]]);
+  return (
+    <motion.i
+      className={`${s.mancha} ${s[cls]}`}
+      style={{ x: tx, y: ty, ...({ "--c": (FORMATOS[f] ?? FORMATOS[0]).c } as Estilo) }}
+    />
+  );
+}
 
 /** Resplandor fijo cuyo color pasa al de la tarjeta más cercana al centro de la pantalla. */
 export function Luz({ lista }: { lista: RefObject<HTMLUListElement | null> }) {
@@ -47,6 +68,11 @@ export function Luz({ lista }: { lista: RefObject<HTMLUListElement | null> }) {
 
   return (
     <div className={s.luz} aria-hidden="true">
+      <div className={s.manchas}>
+        {MANCHAS.map((m) => (
+          <Mancha key={m.cls} {...m} />
+        ))}
+      </div>
       {FORMATOS.map((f, i) => (
         <i key={f.id} className={i === activo ? s.luzOn : undefined} style={{ "--c": f.c } as Estilo} />
       ))}

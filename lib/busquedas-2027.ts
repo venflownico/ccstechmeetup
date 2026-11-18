@@ -11,7 +11,7 @@ function colorDe(idFormato: string) {
 
 /**
  * A quién quiere conocer la persona y en qué formatos de 2027 es más fácil coincidir.
- * El orden de `formatos` es el orden de la recomendación y el primero da el color del capítulo.
+ * El orden de `formatos` es el de aparición; el color del capítulo lo fija `colorDe` (por defecto, el del primer formato).
  * Los ids de formato son los de `formatos2027`.
  */
 export const BUSQUEDAS = [
@@ -20,7 +20,7 @@ export const BUSQUEDAS = [
     etiqueta: "Un inversionista",
     frase: "Te ve presentar tu startup y se queda con tu nombre.",
     Icono: HandCoins,
-    formatos: ["demo-day", "dinner"],
+    formatos: ["demo-day", "dinner", "meetup"],
     ...colorDe("demo-day"),
   },
   {
@@ -28,7 +28,7 @@ export const BUSQUEDAS = [
     etiqueta: "Un cofounder",
     frase: "Un fin de semana construyendo juntos dice más que diez cafés.",
     Icono: Handshake,
-    formatos: ["hackathon", "meetup"],
+    formatos: ["hackathon", "meetup", "week"],
     ...colorDe("hackathon"),
   },
   {
@@ -44,7 +44,7 @@ export const BUSQUEDAS = [
     etiqueta: "Talento para tu equipo",
     frase: "La persona que te falta puede estar en la sala.",
     Icono: UserSearch,
-    formatos: ["week", "hackathon"],
+    formatos: ["meetup", "hackathon", "week"],
     ...colorDe("week"),
   },
   {
@@ -52,7 +52,7 @@ export const BUSQUEDAS = [
     etiqueta: "Alguien que ya pasó por esto",
     frase: "Te cuenta en el camino lo que no sale en ningún post.",
     Icono: Footprints,
-    formatos: ["wellness", "dinner"],
+    formatos: ["wellness", "dinner", "meetup"],
     ...colorDe("wellness"),
   },
   {
@@ -60,7 +60,7 @@ export const BUSQUEDAS = [
     etiqueta: "Un mentor",
     frase: "Una conversación a tiempo te ahorra meses de prueba y error.",
     Icono: Compass,
-    formatos: ["dinner", "week"],
+    formatos: ["dinner", "meetup"],
     ...colorDe("dinner"),
   },
 ] as const satisfies readonly {

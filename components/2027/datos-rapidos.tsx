@@ -5,6 +5,8 @@ import { BellRing, CalendarDays, Sparkles } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { useRef } from "react";
 
+import { useQuieto } from "./quieto";
+
 import s from "./estilos.module.css";
 import { TextoTipeado } from "./texto-tipeado";
 import { FORMATOS } from "./tipos";
@@ -26,6 +28,11 @@ function Dato({ Icono, texto, color }: (typeof DATOS)[number]) {
   const y = useTransform(scrollYProgress, [0, 1], [48, 0]);
   const opacidad = useTransform(scrollYProgress, [0, 1], [0, 1]);
   const icono = useTransform(scrollYProgress, [0, 1], [0.6, 1]);
+  // Parallax continuo mientras pasa por la pantalla: ícono y texto a distinta velocidad.
+  const quieto = useQuieto();
+  const { scrollYProgress: pasa } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const icoY = useTransform(pasa, [0, 1], quieto ? [0, 0] : [14, -14]);
+  const txtY = useTransform(pasa, [0, 1], quieto ? [0, 0] : [-6, 6]);
 
   const base: Estilo = { "--c": color };
 
@@ -35,10 +42,12 @@ function Dato({ Icono, texto, color }: (typeof DATOS)[number]) {
       className={s.dato}
       style={{ ...base, y, opacity: opacidad }}
     >
-      <motion.span className={s.datoIcono} aria-hidden="true" style={{ scale: icono }}>
+      <motion.span className={s.datoIcono} aria-hidden="true" style={{ scale: icono, y: icoY }}>
         <Icono strokeWidth={1.75} />
       </motion.span>
-      <TextoTipeado texto={texto} />
+      <motion.div style={{ y: txtY }}>
+        <TextoTipeado texto={texto} />
+      </motion.div>
     </motion.li>
   );
 }

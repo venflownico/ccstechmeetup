@@ -24,12 +24,18 @@
 :global(.lenis.lenis-stopped){overflow:clip}
 
 /* Luz ambiente: un resplandor por formato, el activo se funde con opacidad */
-.luz{position:sticky;top:0;height:100svh;margin-bottom:-100svh;z-index:0;pointer-events:none;overflow:hidden}
+.luz{position:sticky;top:0;height:100vh;height:100lvh;margin-bottom:-100vh;margin-bottom:-100lvh;z-index:0;pointer-events:none;overflow:hidden}
 .luz i{position:absolute;inset:0;opacity:0;transition:opacity 1.2s ease;
   background:
     radial-gradient(60% 46% at 82% 24%,color-mix(in srgb,var(--c) 32%,transparent),transparent 72%),
     radial-gradient(52% 42% at 6% 82%,color-mix(in srgb,var(--c) 20%,transparent),transparent 72%)}
 .luz i.luzOn{opacity:1}
+.manchas{position:absolute;inset:0;overflow:hidden}
+.mancha{position:absolute;display:block;border-radius:50%;width:78vmax;height:78vmax;opacity:.2;will-change:transform;
+  background:radial-gradient(closest-side,color-mix(in srgb,var(--c) 70%,transparent),color-mix(in srgb,var(--c) 22%,transparent) 55%,transparent)}
+.manchaA{left:-26vmax;top:-10vmax}
+.manchaB{right:-30vmax;top:22vmax}
+.manchaC{left:12vmax;bottom:-40vmax}
 
 /* Progreso de lectura bajo el header */
 .progreso{position:fixed;top:64px;left:0;right:0;height:3px;z-index:40;display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:2px;pointer-events:none}
@@ -146,6 +152,7 @@
 .quieto .dorso .fila{transition:none;opacity:1;translate:none}
 @media (prefers-reduced-motion:reduce){
   .pagina .l{opacity:1!important;transform:none!important}
+  .pagina .mancha{will-change:auto}
   .pagina .fc,.pagina .dato,.pagina .datoIcono,.pagina .titular{transform:none!important;opacity:1!important}
   .pagina .foto{transform:none!important}
   .pagina .inclina{transform:none!important}
@@ -224,18 +231,7 @@
 
 .pers{position:relative;--tr:rgba(241,247,241,.85)}
 .fondo{display:none}
-.capBorde{position:absolute;top:0;left:0;right:0;height:96px;z-index:1;pointer-events:none;background:linear-gradient(180deg,var(--bg),rgba(5,11,18,0))}
-.ind{position:sticky;top:67px;z-index:5;height:44px;display:flex;align-items:center;justify-content:space-between;gap:6px;padding:0 6px 0 10px;background:rgba(5,11,18,.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--linea)}
-.indLista{list-style:none;display:flex;gap:2px;margin:0 auto 0 0}
-@media(min-width:720px){.ind{padding:0 24px}.indLista{gap:8px}}
-.indBtn{position:relative;width:42px;height:38px;border-radius:var(--r);border:1px solid transparent;background:none;color:var(--gris);display:grid;place-items:center;cursor:pointer;transition:color .25s ease,background-color .25s ease,border-color .25s ease}
-.indBtn svg{width:22px;height:22px}
-.indBtn[aria-current=true]{color:var(--cl);border-color:var(--c);background:color-mix(in srgb,var(--c) 22%,transparent)}
-.indBtn i{position:absolute;top:4px;right:5px;width:7px;height:7px;border-radius:50%;background:var(--cl)}
-.indSaltar{display:inline-flex;align-items:center;min-height:40px;padding:0 10px;color:#c9d2cd;text-decoration:underline;text-underline-offset:3px;font-size:15px;white-space:nowrap}
-@media(hover:hover){.indBtn:hover{color:var(--cl)}}
-
-.cap{position:relative;z-index:2;background:color-mix(in srgb,var(--c) 16%,#050b12);padding:44px 0 52px;scroll-margin-top:111px}
+.cap{position:relative;z-index:2;background:color-mix(in srgb,var(--c) 16%,#050b12);padding:44px 0 52px;scroll-margin-top:67px}
 .capEsc{max-width:1120px;margin:0 auto;padding:0 16px;display:flex;flex-direction:column;gap:20px}
 .capIlus{position:relative;width:100%;max-width:520px;margin:0 auto;aspect-ratio:4/3}
 .ilus{position:absolute;inset:0;width:100%;height:100%;display:block;fill:none;stroke:var(--tr);stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;overflow:visible}
@@ -255,8 +251,7 @@
 .capCuerpo{margin-top:14px}
 .capFrase{font-size:clamp(22px,5.8vw,30px);line-height:1.18;font-weight:500;letter-spacing:-.01em;max-width:24ch;text-wrap:balance}
 .capDonde{margin-top:18px}
-.capDonde h3{font-size:15px;font-weight:600;color:var(--cl);margin-bottom:10px}
-.capFm{list-style:none;display:grid;gap:12px}
+.capFm{list-style:none;display:grid;gap:14px}
 .capFm li{display:grid;grid-template-columns:34px 1fr;gap:10px;align-items:start}
 .capFmIc{width:34px;height:34px;border-radius:50%;border:1.5px solid var(--cfl);color:var(--cfl);display:grid;place-items:center;margin-top:5px}
 .capFmIc svg{width:18px;height:18px}
@@ -267,7 +262,15 @@
 .capBuscoIc{display:inline-grid;place-items:center;width:20px;height:20px}
 .capBuscoIc>span{display:grid;place-items:center}
 .capBuscoIc svg{width:20px;height:20px}
-.capCierre{position:relative;z-index:2;min-height:104px;padding:30px 16px 44px;text-align:center;color:#d3dbd6;font-size:18px;background:linear-gradient(180deg,rgba(5,11,18,0),var(--bg) 90%)}
+.capCierre{position:relative;z-index:2;min-height:56px;padding:24px 16px 8px;text-align:center;color:#d3dbd6;font-size:18px}
+.capCierre:empty{min-height:0;padding:0}
+.saltar{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:44;display:inline-flex;align-items:center;min-height:40px;padding:0 16px;border-radius:999px;border:1px solid var(--linea);background:rgba(5,11,18,.74);color:#d3dbd6;font-size:14px;text-decoration:none;white-space:nowrap;
+  opacity:0;filter:blur(8px);transform:scale(.96);visibility:hidden;pointer-events:none;
+  transition:opacity .5s ease,filter .5s ease,transform .5s ease,bottom .35s ease,visibility 0s linear .5s}
+.saltar[data-ver]{opacity:1;filter:blur(0);transform:none;visibility:visible;pointer-events:auto;transition-delay:0s}
+.saltar[data-barra]{bottom:calc(86px + env(safe-area-inset-bottom))}
+@media(hover:hover){.saltar:hover{color:var(--fg);border-color:rgba(241,247,241,.3)}}
+@media (prefers-reduced-motion:reduce){.saltar{transition:none;filter:none;transform:none}}
 @media(min-width:1024px){
   .capEsc{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:56px;align-items:center;padding:0 32px}
   .capTexto{order:-1;max-width:none;margin:0}
@@ -279,27 +282,26 @@
   .capFm p{font-size:15px}
 }
 
-@media (scripting:none){.perChips,.indLista,.capBusco{display:none}}
+@media (scripting:none){.perChips,.capBusco,.saltar{display:none}}
 
 /* Con scroll: un escenario fijo por capítulo y un fondo que cambia de color entre capítulos */
 @media (scripting:enabled) and (prefers-reduced-motion:no-preference){
-  .fondo{display:block;position:sticky;top:0;height:100vh;height:100svh;margin-bottom:-100vh;margin-bottom:-100svh;z-index:0;pointer-events:none;overflow:hidden}
+  .fondo{display:block;position:fixed;inset:0;height:100vh;height:100lvh;z-index:-1;pointer-events:none;overflow:hidden;will-change:opacity}
   .fondo i{position:absolute;inset:0;background:color-mix(in srgb,var(--c) 16%,#050b12)}
   .cap{height:210vh;height:210svh;background:transparent;padding:0}
-  .capEsc{position:sticky;top:111px;height:calc(100vh - 111px);height:calc(100svh - 111px);padding:10px 16px 14px;gap:6px;overflow:hidden}
+  .capEsc{position:sticky;top:67px;height:calc(100vh - 67px);height:calc(100svh - 67px);padding:14px 16px 16px;gap:6px;overflow:hidden}
   .capIlus{flex:1 1 0;min-height:110px;max-width:480px;aspect-ratio:auto}
   .capTexto{flex:none}
   .capCab{gap:12px}
   .capIcono{width:46px;height:46px}
   .capIcono svg{width:25px;height:25px}
-  .capCuerpo{margin-top:8px;display:grid}
+  .capCuerpo{margin-top:16px;display:grid}
   .capFrase,.capDonde{grid-area:1/1;margin-top:0}
   .capFrase{align-self:start}
-  .capFm{gap:8px}
+  .capFm{gap:10px}
   .capFm li{grid-template-columns:30px 1fr}
   .capFmIc{width:30px;height:30px;margin-top:7px}
   .capFm p{font-size:13.5px;line-height:1.3}
-  .capDonde h3{margin-bottom:6px}
   .capBusco{margin-top:10px}
 }
 @media (scripting:enabled) and (prefers-reduced-motion:no-preference) and (min-width:720px) and (max-width:1023px){
@@ -326,5 +328,4 @@
   .capA{opacity:1!important;transform:none!important}
   .capSale{opacity:0!important}
   .capFrase .l{opacity:1!important;transform:none!important}
-  .capBorde{display:none}
 }

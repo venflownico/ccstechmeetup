@@ -151,7 +151,7 @@ export function Formatos2027() {
         <Progreso />
         <main className={s.principal}>
           <Entrada />
-          <Capitulos busca={busca} onBusca={alternarBusca} />
+          <Capitulos busca={busca} onBusca={alternarBusca} barra={verBarra} />
           <DatosRapidos />
 
           <section className={`${s.formatos} ${s.envoltura}`} id="formatos" aria-label="Formatos de 2027">

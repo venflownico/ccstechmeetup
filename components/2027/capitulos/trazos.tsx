@@ -2,12 +2,24 @@
 
 import { motion, useTransform } from "motion/react";
 import type { MotionValue } from "motion/react";
-import { useId } from "react";
+import { createContext, useContext, useId } from "react";
 import type { ElementType, ReactNode } from "react";
 
 import s from "../estilos.module.css";
 
 export type Escena = { d: MotionValue<number>; a: MotionValue<number> };
+
+/** Desplazamiento de cada plano de profundidad (unidades del viewBox), ligado al avance del capítulo. */
+export type Plano = { x: MotionValue<number>; y: MotionValue<number> };
+export type Planos = { fondo: Plano; medio: Plano; frente: Plano };
+export const PlanosCtx = createContext<Planos | null>(null);
+
+/** Plano de profundidad: mueve su grupo con el parallax del capítulo (sin parallax si no hay contexto). */
+export function Prof({ n, children }: { n: keyof Planos; children: ReactNode }) {
+  const planos = useContext(PlanosCtx);
+  const p = planos?.[n];
+  return <motion.g style={p ? { x: p.x, y: p.y, willChange: "transform" } : undefined}>{children}</motion.g>;
+}
 
 type Forma = "path" | "line" | "circle" | "rect" | "ellipse";
 
