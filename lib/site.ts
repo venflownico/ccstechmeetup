@@ -288,6 +288,10 @@ export type TeamMember = {
   image: string;
   linkedin: string;
   web?: string;
+  /** Nombre del proyecto, para el texto alternativo del logo. */
+  proyecto?: string;
+  /** Logo del proyecto en versión para fondo oscuro (el sitio es solo oscuro). */
+  logo?: string;
 };
 
 export const team = [
@@ -298,6 +302,8 @@ export const team = [
     image: "/team/nicolas-passaro.jpg",
     linkedin: "https://www.linkedin.com/in/nicolaspassaro-product-manager",
     web: "https://www.venflow.app/",
+    proyecto: "Venflow",
+    logo: "/team/proyectos/venflow.png",
   },
   {
     name: "Amintore Confalonieri",
@@ -306,6 +312,8 @@ export const team = [
     image: "/team/amintore-confalonieri.jpg",
     linkedin: "https://www.linkedin.com/in/amintoreconfalonieri/",
     web: "https://amaliasalud.app/",
+    proyecto: "Amalia",
+    logo: "/team/proyectos/amalia.png",
   },
   {
     name: "Anselmo Velazco",
@@ -314,6 +322,8 @@ export const team = [
     image: "/team/anselmo-velazco.jpg",
     linkedin: "https://www.linkedin.com/in/anselmo-velazco",
     web: "https://www.somosrial.com/",
+    proyecto: "Rial",
+    logo: "/team/proyectos/rial.png",
   },
   {
     name: "Enderson Leal",
@@ -322,6 +332,8 @@ export const team = [
     image: "/team/enderson-leal.jpg",
     linkedin: "https://www.linkedin.com/in/lealabreu",
     web: "https://www.startupvenezuela.tech/",
+    proyecto: "Ecosistema Startup Venezuela",
+    logo: "/team/proyectos/ecosistema-startup-venezuela.png",
   },
   {
     name: "Sebastián Lobo",
@@ -330,6 +342,8 @@ export const team = [
     image: "/team/sebastian-lobo.jpg",
     linkedin: "https://www.linkedin.com/in/sebastianlobot/",
     web: "https://hango.live/",
+    proyecto: "Hango",
+    logo: "/team/proyectos/hango.svg",
   },
 ] as const satisfies readonly TeamMember[];
 

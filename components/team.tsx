@@ -39,7 +39,26 @@ export function Team() {
                 <h3 className="font-heading text-lg font-semibold text-white">{person.name}</h3>
                 <p className="text-sm text-teal-300">{person.role}</p>
                 <p className="mt-2 text-sm text-white/60">{person.bio}</p>
-                <div className="mt-auto flex flex-wrap gap-x-4 gap-y-2 pt-4 text-sm">
+                {person.logo && person.web ? (
+                  <Link
+                    href={person.web}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={`Sitio de ${person.proyecto ?? person.name}`}
+                    className="mt-5 inline-flex h-11 items-center self-start opacity-90 transition-opacity hover:opacity-100"
+                  >
+                    {/* Los logos vienen en versión para fondo oscuro; screen borra los fondos negros. */}
+                    <Image
+                      src={person.logo}
+                      alt={person.proyecto ?? ""}
+                      width={160}
+                      height={40}
+                      unoptimized
+                      className="h-7 w-auto max-w-[140px] object-contain object-left mix-blend-screen"
+                    />
+                  </Link>
+                ) : null}
+                <div className="mt-auto flex flex-wrap gap-x-4 gap-y-2 pt-3 text-sm">
                   {person.web ? (
                     <Link
                       href={person.web}
