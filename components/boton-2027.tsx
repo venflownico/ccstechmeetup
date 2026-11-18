@@ -194,9 +194,11 @@ function Despegue({ origen, alTerminar }: { origen: Punto; alTerminar: () => voi
   }, [origen]);
 
   return (
-    <div ref={capa} className={s.despegue} aria-hidden="true">
-      <canvas ref={lienzo} className={s.lienzo} />
-      <div ref={destello} className={s.destello} />
+    <div className={s.despegue} aria-hidden="true">
+      <div ref={capa} className={s.capa}>
+        <canvas ref={lienzo} className={s.lienzo} />
+        <div ref={destello} className={s.destello} />
+      </div>
     </div>
   );
 }

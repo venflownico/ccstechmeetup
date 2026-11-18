@@ -184,10 +184,17 @@
   }
   body {
     @apply bg-background font-sans text-foreground;
-    background-color: #070b14;
+    background-color: #050b12;
   }
   html {
     @apply font-sans scroll-smooth;
-    background-color: #070b14;
+    background-color: #050b12;
+    color-scheme: dark;
+  }
+  /* Red de seguridad: desplazamiento solo vertical. clip (no hidden) conserva position:sticky. */
+  html,
+  body {
+    overflow-x: clip;
+    overscroll-behavior-x: none;
   }
 }

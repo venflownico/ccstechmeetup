@@ -93,7 +93,7 @@ export function TarjetaEquipo({ person }: { person: TeamMember }) {
                     width={160}
                     height={40}
                     unoptimized
-                    className="h-8 w-auto max-w-[150px] object-contain object-left mix-blend-screen"
+                    className={`${person.logoCuadrado ? "h-11" : "h-8"} w-auto max-w-[150px] object-contain object-left mix-blend-screen`}
                   />
                 </Link>
               ) : null}

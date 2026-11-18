@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef, type ComponentPropsWithoutRef } from "react"
-import { useInView, useMotionValue, useSpring } from "motion/react"
+import { useInView, useMotionValue, useReducedMotion, useSpring } from "motion/react"
 
 import { cn } from "@/lib/utils"
 
@@ -13,6 +13,18 @@ interface NumberTickerProps extends ComponentPropsWithoutRef<"span"> {
   decimalPlaces?: number
 }
 
+function formatear(n: number, decimalPlaces: number) {
+  return Intl.NumberFormat("en-US", {
+    minimumFractionDigits: decimalPlaces,
+    maximumFractionDigits: decimalPlaces,
+  }).format(Number(n.toFixed(decimalPlaces)))
+}
+
+/**
+ * Contador animado. El HTML del servidor ya trae el número final (lo ven Google,
+ * las vistas previas de enlaces y quien no tiene JavaScript); al entrar en pantalla,
+ * el contador arranca desde startValue y sube hasta el número final.
+ */
 export function NumberTicker({
   value,
   startValue = 0,
@@ -23,37 +35,32 @@ export function NumberTicker({
   ...props
 }: NumberTickerProps) {
   const ref = useRef<HTMLSpanElement>(null)
-  const motionValue = useMotionValue(direction === "down" ? value : startValue)
+  const final = direction === "down" ? startValue : value
+  const inicio = direction === "down" ? value : startValue
+  const motionValue = useMotionValue(final)
   const springValue = useSpring(motionValue, {
     damping: 60,
     stiffness: 100,
   })
   const isInView = useInView(ref, { once: true, margin: "0px" })
+  const reducido = useReducedMotion()
 
   useEffect(() => {
-    let timer: ReturnType<typeof setTimeout> | null = null
-
-    if (isInView) {
-      timer = setTimeout(() => {
-        motionValue.set(direction === "down" ? startValue : value)
-      }, delay * 1000)
-    }
-
-    return () => {
-      if (timer !== null) {
-        clearTimeout(timer)
-      }
-    }
-  }, [motionValue, isInView, delay, value, direction, startValue])
+    if (!isInView || reducido) return
+    // Vuelve al inicio sin animar y luego cuenta hasta el número final.
+    motionValue.jump(inicio)
+    springValue.jump(inicio)
+    const timer = setTimeout(() => {
+      motionValue.set(final)
+    }, delay * 1000)
+    return () => clearTimeout(timer)
+  }, [motionValue, springValue, isInView, reducido, delay, inicio, final])
 
   useEffect(
     () =>
       springValue.on("change", (latest) => {
         if (ref.current) {
-          ref.current.textContent = Intl.NumberFormat("en-US", {
-            minimumFractionDigits: decimalPlaces,
-            maximumFractionDigits: decimalPlaces,
-          }).format(Number(latest.toFixed(decimalPlaces)))
+          ref.current.textContent = formatear(latest, decimalPlaces)
         }
       }),
     [springValue, decimalPlaces]
@@ -68,7 +75,7 @@ export function NumberTicker({
       )}
       {...props}
     >
-      {startValue}
+      {formatear(final, decimalPlaces)}
     </span>
   )
 }

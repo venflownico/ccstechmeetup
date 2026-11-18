@@ -37,7 +37,7 @@ export function Formatos() {
             );
           })}
         </ul>
-        <p className={s.nota}>Las fotos de los cinco formatos nuevos son de referencia.</p>
+        <p className={s.nota}>Algunas fotos de los formatos nuevos son de referencia.</p>
         <Link className={s.secundario} href="/2027?o=patrocinar">
           Ver los seis formatos
         </Link>
