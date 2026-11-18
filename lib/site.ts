@@ -466,6 +466,22 @@ export const sponsorFaqs = [
   },
 ] as const;
 
+export type IconoFormato2027 =
+  | "Users"
+  | "Presentation"
+  | "UtensilsCrossed"
+  | "Mountain"
+  | "CodeXml"
+  | "CalendarRange";
+
+export type IconoRol2027 =
+  | "Rocket"
+  | "HandCoins"
+  | "BriefcaseBusiness"
+  | "Building2"
+  | "GraduationCap"
+  | "UserRound";
+
 export type Formato2027 = {
   id: string;
   palabra: string;
@@ -473,8 +489,16 @@ export type Formato2027 = {
   c: string;
   /** Color claro del formato (texto y acentos). */
   cl: string;
-  /** Posición horizontal de la foto en la tarjeta. */
-  pos: string;
+  /** Foto en public/2027/fotos (se puede reemplazar por otra con el mismo nombre). */
+  foto: string;
+  /** Encuadre de la foto (object-position), por dato para no depender del contenido. */
+  foco: string;
+  /** Si es true, el dorso avisa «Foto de referencia». */
+  referencia: boolean;
+  /** Descripción breve de la foto. */
+  alt: string;
+  /** Nombre del ícono de lucide-react (ver components/2027/iconos.ts). */
+  icono: IconoFormato2027;
   cuando: string;
   cuandoLargo: string;
   que: string;
@@ -491,7 +515,11 @@ export const formatos2027: readonly Formato2027[] = [
     palabra: "meetup",
     c: "#46c536",
     cl: "#7fe36f",
-    pos: "50%",
+    foto: "/2027/fotos/meetup.jpg",
+    foco: "35% 62%",
+    referencia: false,
+    alt: "Gente conversando de noche bajo luces en un meetup de Caracas Tech",
+    icono: "Users",
     cuando: "Cada mes",
     cuandoLargo: "Cada mes",
     que: "El after office mensual de founders, builders e inversionistas en Caracas. Sigue igual en 2027.",
@@ -504,7 +532,11 @@ export const formatos2027: readonly Formato2027[] = [
     palabra: "demo day",
     c: "#4a63f5",
     cl: "#8fa2ff",
-    pos: "20%",
+    foto: "/2027/fotos/demo-day.jpg",
+    foco: "42% 20%",
+    referencia: false,
+    alt: "Tres founders presentando en el escenario de un demo day",
+    icono: "Presentation",
     cuando: "Enero a marzo",
     cuandoLargo: "Enero a marzo de 2027",
     que: "Startups presentan ante inversionistas.",
@@ -517,7 +549,11 @@ export const formatos2027: readonly Formato2027[] = [
     palabra: "dinner",
     c: "#f2902b",
     cl: "#ffb066",
-    pos: "80%",
+    foto: "/2027/fotos/dinner.jpg",
+    foco: "50% 55%",
+    referencia: true,
+    alt: "Mesa larga con invitados brindando en una cena",
+    icono: "UtensilsCrossed",
     cuando: "2027",
     cuandoLargo: "2027, fecha por anunciar",
     que: "Mesas pequeñas con founders e inversionistas.",
@@ -530,7 +566,11 @@ export const formatos2027: readonly Formato2027[] = [
     palabra: "wellness",
     c: "#9a7cf2",
     cl: "#c4b1ff",
-    pos: "35%",
+    foto: "/2027/fotos/wellness.jpg",
+    foco: "55% 60%",
+    referencia: true,
+    alt: "Personas subiendo por un sendero de montaña",
+    icono: "Mountain",
     cuando: "2027",
     cuandoLargo: "2027, fecha por anunciar",
     que: "Una carrera, un trail o una caminata entre founders.",
@@ -543,7 +583,11 @@ export const formatos2027: readonly Formato2027[] = [
     palabra: "hackathon",
     c: "#22b3c4",
     cl: "#6fdde9",
-    pos: "65%",
+    foto: "/2027/fotos/hackathon.jpg",
+    foco: "45% 50%",
+    referencia: true,
+    alt: "Equipo programando en laptops alrededor de una mesa",
+    icono: "CodeXml",
     cuando: "2027",
     cuandoLargo: "2027, fecha por anunciar",
     que: "Equipos construyen un producto en un fin de semana.",
@@ -556,7 +600,11 @@ export const formatos2027: readonly Formato2027[] = [
     palabra: "week",
     c: "#e2508f",
     cl: "#ff8fbd",
-    pos: "5%",
+    foto: "/2027/fotos/week.jpg",
+    foco: "30% 62%",
+    referencia: false,
+    alt: "Multitud reunida de noche en un patio con luces",
+    icono: "CalendarRange",
     cuando: "2027",
     cuandoLargo: "2027, fecha por anunciar",
     que: "Una semana de eventos de toda la comunidad.",
@@ -566,13 +614,13 @@ export const formatos2027: readonly Formato2027[] = [
   },
 ];
 
-export type Rol2027 = { id: string; label: string };
+export type Rol2027 = { id: string; label: string; icono: IconoRol2027 };
 
 export const roles2027: readonly Rol2027[] = [
-  { id: "founder", label: "Founder" },
-  { id: "inversionista", label: "Inversionista" },
-  { id: "startup", label: "Trabajo en una startup" },
-  { id: "marca", label: "Empresa o marca" },
-  { id: "estudiante", label: "Estudiante" },
-  { id: "otro", label: "Otro" },
+  { id: "founder", label: "Founder", icono: "Rocket" },
+  { id: "inversionista", label: "Inversionista", icono: "HandCoins" },
+  { id: "startup", label: "Trabajo en una startup", icono: "BriefcaseBusiness" },
+  { id: "marca", label: "Empresa o marca", icono: "Building2" },
+  { id: "estudiante", label: "Estudiante", icono: "GraduationCap" },
+  { id: "otro", label: "Otro", icono: "UserRound" },
 ];
