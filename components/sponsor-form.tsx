@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { formatoMiles } from "@/components/patrocinar/formato";
 import { packages, sponsorshipCallUrl, type PackageId } from "@/lib/site";
 
 type Status = "idle" | "loading" | "success" | "error";
@@ -58,15 +59,9 @@ export function SponsorForm({
   return (
     <form
       onSubmit={onSubmit}
-      className="mx-auto max-w-2xl rounded-2xl border border-white/10 bg-white/[0.03] p-6 sm:p-8"
+      className="max-w-2xl rounded-[6px] border border-white/12 bg-[#0b141c] p-5 sm:p-8"
     >
-      <h3 className="font-heading text-2xl font-semibold text-white">
-        Cuéntanos quién eres
-      </h3>
-      <p className="mt-2 text-sm text-white/55">
-        Después te llevamos a agendar una llamada de 30 minutos.
-      </p>
-      <div className="mt-6 grid gap-4 sm:grid-cols-2">
+      <div className="grid gap-4 sm:grid-cols-2">
         <Field label="Nombre" name="name" required />
         <Field label="Empresa" name="company" required />
         <Field label="Email" name="email" type="email" required />
@@ -81,13 +76,13 @@ export function SponsorForm({
           name="packageId"
           value={selectedPackage}
           onChange={(event) => onPackageChange(event.target.value as PackageId)}
-          className="h-9 w-full rounded-lg border border-input bg-transparent px-2.5 text-sm text-white dark:bg-input/30"
+          className="h-10 w-full rounded-[6px] border border-input bg-transparent px-2.5 text-sm text-white dark:bg-input/30"
         >
           {packages
             .filter((pkg) => pkg.available)
             .map((pkg) => (
               <option key={pkg.id} value={pkg.id} className="bg-slate-950">
-                {pkg.name} — ${pkg.price}/mes · 1 año, domiciliado · USD a tasa BCV
+                {`${pkg.name}, desde $${formatoMiles(pkg.price)} al mes`}
               </option>
             ))}
         </select>
@@ -101,7 +96,7 @@ export function SponsorForm({
           name="message"
           rows={4}
           placeholder="Qué recurso acotado ofreces (créditos, pagos, capacidad…) y cómo lo canjean los founders..."
-          className="min-h-24 text-white"
+          className="min-h-24 rounded-[6px] text-white"
         />
       </div>
       <div className="hidden" aria-hidden="true">
@@ -113,7 +108,7 @@ export function SponsorForm({
       <Button
         type="submit"
         disabled={status === "loading"}
-        className="mt-6 h-10 w-full bg-teal-400 text-slate-950 hover:bg-teal-200 sm:w-auto"
+        className="mt-6 h-12 w-full rounded-full bg-[#46c536] px-8 text-base font-semibold text-[#050b12] hover:bg-[#7fe36f] sm:w-auto"
       >
         {status === "loading" ? "Enviando..." : "Quiero patrocinar"}
       </Button>
@@ -143,7 +138,7 @@ function Field({
       <Label htmlFor={name} className="text-white/80">
         {label}
       </Label>
-      <Input id={name} name={name} type={type} required={required} className="text-white" />
+      <Input id={name} name={name} type={type} required={required} className="h-10 rounded-[6px] text-white" />
     </div>
   );
 }

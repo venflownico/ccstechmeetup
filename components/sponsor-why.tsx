@@ -1,41 +1,60 @@
-import { Button } from "@/components/ui/button";
+"use client";
+
+import { animate, motion, useInView, useMotionValue, useTransform } from "motion/react";
+import { useEffect, useRef } from "react";
+
+import { useQuieto } from "@/components/2027/quieto";
+import s from "@/components/patrocinar/estilos.module.css";
+import { formatoMiles } from "@/components/patrocinar/formato";
+import { Revela, Titulo } from "@/components/patrocinar/movimiento";
 import { sponsorWhy } from "@/lib/site";
+
+/**
+ * El número final va siempre en el HTML del servidor. El conteo es solo visual:
+ * empieza en 0 al entrar en pantalla, se repite al volver y no corre con movimiento reducido.
+ */
+function Cifra({ valor }: { valor: number }) {
+  const quieto = useQuieto();
+  const ref = useRef<HTMLSpanElement>(null);
+  const visto = useInView(ref, { amount: 0.6 });
+  const mv = useMotionValue(valor);
+  const texto = useTransform(mv, (v) => formatoMiles(v));
+
+  useEffect(() => {
+    if (quieto) {
+      mv.set(valor);
+      return;
+    }
+    if (!visto) {
+      mv.set(0);
+      return;
+    }
+    const control = animate(mv, valor, { duration: 1.6, ease: [0.16, 1, 0.3, 1] });
+    return () => control.stop();
+  }, [visto, quieto, valor, mv]);
+
+  return (
+    <span ref={ref} className={s.numero}>
+      <span className={s.sr}>{formatoMiles(valor)}</span>
+      <motion.span aria-hidden="true">{texto}</motion.span>
+    </span>
+  );
+}
 
 export function SponsorWhy() {
   return (
-    <section className="mx-auto max-w-6xl px-4 py-24 sm:px-6">
-      <h2 className="font-heading mx-auto max-w-4xl text-center text-3xl font-semibold text-white sm:text-5xl">
-        {sponsorWhy.title}
-      </h2>
-      <div className="mt-12 grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-8">
-        {sponsorWhy.stats.map((stat) => (
-          <div key={stat.value} className="text-center">
-            <p className="font-heading">
-              <span className="sr-only">
-                {stat.value} {stat.label}
-              </span>
-              <span
-                aria-hidden="true"
-                className="block text-6xl font-semibold text-teal-300 tabular-nums sm:text-7xl"
-              >
-                {stat.value}
-              </span>
-              <span
-                aria-hidden="true"
-                className="mt-3 block text-lg font-semibold text-white"
-              >
-                {stat.label}
-              </span>
-            </p>
-            <p className="mt-3 text-white/65">{stat.body}</p>
-          </div>
-        ))}
-      </div>
-      <p className="mt-10 text-center text-xs text-white/40">{sponsorWhy.footnote}</p>
-      <div className="mt-10 flex justify-center">
-        <Button className="h-10 bg-teal-400 text-slate-950 hover:bg-teal-200" asChild>
-          <a href={sponsorWhy.ctaHref}>{sponsorWhy.cta}</a>
-        </Button>
+    <section className={s.seccion} aria-labelledby="t-cifras">
+      <div className={s.envoltura}>
+        <Titulo id="t-cifras" className={s.h2} texto={sponsorWhy.title} />
+        <ul className={s.cifras}>
+          {sponsorWhy.stats.map((stat, i) => (
+            <Revela as="li" key={stat.label} paso={i} className={s.cifra}>
+              <Cifra valor={stat.value} />
+              <span className={s.etiqueta}>{stat.label}</span>
+            </Revela>
+          ))}
+        </ul>
+        <p className={s.fuente}>{sponsorWhy.source}</p>
       </div>
     </section>
   );
