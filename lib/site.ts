@@ -280,6 +280,16 @@ export const paidSponsorsByPlan: Record<PackageId, { name: string; src: string }
 
 export const lockupPlanOrder: PackageId[] = ["recurso", "comunidad"];
 
+/** `web` es el sitio del proyecto de cada miembro; la tarjeta lo muestra solo si existe. */
+export type TeamMember = {
+  name: string;
+  role: string;
+  bio: string;
+  image: string;
+  linkedin: string;
+  web?: string;
+};
+
 export const team = [
   {
     name: "Nicolás Passaro",
@@ -309,7 +319,15 @@ export const team = [
     image: "/team/enderson-leal.jpg",
     linkedin: "https://www.linkedin.com/in/lealabreu",
   },
-] as const;
+  {
+    name: "Sebastián Lobo",
+    role: "Co-organizador",
+    bio: "Founder de Hango. Diseña los formatos y la propuesta de patrocinio 2027.",
+    image: "/team/sebastian-lobo.jpg",
+    linkedin: "https://www.linkedin.com/in/sebastianlobot/",
+    web: "https://hango.live/",
+  },
+] as const satisfies readonly TeamMember[];
 
 export const howToAttend = {
   eyebrow: "Cómo asistir",
