@@ -27,6 +27,11 @@ function lista_(valor) {
   return Array.isArray(valor) ? valor.join(", ") : "";
 }
 
+// busca llega como arreglo (0 a 6 ids); si viene un texto suelto de una versión vieja, se guarda tal cual.
+function busca_(valor) {
+  return Array.isArray(valor) ? valor.join(", ") : valor || "";
+}
+
 function doPost(e) {
   var datos;
   try {
@@ -51,7 +56,7 @@ function doPost(e) {
         lista_(datos.volteadas),
         lista_(datos.marcadas),
         datos.segundos,
-        datos.busca || "",
+        busca_(datos.busca),
       ]);
     } else if (datos.tipo === "aviso") {
       pestana_(libro, "avisos").appendRow([
@@ -61,7 +66,7 @@ function doPost(e) {
         datos.rol,
         lista_(datos.formatos),
         datos.todos ? "sí" : "no",
-        datos.busca || "",
+        busca_(datos.busca),
       ]);
     } else {
       return responder_({ ok: false, error: "Tipo desconocido" });

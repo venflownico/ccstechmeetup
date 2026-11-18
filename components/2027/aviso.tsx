@@ -5,6 +5,7 @@ import { BellRing, CalendarCheck, Camera, Check, LoaderCircle, Mail } from "luci
 import { useEffect, useRef, useState } from "react";
 import type { FormEvent, RefObject } from "react";
 
+import { LogotipoFormato } from "@/components/logotipo-formato";
 import { roles2027 } from "@/lib/site";
 
 import s from "./estilos.module.css";
@@ -34,7 +35,7 @@ export function Aviso({
   enviado: boolean;
   onEnviado: () => void;
   origen: () => string;
-  busca: () => string | null;
+  busca: () => readonly string[];
   secRef: RefObject<HTMLElement | null>;
 }) {
   const quieto = useQuieto();
@@ -65,7 +66,7 @@ export function Aviso({
     const datos = {
       tipo: "aviso",
       origen: origen(),
-      busca: busca(),
+      busca: Array.from(busca()),
       formatos: Array.from(marcadas),
       todos: marcadas.size === total,
       rol,
@@ -140,7 +141,7 @@ export function Aviso({
                       >
                         <Icono strokeWidth={1.75} aria-hidden="true" />
                       </motion.em>
-                      {f.palabra.charAt(0).toUpperCase() + f.palabra.slice(1)}
+                      <LogotipoFormato palabra={f.palabra} color={f.cl} viewBox={f.viewBox} className={s.chipLogo} />
                     </span>
                   </motion.label>
                 );

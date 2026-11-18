@@ -44,12 +44,24 @@ Porcentaje que marca 4 o más formatos (cuenta las comas: 3 comas son 4 formatos
 =SUMPRODUCT((LEN(avisos!E2:E)-LEN(SUBSTITUTE(avisos!E2:E; ","; ""))>=3)*1) / COUNTA(avisos!E2:E)
 ```
 
-Búsqueda por formato marcado. La columna `busca` guarda a quién quería conocer la persona en la escena de arriba (`inversionista`, `cofounder`, `cliente`, `talento` o `mentor`; vacía si no eligió). Cuántos que buscan inversionista marcaron `demo-day`:
+Búsqueda por formato marcado. La columna `busca` guarda a quién quería conocer la persona en la sección de arriba. Puede marcar de cero a seis y se guardan separados por coma (`inversionista`, `cofounder`, `cliente`, `talento`, `yapaso` o `mentor`; vacía si no marcó ninguna). Cuántos que buscan inversionista marcaron `demo-day`:
 
 ```
-=COUNTIFS(visitas!F:F; "inversionista"; visitas!D:D; "*demo-day*")
+=COUNTIFS(visitas!F:F; "*inversionista*"; visitas!D:D; "*demo-day*")
 ```
 
-En `avisos` la columna `busca` es la G y los formatos están en la E. Si tus pestañas ya existían antes de este cambio, escribe `busca` en la celda F1 de `visitas` y en la G1 de `avisos`.
+Cuántas personas buscan un mentor, sin importar qué más marcaron:
+
+```
+=COUNTIF(avisos!G:G; "*mentor*")
+```
+
+Cuántas marcaron dos o más personas (cuenta las comas: 1 coma son 2):
+
+```
+=SUMPRODUCT((LEN(avisos!G2:G)-LEN(SUBSTITUTE(avisos!G2:G; ","; ""))>=1)*1)
+```
+
+En `avisos` la columna `busca` es la G y los formatos están en la E. Si tus pestañas ya existían antes de este cambio, escribe `busca` en la celda F1 de `visitas` y en la G1 de `avisos`. Las filas viejas, con un solo id, siguen funcionando con las mismas fórmulas. Ojo: los ids viejos `mentor` (antes «alguien que ya pasó por esto») ahora son `yapaso`.
 
 Si tu hoja usa coma en vez de punto y coma como separador, cambia los `;` por `,`.

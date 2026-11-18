@@ -81,6 +81,8 @@
 .miniCaja .fotoMini{inset:-6% 0}
 .veloMini{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(5,11,18,.5) 0%,rgba(5,11,18,0) 35%,rgba(5,11,18,.88) 100%)}
 .miniCuando{position:absolute;top:12px;left:14px;z-index:2;font-size:14px;font-weight:500;color:var(--cl)}
+.miniIcono{position:absolute;top:10px;right:10px;z-index:2;width:36px;height:36px;border-radius:50%;border:1.5px solid var(--cl);color:var(--cl);background:rgba(5,11,18,.5);display:grid;place-items:center}
+.miniIcono svg{width:20px;height:20px}
 .miniLogo{position:absolute;left:14px;bottom:14px;z-index:2;width:min(78%,230px)}
 .miniLogo svg{display:block;width:100%;height:auto;overflow:visible}
 @media(hover:hover){.miniCaja:hover{border-color:var(--cl)}}

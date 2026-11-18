@@ -6,7 +6,8 @@ import type { ReactNode } from "react";
 
 import { useQuieto } from "./quieto";
 
-type IrA = (id: string) => void;
+/** `compensa`: píxeles que se dejan libres arriba (header, índice). Por defecto solo el header. */
+type IrA = (id: string, compensa?: number) => void;
 
 const Contexto = createContext<IrA>(() => {});
 
@@ -39,10 +40,10 @@ export function Lenis2027({ children }: { children: ReactNode }) {
   }, [quieto]);
 
   const irA = useCallback(
-    (id: string) => {
+    (id: string, compensa = 72) => {
       const el = document.getElementById(id);
       if (!el) return;
-      if (lenis.current) lenis.current.scrollTo(el, { offset: -72, duration: 1.3 });
+      if (lenis.current) lenis.current.scrollTo(el, { offset: -compensa, duration: 1.3 });
       else el.scrollIntoView({ behavior: quieto ? "auto" : "smooth", block: "start" });
       history.replaceState(null, "", `#${id}`);
     },

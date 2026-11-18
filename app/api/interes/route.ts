@@ -1,4 +1,4 @@
-import { esBusqueda } from "@/lib/busquedas-2027";
+import { limpiarBusquedas } from "@/lib/busquedas-2027";
 
 export const runtime = "nodejs";
 
@@ -40,8 +40,9 @@ function cleanFormats(value: unknown) {
   return FORMATS.filter((id) => value.includes(id));
 }
 
+// Accepts an array (current) or a single string (old clients), keeps only known ids.
 function cleanSearch(value: unknown) {
-  return esBusqueda(value) ? value : null;
+  return limpiarBusquedas(value);
 }
 
 async function forwardToWebhook(payload: Record<string, unknown>) {
@@ -77,7 +78,7 @@ async function notifySlack(options: {
   formats: string[];
   all: boolean;
   origin: string;
-  search: string | null;
+  search: string[];
   email: string;
 }) {
   const webhook = process.env.SLACK_WEBHOOK_URL;
@@ -96,7 +97,7 @@ async function notifySlack(options: {
           `*Rol:* ${options.role}`,
           `*Formatos:* ${options.all ? "todos" : options.formats.join(", ")}`,
           `*Origen:* ${options.origin}`,
-          `*Busca:* ${options.search ?? "no eligió"}`,
+          `*Busca:* ${options.search.length ? options.search.join(", ") : "no eligió"}`,
           `*Email:* ${options.email}`,
         ].join("\n"),
       }),

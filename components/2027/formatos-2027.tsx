@@ -3,13 +3,13 @@
 import { Handshake } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
-import { esBusqueda, formatosDe } from "@/lib/busquedas-2027";
+import { IDS_BUSQUEDA, formatosDe } from "@/lib/busquedas-2027";
 import type { BusquedaId } from "@/lib/busquedas-2027";
 
 import { Aviso } from "./aviso";
-import { Calentamiento } from "./calentamiento";
 import { Luz, Progreso } from "./ambiente";
 import { Barra } from "./barra";
+import { Capitulos } from "./capitulos";
 import { DatosRapidos } from "./datos-rapidos";
 import { Confeti, crearConfeti } from "./efectos";
 import type { Pieza } from "./efectos";
@@ -29,11 +29,11 @@ export function Formatos2027() {
   const [enviado, setEnviado] = useState(false);
   const [formVisible, setFormVisible] = useState(false);
   const [confeti, setConfeti] = useState<Rafaga | null>(null);
-  const [busca, setBusca] = useState<BusquedaId | null>(null);
+  const [busca, setBusca] = useState<readonly BusquedaId[]>([]);
 
   const volteadas = useRef(new Set<string>());
   const marcadasRef = useRef<ReadonlySet<string>>(marcadas);
-  const buscaRef = useRef<BusquedaId | null>(null);
+  const buscaRef = useRef<readonly BusquedaId[]>([]);
   const origenRef = useRef("directo");
   const inicio = useRef(0);
   const mandada = useRef(false);
@@ -101,7 +101,7 @@ export function Formatos2027() {
         volteadas: Array.from(volteadas.current),
         marcadas: Array.from(marcadasRef.current),
         segundos: Math.round((Date.now() - inicio.current) / 1000),
-        busca: esBusqueda(buscaRef.current) ? buscaRef.current : null,
+        busca: Array.from(buscaRef.current),
       };
       const b = new Blob([JSON.stringify(cuerpo)], { type: "text/plain" });
       navigator.sendBeacon?.("/api/interes", b);
@@ -132,6 +132,11 @@ export function Formatos2027() {
     });
   }
 
+  // Multiselección: cada capítulo marca o desmarca a la persona que busca; se guarda en el orden de los capítulos.
+  function alternarBusca(id: BusquedaId) {
+    setBusca((prev) => IDS_BUSQUEDA.filter((x) => (x === id ? !prev.includes(id) : prev.includes(x))));
+  }
+
   function marcarTodos(si: boolean) {
     if (si && marcadas.size < total) lanzarConfeti("88%");
     setMarcadas(si ? new Set(FORMATOS.map((f) => f.id)) : new Set());
@@ -146,7 +151,7 @@ export function Formatos2027() {
         <Progreso />
         <main className={s.principal}>
           <Entrada />
-          <Calentamiento busca={busca} onBusca={setBusca} />
+          <Capitulos busca={busca} onBusca={alternarBusca} />
           <DatosRapidos />
 
           <section className={`${s.formatos} ${s.envoltura}`} id="formatos" aria-label="Formatos de 2027">
