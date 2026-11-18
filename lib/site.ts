@@ -297,6 +297,7 @@ export const team = [
     bio: "Co-founder & CEO de Venflow. Conecta producto, pagos y comunidad en Caracas.",
     image: "/team/nicolas-passaro.jpg",
     linkedin: "https://www.linkedin.com/in/nicolaspassaro-product-manager",
+    web: "https://www.venflow.app/",
   },
   {
     name: "Amintore Confalonieri",
@@ -304,6 +305,7 @@ export const team = [
     bio: "Founder & CEO de Amalia. Impulsa healthtech y el after-office del ecosistema.",
     image: "/team/amintore-confalonieri.jpg",
     linkedin: "https://www.linkedin.com/in/amintoreconfalonieri/",
+    web: "https://amaliasalud.app/",
   },
   {
     name: "Anselmo Velazco",
@@ -311,6 +313,7 @@ export const team = [
     bio: "Co-founder de Rial y embajador del Ecosistema Startup Venezuela.",
     image: "/team/anselmo-velazco.jpg",
     linkedin: "https://www.linkedin.com/in/anselmo-velazco",
+    web: "https://www.somosrial.com/",
   },
   {
     name: "Enderson Leal",
@@ -318,6 +321,7 @@ export const team = [
     bio: "Founder de Ecosistema Startup Venezuela. Conecta founders, VCs y operadores.",
     image: "/team/enderson-leal.jpg",
     linkedin: "https://www.linkedin.com/in/lealabreu",
+    web: "https://www.startupvenezuela.tech/",
   },
   {
     name: "Sebastián Lobo",
