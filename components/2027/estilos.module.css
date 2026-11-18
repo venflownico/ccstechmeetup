@@ -68,7 +68,7 @@
 /* Letras tipeadas: --n letras visibles, --i posición de cada letra */
 .tt{display:inline}
 .pal{display:inline-block;white-space:nowrap}
-.l{display:inline-block;--v:clamp(0,calc(var(--n,999) - var(--i,0)),1);opacity:var(--v);transform:translateY(calc((1 - var(--v)) * .4em))}
+.l{display:inline-block;--v:clamp(0,calc((var(--n,999) - var(--i,0)) / 3),1);opacity:var(--v);transform:translateY(calc((1 - var(--v)) * .4em))}
 .enlaceT{color:var(--fg);border-bottom:1.5px solid var(--fg);padding-bottom:1px}
 .pagina[data-sin-recorrido] .l{opacity:1;transform:none}
 

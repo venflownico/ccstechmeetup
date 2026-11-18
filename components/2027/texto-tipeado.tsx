@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "motion/react";
+import { motion, useScroll, useSpring, useTransform } from "motion/react";
 import type { MotionValue } from "motion/react";
 import Link from "next/link";
 import { useMemo, useRef } from "react";
@@ -10,6 +10,18 @@ import s from "./estilos.module.css";
 import type { Estilo } from "./tipos";
 
 type Enlace = { texto: string; href: string };
+
+/**
+ * Cuántas letras dura la transición de cada una (debe coincidir con el CSS de `.l`).
+ * Con más de una, varias letras se funden a la vez y el tipeo se ve como una ola, no a saltos.
+ */
+export const RAMPA = 3;
+
+/**
+ * Resorte con el que el texto sigue al scroll. Se recalcula en cada cuadro de la pantalla,
+ * así que aunque el dedo salte mucho de golpe, las letras aparecen y se borran en cascada.
+ */
+export const RESORTE_TEXTO = { stiffness: 170, damping: 30, mass: 0.6, restDelta: 0.01 };
 type Car = { ch: string; i: number; enlace: boolean };
 
 /** Parte el texto en letras numeradas (los espacios no cuentan) agrupadas por palabra. */
@@ -114,9 +126,10 @@ export function TextoTipeado({
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start 92%", "start 55%"] });
   // Al llegar al final de la página todo queda escrito, aunque el bloque no alcance la altura de lectura.
   const { scrollYProgress: pagina } = useScroll();
-  const n = useTransform([scrollYProgress, pagina], ([a, b]: number[]) =>
-    Math.max(a * (total + 1), b > 0.97 ? total + 1 : 0),
+  const crudo = useTransform([scrollYProgress, pagina], ([a, b]: number[]) =>
+    Math.max(a * (total + RAMPA), b > 0.97 ? total + RAMPA : 0),
   );
+  const n = useSpring(crudo, RESORTE_TEXTO);
   const Elemento = as as ElementType;
 
   return (

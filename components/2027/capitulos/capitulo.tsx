@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion, useMotionValue, useMotionValueEvent, useScroll, useTransform } from "motion/react";
+import { AnimatePresence, motion, useMotionValue, useMotionValueEvent, useScroll, useSpring, useTransform } from "motion/react";
 import { Check, Plus } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { ComponentType } from "react";
@@ -12,7 +12,7 @@ import type { BusquedaId } from "@/lib/busquedas-2027";
 import s from "../estilos.module.css";
 import { ICONOS_FORMATO } from "../iconos";
 import { useQuieto } from "../quieto";
-import { Letras, contarLetras } from "../texto-tipeado";
+import { Letras, RAMPA, contarLetras } from "../texto-tipeado";
 import { FORMATOS } from "../tipos";
 import type { Estilo } from "../tipos";
 import { Cliente, Cofounder, Inversionista } from "./ilustraciones-a";
@@ -66,25 +66,27 @@ export function Capitulo({
     setVer((prev) => (prev === sigue ? prev : sigue));
   });
 
-  const d = useTransform(p, [0.04, 0.34], [0, 1]);
-  const a = useTransform(p, [0.38, 0.62], [0, 1]);
-  const cabO = useTransform(p, [0, 0.07], [0, 1]);
-  const cabY = useTransform(p, [0, 0.07], [14, 0]);
+  // Avance suavizado: sigue al scroll en cada cuadro de la pantalla, sin saltos aunque el dedo vaya rápido.
+  const ps = useSpring(p, { stiffness: 170, damping: 30, mass: 0.6, restDelta: 0.0005 });
+  const d = useTransform(ps, [0.04, 0.34], [0, 1]);
+  const a = useTransform(ps, [0.38, 0.62], [0, 1]);
+  const cabO = useTransform(ps, [0, 0.07], [0, 1]);
+  const cabY = useTransform(ps, [0, 0.07], [14, 0]);
   const total = contarLetras(b.frase);
-  const n = useTransform(p, [0.4, 0.52], [0, total + 1]);
-  const fraseO = useTransform(p, [0.62, 0.7], [1, 0]);
-  const dondeO = useTransform(p, [0.68, 0.78], [0, 1]);
+  const n = useTransform(ps, [0.4, 0.52], [0, total + RAMPA]);
+  const fraseO = useTransform(ps, [0.62, 0.7], [1, 0]);
+  const dondeO = useTransform(ps, [0.68, 0.78], [0, 1]);
 
   // Parallax: cada plano de la ilustración y el bloque de texto se mueven a distinta velocidad con el avance.
   // Con menos movimiento todo queda en su sitio (rango 0).
   const z = (v: number) => (quieto ? 0 : v);
   const planos: Planos = {
-    fondo: { x: useTransform(p, [0, 1], [z(-3), z(3)]), y: useTransform(p, [0, 1], [z(7), z(-7)]) },
-    medio: { x: useTransform(p, [0, 1], [z(4), z(-4)]), y: useTransform(p, [0, 1], [z(14), z(-14)]) },
-    frente: { x: useTransform(p, [0, 1], [z(-9), z(9)]), y: useTransform(p, [0, 1], [z(24), z(-24)]) },
+    fondo: { x: useTransform(ps, [0, 1], [z(-3), z(3)]), y: useTransform(ps, [0, 1], [z(7), z(-7)]) },
+    medio: { x: useTransform(ps, [0, 1], [z(4), z(-4)]), y: useTransform(ps, [0, 1], [z(14), z(-14)]) },
+    frente: { x: useTransform(ps, [0, 1], [z(-9), z(9)]), y: useTransform(ps, [0, 1], [z(24), z(-24)]) },
   };
-  const textoY = useTransform(p, [0, 1], [z(-12), z(12)]);
-  const dondeP = useTransform(p, [0.68, 0.78, 1], [16, 0, z(-10)]);
+  const textoY = useTransform(ps, [0, 1], [z(-12), z(12)]);
+  const dondeP = useTransform(ps, [0.68, 0.78, 1], [16, 0, z(-10)]);
 
   const estilo: Estilo = { "--c": b.c, "--cl": b.cl };
   const Icono = b.Icono;

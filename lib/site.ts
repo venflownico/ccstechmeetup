@@ -311,7 +311,7 @@ export const team = [
     name: "Amintore Confalonieri",
     role: "Co-organizador",
     bio: "Founder & CEO de Amalia. Impulsa healthtech.",
-    image: "/team/amintore-confalonieri-recorte.jpg",
+    image: "/team/amintore-confalonieri-cuadro.jpg",
     linkedin: "https://www.linkedin.com/in/amintoreconfalonieri/",
     web: "https://amaliasalud.app/",
     proyecto: "Amalia",

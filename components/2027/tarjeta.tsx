@@ -22,7 +22,7 @@ import s from "./estilos.module.css";
 import { Foto } from "./foto";
 import { ICONOS_FORMATO } from "./iconos";
 import { useQuieto } from "./quieto";
-import { Letras, contarLetras } from "./texto-tipeado";
+import { Letras, RAMPA, contarLetras } from "./texto-tipeado";
 import type { Estilo } from "./tipos";
 
 const SIZES_TARJETA = "(min-width: 1040px) 360px, (min-width: 720px) 50vw, 100vw";
@@ -89,7 +89,7 @@ export function Tarjeta({
       return;
     }
     letras.set(0);
-    const c = animate(letras, total, { duration: total * 0.018, delay: 0.4, ease: "linear" });
+    const c = animate(letras, total + RAMPA, { duration: total * 0.018, delay: 0.4, ease: "linear" });
     return () => c.stop();
   }, [abierta, quieto, total, letras]);
 
