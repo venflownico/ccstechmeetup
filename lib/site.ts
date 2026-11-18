@@ -68,9 +68,9 @@ export const presentingSponsors = [
  * America/Caracas) and, if you want it shown, a label. Do NOT compare the date in
  * a Server Component or at module level: /patrocinar is prerendered, so `new Date()`
  * would be frozen at build time (that is exactly what hid the form in production).
- * The date is evaluated in the browser by `useSponsorshipOpen()`
- * (components/patrocinar/ventana.ts), which renders "open" on the server and during
- * hydration, then re-checks the clock on the client, so there is no hydration mismatch.
+ * There is no client hook for the date yet: if a deadline is ever set, add one that
+ * renders "open" on the server and during hydration and re-checks the clock in an
+ * effect (so there is no hydration mismatch), and use `sponsorshipDeadlineEnd()`.
  * Flip `cohortFilled` to true to close intake for everyone, no date needed.
  */
 export const sponsorshipWindow: {
@@ -123,26 +123,14 @@ export const supporters = [
 ] as const;
 
 export const sponsorWhy = {
-  title: "Por qué las marcas patrocinan el Caracas Tech Meetup",
-  footnote: "Datos de 9 ediciones · Agosto 2025 – Agosto 2026 · 1.320 asistentes únicos",
-  cta: "Quiero patrocinar",
-  ctaHref: "#paquetes",
+  title: "Quién viene al meetup",
+  source:
+    "Registros de Luma, de agosto de 2025 a octubre de 2026. Los asistentes le ponen 4,8 de 5.",
   stats: [
-    {
-      value: "528",
-      label: "Founders y CEOs",
-      body: "El 40% de la comunidad dirige su propia empresa, junto a 74 inversionistas entre fondos, hubs y ángeles.",
-    },
-    {
-      value: "723",
-      label: "Personas en lista de espera",
-      body: "La demanda superó el aforo en cada edición del año. Tu patrocinio es la palanca directa para ampliar el cupo.",
-    },
-    {
-      value: "402",
-      label: "Asistentes recurrentes",
-      body: "3 de cada 10 vuelven a dos o más ediciones, y cada evento suma ~150 caras nuevas. Presencia repetida, no una sola noche.",
-    },
+    { value: 1770, label: "personas distintas en 13 ediciones" },
+    { value: 743, label: "founders y CEOs han venido" },
+    { value: 135, label: "de fondos, ángeles y aceleradoras" },
+    { value: 669, label: "pidieron entrar y no hubo cupo" },
   ],
 } as const;
 

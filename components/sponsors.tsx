@@ -116,7 +116,7 @@ function OpenSponsorSlot({
 export function Sponsors({ compact = false }: { compact?: boolean }) {
   const first = supporters.slice(0, Math.ceil(supporters.length / 2));
   const second = supporters.slice(Math.ceil(supporters.length / 2));
-  const slotHref = compact ? "#paquetes" : "/patrocinar#paquetes";
+  const slotHref = "/patrocinar#paquetes";
   const lockupPlans = lockupPlanOrder.map((id) => {
     const pkg = packages.find((item) => item.id === id);
     if (!pkg || !pkg.available) {
@@ -125,31 +125,62 @@ export function Sponsors({ compact = false }: { compact?: boolean }) {
     return pkg;
   });
 
-  return (
-    <section id={compact ? undefined : "sponsors"} className={compact ? "pb-16" : "py-24"}>
-      {!compact ? (
-        <div className="mx-auto max-w-6xl px-4 text-center sm:px-6">
-          <p className="text-sm font-semibold tracking-[0.2em] text-teal-300 uppercase">
-            Comunidad
-          </p>
-          <h2 className="font-heading mt-3 text-3xl font-semibold text-white sm:text-5xl">
-            Quienes lo hacen posible
-          </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-white/60">
-            Banco Activo e Impulsa VC presentan. Empresas, universidades y aliados del
-            ecosistema acompañan cada edición.
-          </p>
-          {sponsorshipIntakeOpen ? (
-            <Link
-              href="/patrocinar"
-              className="mt-5 inline-block text-sm font-medium text-teal-300 hover:text-teal-200"
-            >
-              Conoce cómo patrocinar
-            </Link>
-          ) : null}
+  if (compact) {
+    return (
+      <section>
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-10 px-4 sm:gap-14 sm:px-6">
+          {presentingSponsors.map((sponsor) => (
+            <Image
+              key={sponsor.name}
+              src={sponsor.src}
+              alt={sponsor.name}
+              width={240}
+              height={80}
+              className="h-14 w-auto object-contain sm:h-16"
+            />
+          ))}
         </div>
-      ) : null}
-      <div className={`mx-auto max-w-6xl px-4 text-center sm:px-6 ${compact ? "" : "mt-12"}`}>
+        <div className="relative mt-8">
+          <Marquee pauseOnHover className="[--duration:40s]">
+            {first.map((sponsor) => (
+              <Logo key={sponsor.name} {...sponsor} />
+            ))}
+          </Marquee>
+          <Marquee reverse pauseOnHover className="[--duration:40s]">
+            {second.map((sponsor) => (
+              <Logo key={sponsor.name} {...sponsor} />
+            ))}
+          </Marquee>
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-1/6 bg-gradient-to-r from-[#050b12]" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-1/6 bg-gradient-to-l from-[#050b12]" />
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section id="sponsors" className="py-24">
+      <div className="mx-auto max-w-6xl px-4 text-center sm:px-6">
+        <p className="text-sm font-semibold tracking-[0.2em] text-teal-300 uppercase">
+          Comunidad
+        </p>
+        <h2 className="font-heading mt-3 text-3xl font-semibold text-white sm:text-5xl">
+          Quienes lo hacen posible
+        </h2>
+        <p className="mx-auto mt-4 max-w-2xl text-white/60">
+          Banco Activo e Impulsa VC presentan. Empresas, universidades y aliados del
+          ecosistema acompañan cada edición.
+        </p>
+        {sponsorshipIntakeOpen ? (
+          <Link
+            href="/patrocinar"
+            className="mt-5 inline-block text-sm font-medium text-teal-300 hover:text-teal-200"
+          >
+            Conoce cómo patrocinar
+          </Link>
+        ) : null}
+      </div>
+      <div className="mx-auto mt-12 max-w-6xl px-4 text-center sm:px-6">
         <p className="text-xs font-semibold tracking-[0.22em] text-white/40 uppercase">
           Presentan
         </p>
