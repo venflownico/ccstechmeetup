@@ -64,8 +64,7 @@ export function SponsorForm({
         Cuéntanos quién eres
       </h3>
       <p className="mt-2 text-sm text-white/55">
-        Nicolas recibe tu solicitud. Después te llevamos a agendar una llamada de 30
-        minutos.
+        Después te llevamos a agendar una llamada de 30 minutos.
       </p>
       <div className="mt-6 grid gap-4 sm:grid-cols-2">
         <Field label="Nombre" name="name" required />

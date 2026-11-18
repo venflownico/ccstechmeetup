@@ -9,7 +9,6 @@ import {
   paidSponsorSlots,
   presentingSponsors,
   sponsorshipIntakeOpen,
-  sponsorshipWindow,
   supporters,
   type PackageId,
 } from "@/lib/site";
@@ -137,16 +136,15 @@ export function Sponsors({ compact = false }: { compact?: boolean }) {
             Quienes lo hacen posible
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-white/60">
-            Banco Activo e Impulsa VC presentan. Cuatro cupos de patrocinio por año. Ventana
-            abierta hasta el {sponsorshipWindow.deadlineLabelLong}. Empresas, universidades y
-            aliados del ecosistema acompañan cada edición.
+            Banco Activo e Impulsa VC presentan. Empresas, universidades y aliados del
+            ecosistema acompañan cada edición.
           </p>
           {sponsorshipIntakeOpen ? (
             <Link
               href="/patrocinar"
               className="mt-5 inline-block text-sm font-medium text-teal-300 hover:text-teal-200"
             >
-              Conoce cómo patrocinar →
+              Conoce cómo patrocinar
             </Link>
           ) : null}
         </div>

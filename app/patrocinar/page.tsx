@@ -6,11 +6,11 @@ import { SiteHeader } from "@/components/site-header";
 import { SponsorFit } from "@/components/sponsor-fit";
 import { SponsorWhy } from "@/components/sponsor-why";
 import { Sponsors } from "@/components/sponsors";
-import { site, sponsorshipWindow } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Patrocinar",
-  description: `Patrocinio anual para ${site.name}. Compromisos de 12 meses: dos cupos Recurso y dos Comunidad. Ventana abierta hasta el ${sponsorshipWindow.deadlineLabelLong}.`,
+  description:
+    "Patrocina el Caracas Tech Meetup en 2027: dos planes por un año frente a founders, inversionistas y quienes construyen startups en Caracas.",
 };
 
 export default function PatrocinarPage() {
@@ -26,7 +26,7 @@ export default function PatrocinarPage() {
             Patrocina el meetup
           </h1>
           <p className="mt-5 text-lg text-white/65">
-            Compromisos de un año. Cierra tu cupo anual antes del 31 de Octubre, 2026.
+            Compromisos de un año con cuota domiciliada.
           </p>
         </section>
         <Sponsors compact />

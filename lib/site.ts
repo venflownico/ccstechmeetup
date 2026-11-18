@@ -61,35 +61,47 @@ export const presentingSponsors = [
 
 /**
  * Annual sponsorship intake window.
- * Closes on the deadline (inclusive, America/Caracas), or earlier if
- * `cohortFilled` is flipped when all paid slots are taken.
+ *
+ * The form is ALWAYS available by default: `deadlineISO` is `null`.
+ *
+ * To close intake on a date again, set `deadlineISO` ("YYYY-MM-DD", inclusive,
+ * America/Caracas) and, if you want it shown, a label. Do NOT compare the date in
+ * a Server Component or at module level: /patrocinar is prerendered, so `new Date()`
+ * would be frozen at build time (that is exactly what hid the form in production).
+ * The date is evaluated in the browser by `useSponsorshipOpen()`
+ * (components/patrocinar/ventana.ts), which renders "open" on the server and during
+ * hydration, then re-checks the clock on the client, so there is no hydration mismatch.
+ * Flip `cohortFilled` to true to close intake for everyone, no date needed.
  */
-export const sponsorshipWindow = {
-  deadlineISO: "2026-10-31",
-  deadlineLabel: "31 de octubre",
-  deadlineLabelLong: "31 de octubre de 2026",
-  /** Set true when the year cohort is full before the deadline. */
+export const sponsorshipWindow: {
+  deadlineISO: string | null;
+  /** Set true to close intake before (or without) a deadline. */
+  cohortFilled: boolean;
+} = {
+  deadlineISO: null,
   cohortFilled: false,
-} as const;
+};
 
-function isBeforeSponsorshipDeadline(now = new Date()) {
-  const deadlineEnd = new Date(
-    `${sponsorshipWindow.deadlineISO}T23:59:59.999-04:00`,
-  );
-  return now.getTime() <= deadlineEnd.getTime();
+/** End of the deadline day in Caracas (UTC-4), or null when there is no deadline. */
+export function sponsorshipDeadlineEnd(): number | null {
+  const iso = sponsorshipWindow.deadlineISO;
+  if (!iso) return null;
+  return new Date(`${iso}T23:59:59.999-04:00`).getTime();
 }
 
-/** Hide recruitment CTAs when the cohort is full or the deadline has passed. */
-export const sponsorshipIntakeOpen =
-  !sponsorshipWindow.cohortFilled && isBeforeSponsorshipDeadline();
+/**
+ * Static part of the check, safe in Server Components: no clock involved.
+ * Links to /patrocinar stay visible unless the cohort was closed by hand.
+ */
+export const sponsorshipIntakeOpen = !sponsorshipWindow.cohortFilled;
 
 /** Paid sponsor lockup under Presentan. Fill `paidSponsorsByPlan` as deals close. */
 export const paidSponsorSlots = {
   label: "Patrocinan",
-  lead: `Cuatro cupos anuales. Ventana abierta hasta el ${sponsorshipWindow.deadlineLabelLong}.`,
+  lead: "Dos planes por un año.",
   emptyHint: "Tu marca aquí",
-  reserveHint: "Reserva este cupo →",
-  closedLead: "Cupos del año tomados. Estas son las marcas del ciclo.",
+  reserveHint: "Reserva este cupo",
+  closedLead: "Estas son las marcas que apoyan el meetup este año.",
 } as const;
 
 export const supporters = [
@@ -182,15 +194,15 @@ export const resourceExamples = [
 export const packagePitch = {
   eyebrow: "Patrocinio anual",
   title: "Apoyo para founders con impacto real.",
-  lead: `Abrimos una ventana al año para compromisos de 12 meses. Cierra el ${sponsorshipWindow.deadlineLabelLong}: cuando llenamos los cupos o llega la fecha, esas son las marcas del meetup.`,
+  lead: "Compromisos de 12 meses, con cuota domiciliada cada mes.",
   includedLabel: "Qué incluye",
   fitLabel: "A quién buscamos",
   fitLead:
     "No solo tech. Fondos, angels, HR, aceleradoras, coworking — si ayudas a que una startup nazca o escale, este es tu lugar.",
   priceNote: "Todos los precios en USD a tasa BCV.",
-  commitmentNote: `Acuerdo a 1 año, cuota domiciliada cada mes. Cupos limitados · cierra ${sponsorshipWindow.deadlineLabel}.`,
+  commitmentNote: "Acuerdo a 1 año, cuota domiciliada cada mes.",
   closedNote:
-    "Los cupos de este ciclo ya no están disponibles. Volvemos a abrir el próximo año.",
+    "Por ahora no recibimos nuevos patrocinios. Escríbenos desde Contacto y te avisamos cuando volvamos a abrir.",
 } as const;
 
 export const packagePromise = [
@@ -387,12 +399,7 @@ export const sponsorFaqs = [
   {
     question: "¿Cómo funciona el patrocinio anual?",
     answer:
-      `Abrimos una ventana al año para compromisos de 12 meses. Hay cuatro cupos pagos: dos Recurso y dos Comunidad (Presentan ya está tomado). La ventana cierra el ${sponsorshipWindow.deadlineLabelLong}, o antes si se llenan los cupos. Esas son las marcas del ciclo, y los materiales — flyers, sitio, evento — quedan fijos sin sumar logos a mitad de año.`,
-  },
-  {
-    question: "¿Hasta cuándo puedo patrocinar?",
-    answer:
-      `Hasta el ${sponsorshipWindow.deadlineLabelLong}, o hasta que se llenen los cuatro cupos pagos — lo que ocurra primero. Después de esa fecha no abrimos más marcas hasta el próximo ciclo.`,
+      "Son compromisos de 12 meses con dos planes, Comunidad y Recurso (Presentan ya está tomado). Tu marca está en cada edición y los materiales — flyers, sitio, evento — quedan fijos sin sumar logos a mitad de año.",
   },
   {
     question: "¿Emiten factura fiscal?",
@@ -407,7 +414,7 @@ export const sponsorFaqs = [
   {
     question: "¿A qué se destina el patrocinio?",
     answer:
-      "A crecer el evento: más capacidad en el venue (baños portátiles, sonido, iluminación) y, aparte del after office mensual, formatos nuevos — speed dating entre founders y CTOs, matchmaking de talento y ferias de empleo startup.",
+      "Primero, a sostener el meetup cada mes: la noche del meetup (lugar y producción, valet parking, fotógrafo y baños), una persona a tiempo completo (sueldo, coworking y estacionamiento) y la estructura (registro de la empresa y la marca, dominio, correo y redes).",
   },
   {
     question: "¿Qué tipo de patrocinador buscan?",
@@ -447,7 +454,7 @@ export const sponsorFaqs = [
   {
     question: "¿Cómo patrocino?",
     answer:
-      `Mientras la ventana esté abierta (hasta el ${sponsorshipWindow.deadlineLabelLong}): elige un paquete, completa el formulario y agenda una llamada de 30 minutos con Nicolas para cerrar el acuerdo a 1 año. Conversamos el recurso: qué es, cuál es el tope, y dónde aplican los founders.`,
+      "Elige un plan, completa el formulario y agenda una llamada de 30 minutos para cerrar el acuerdo a 1 año. Conversamos el recurso: qué es, cuál es el tope, y dónde aplican los founders.",
   },
   {
     question: "¿Puedo patrocinar un solo mes o una sola edición?",
