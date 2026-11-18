@@ -315,7 +315,7 @@ export const team = [
     linkedin: "https://www.linkedin.com/in/amintoreconfalonieri/",
     web: "https://amaliasalud.app/",
     proyecto: "Amalia",
-    logo: "/team/proyectos/amalia.png",
+    logo: "/team/proyectos/amalia-hd.png",
   },
   {
     name: "Anselmo Velazco",
