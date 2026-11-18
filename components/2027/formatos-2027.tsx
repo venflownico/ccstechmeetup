@@ -3,7 +3,11 @@
 import { Handshake } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
+import { esBusqueda, formatosDe } from "@/lib/busquedas-2027";
+import type { BusquedaId } from "@/lib/busquedas-2027";
+
 import { Aviso } from "./aviso";
+import { Calentamiento } from "./calentamiento";
 import { Luz, Progreso } from "./ambiente";
 import { Barra } from "./barra";
 import { DatosRapidos } from "./datos-rapidos";
@@ -25,9 +29,11 @@ export function Formatos2027() {
   const [enviado, setEnviado] = useState(false);
   const [formVisible, setFormVisible] = useState(false);
   const [confeti, setConfeti] = useState<Rafaga | null>(null);
+  const [busca, setBusca] = useState<BusquedaId | null>(null);
 
   const volteadas = useRef(new Set<string>());
   const marcadasRef = useRef<ReadonlySet<string>>(marcadas);
+  const buscaRef = useRef<BusquedaId | null>(null);
   const origenRef = useRef("directo");
   const inicio = useRef(0);
   const mandada = useRef(false);
@@ -52,6 +58,12 @@ export function Formatos2027() {
   useEffect(() => {
     marcadasRef.current = marcadas;
   }, [marcadas]);
+
+  useEffect(() => {
+    buscaRef.current = busca;
+  }, [busca]);
+
+  const sugeridas = formatosDe(busca);
 
   // La barra se esconde cuando el formulario está a la vista.
   useEffect(() => {
@@ -89,6 +101,7 @@ export function Formatos2027() {
         volteadas: Array.from(volteadas.current),
         marcadas: Array.from(marcadasRef.current),
         segundos: Math.round((Date.now() - inicio.current) / 1000),
+        busca: esBusqueda(buscaRef.current) ? buscaRef.current : null,
       };
       const b = new Blob([JSON.stringify(cuerpo)], { type: "text/plain" });
       navigator.sendBeacon?.("/api/interes", b);
@@ -133,6 +146,7 @@ export function Formatos2027() {
         <Progreso />
         <main className={s.principal}>
           <Entrada />
+          <Calentamiento busca={busca} onBusca={setBusca} />
           <DatosRapidos />
 
           <section className={`${s.formatos} ${s.envoltura}`} id="formatos" aria-label="Formatos de 2027">
@@ -142,6 +156,7 @@ export function Formatos2027() {
                   key={f.id}
                   f={f}
                   marcada={marcadas.has(f.id)}
+                  sugerida={sugeridas.includes(f.id)}
                   onMarcar={marcar}
                   onVoltear={(id) => volteadas.current.add(id)}
                 />
@@ -160,6 +175,7 @@ export function Formatos2027() {
               setEnviado(true);
             }}
             origen={() => origenRef.current}
+            busca={() => buscaRef.current}
           />
 
           <div className={`${s.marcas} ${s.envoltura}`}>

@@ -3,8 +3,8 @@
 // Antes de implementar, crea la propiedad de script SECRETO (Configuración del proyecto).
 
 var ENCABEZADOS = {
-  visitas: ["fecha", "origen", "volteadas", "marcadas", "segundos"],
-  avisos: ["fecha", "origen", "email", "rol", "formatos", "todos"],
+  visitas: ["fecha", "origen", "volteadas", "marcadas", "segundos", "busca"],
+  avisos: ["fecha", "origen", "email", "rol", "formatos", "todos", "busca"],
 };
 
 function responder_(datos) {
@@ -51,6 +51,7 @@ function doPost(e) {
         lista_(datos.volteadas),
         lista_(datos.marcadas),
         datos.segundos,
+        datos.busca || "",
       ]);
     } else if (datos.tipo === "aviso") {
       pestana_(libro, "avisos").appendRow([
@@ -60,6 +61,7 @@ function doPost(e) {
         datos.rol,
         lista_(datos.formatos),
         datos.todos ? "sí" : "no",
+        datos.busca || "",
       ]);
     } else {
       return responder_({ ok: false, error: "Tipo desconocido" });

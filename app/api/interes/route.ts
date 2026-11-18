@@ -1,3 +1,5 @@
+import { esBusqueda } from "@/lib/busquedas-2027";
+
 export const runtime = "nodejs";
 
 const WINDOW_MS = 10 * 60 * 1000;
@@ -38,6 +40,10 @@ function cleanFormats(value: unknown) {
   return FORMATS.filter((id) => value.includes(id));
 }
 
+function cleanSearch(value: unknown) {
+  return esBusqueda(value) ? value : null;
+}
+
 async function forwardToWebhook(payload: Record<string, unknown>) {
   const url = process.env.INTEREST_WEBHOOK_URL;
   if (!url) {
@@ -71,6 +77,7 @@ async function notifySlack(options: {
   formats: string[];
   all: boolean;
   origin: string;
+  search: string | null;
   email: string;
 }) {
   const webhook = process.env.SLACK_WEBHOOK_URL;
@@ -89,6 +96,7 @@ async function notifySlack(options: {
           `*Rol:* ${options.role}`,
           `*Formatos:* ${options.all ? "todos" : options.formats.join(", ")}`,
           `*Origen:* ${options.origin}`,
+          `*Busca:* ${options.search ?? "no eligió"}`,
           `*Email:* ${options.email}`,
         ].join("\n"),
       }),
@@ -125,6 +133,7 @@ export async function POST(request: Request) {
   }
 
   const origin = cleanOrigin(body.origen);
+  const search = cleanSearch(body.busca);
 
   if (body.tipo === "visita") {
     if (!rateLimit(visitHits, ip, MAX_VISITS)) {
@@ -137,6 +146,7 @@ export async function POST(request: Request) {
       volteadas: cleanFormats(body.volteadas),
       marcadas: cleanFormats(body.marcadas),
       segundos: seconds,
+      busca: search,
     });
     return new Response(null, { status: 204 });
   }
@@ -166,8 +176,8 @@ export async function POST(request: Request) {
     }
 
     const [saved, slacked] = await Promise.all([
-      forwardToWebhook({ tipo: "aviso", origen: origin, email, rol: role, formatos: formats, todos: all }),
-      notifySlack({ role, formats, all, origin, email }),
+      forwardToWebhook({ tipo: "aviso", origen: origin, email, rol: role, formatos: formats, todos: all, busca: search }),
+      notifySlack({ role, formats, all, origin, search, email }),
     ]);
 
     if (!saved && !slacked) {

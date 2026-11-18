@@ -9,7 +9,7 @@ import {
   useSpring,
   useTransform,
 } from "motion/react";
-import { CalendarDays, Check, Plus, Repeat2, UsersRound, Undo2 } from "lucide-react";
+import { CalendarDays, Check, MapPin, Plus, Repeat2, UsersRound, Undo2 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import type { PointerEvent } from "react";
 
@@ -30,11 +30,13 @@ const SIZES_TARJETA = "(min-width: 1040px) 360px, (min-width: 720px) 50vw, 100vw
 export function Tarjeta({
   f,
   marcada,
+  sugerida,
   onMarcar,
   onVoltear,
 }: {
   f: Formato2027;
   marcada: boolean;
+  sugerida: boolean;
   onMarcar: (id: string, si: boolean) => void;
   onVoltear: (id: string) => void;
 }) {
@@ -169,6 +171,22 @@ export function Tarjeta({
               y={fotoY}
             />
             <div className={s.velo} aria-hidden="true" />
+            <AnimatePresence>
+              {sugerida ? (
+                <motion.span
+                  className={s.aqui}
+                  aria-hidden="true"
+                  initial={{ scale: 0.4, opacity: 0, y: -8 }}
+                  animate={{ scale: 1, opacity: 1, y: 0 }}
+                  exit={{ scale: 0.8, opacity: 0, transition: { duration: 0.15 } }}
+                  transition={{ type: "spring", stiffness: 380, damping: 15 }}
+                >
+                  <MapPin strokeWidth={1.9} />
+                  Aquí puede estar
+                </motion.span>
+              ) : null}
+            </AnimatePresence>
+            {sugerida ? <span className={s.sr}>Aquí puede estar lo que buscas</span> : null}
             <AnimatePresence>
               {marcada ? (
                 <motion.span

@@ -25,6 +25,7 @@ export function Aviso({
   enviado,
   onEnviado,
   origen,
+  busca,
   secRef,
 }: {
   marcadas: ReadonlySet<string>;
@@ -33,6 +34,7 @@ export function Aviso({
   enviado: boolean;
   onEnviado: () => void;
   origen: () => string;
+  busca: () => string | null;
   secRef: RefObject<HTMLElement | null>;
 }) {
   const quieto = useQuieto();
@@ -63,6 +65,7 @@ export function Aviso({
     const datos = {
       tipo: "aviso",
       origen: origen(),
+      busca: busca(),
       formatos: Array.from(marcadas),
       todos: marcadas.size === total,
       rol,
