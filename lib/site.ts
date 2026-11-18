@@ -29,6 +29,7 @@ export const navItems = [
   { href: "/#como-asistir", label: "Cómo asistir" },
   { href: "/#por-que", label: "Por qué" },
   { href: "/#equipo", label: "Equipo" },
+  { href: "/2027", label: "2027" },
 ] as const;
 
 export const stats = [

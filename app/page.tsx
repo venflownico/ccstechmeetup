@@ -1,6 +1,7 @@
 import { About } from "@/components/about";
 import { Events } from "@/components/events";
 import { Faq } from "@/components/faq";
+import { Franja2027 } from "@/components/franja-2027";
 import { Hero } from "@/components/hero";
 import { HeroStage } from "@/components/hero-stage";
 import { HowToAttend } from "@/components/how-to-attend";
@@ -25,6 +26,7 @@ export default async function Home() {
           <Stats />
         </HeroStage>
         <Events upcoming={upcoming} past={past} hasMorePast={hasMorePast} />
+        <Franja2027 />
         <HowToAttend />
         <Why />
         <About />
