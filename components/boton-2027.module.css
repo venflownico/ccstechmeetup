@@ -131,9 +131,15 @@
 /* Despegue: lienzo a pantalla completa, por encima de todo. */
 .despegue {
   position: fixed;
-  inset: -12px;
+  inset: 0;
   z-index: 200;
+  overflow: hidden;
   pointer-events: none;
+}
+/* Capa que tiembla: sobresale 12 px, pero el contenedor recorta y no ensancha la página. */
+.capa {
+  position: absolute;
+  inset: -12px;
   will-change: transform;
 }
 .lienzo {

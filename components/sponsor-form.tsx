@@ -95,7 +95,11 @@ export function SponsorForm({
           id="message"
           name="message"
           rows={4}
-          placeholder="Qué recurso acotado ofreces (créditos, pagos, capacidad…) y cómo lo canjean los founders..."
+          placeholder={
+            selectedPackage === "comunidad"
+              ? "Cuéntanos qué oferta llevarías a los founders."
+              : "Qué recurso acotado ofreces (créditos, pagos, capacidad…) y cómo lo canjean los founders..."
+          }
           className="min-h-24 rounded-[6px] text-white"
         />
       </div>

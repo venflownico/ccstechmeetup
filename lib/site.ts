@@ -292,6 +292,8 @@ export type TeamMember = {
   proyecto?: string;
   /** Logo del proyecto en versión para fondo oscuro (el sitio es solo oscuro). */
   logo?: string;
+  /** Logo de proporción cuadrada (isotipo): se muestra más alto para pesar igual que los apaisados. */
+  logoCuadrado?: boolean;
 };
 
 export const team = [
@@ -309,7 +311,7 @@ export const team = [
     name: "Amintore Confalonieri",
     role: "Co-organizador",
     bio: "Founder & CEO de Amalia. Impulsa healthtech.",
-    image: "/team/amintore-confalonieri.jpg",
+    image: "/team/amintore-confalonieri-recorte.jpg",
     linkedin: "https://www.linkedin.com/in/amintoreconfalonieri/",
     web: "https://amaliasalud.app/",
     proyecto: "Amalia",
@@ -334,6 +336,7 @@ export const team = [
     web: "https://www.startupvenezuela.tech/",
     proyecto: "Ecosistema Startup Venezuela",
     logo: "/team/proyectos/ecosistema-startup-venezuela.png",
+    logoCuadrado: true,
   },
   {
     name: "Sebastián Lobo",
