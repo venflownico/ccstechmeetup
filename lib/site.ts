@@ -464,3 +464,114 @@ export const sponsorFaqs = [
       "Podemos cerrar el cupo y publicar la marca, y dejar el QR listo cuando el tope y la vía de aplicación estén claros. El recurso no se anuncia en vacío.",
   },
 ] as const;
+
+export type Formato2027 = {
+  id: string;
+  palabra: string;
+  /** Color base del formato. */
+  c: string;
+  /** Color claro del formato (texto y acentos). */
+  cl: string;
+  /** Posición horizontal de la foto en la tarjeta. */
+  pos: string;
+  cuando: string;
+  cuandoLargo: string;
+  que: string;
+  quien: string;
+  /** viewBox del logotipo con la palabra ya medida. */
+  viewBox: string;
+  /** Si es false, el formato desaparece de tarjetas, chips, barra y rotación. */
+  visible: boolean;
+};
+
+export const formatos2027: readonly Formato2027[] = [
+  {
+    id: "meetup",
+    palabra: "meetup",
+    c: "#46c536",
+    cl: "#7fe36f",
+    pos: "50%",
+    cuando: "Cada mes",
+    cuandoLargo: "Cada mes",
+    que: "El after office mensual de founders, builders e inversionistas en Caracas. Sigue igual en 2027.",
+    quien: "Founders, builders e inversionistas",
+    viewBox: "0 0 4042 1524",
+    visible: true,
+  },
+  {
+    id: "demo-day",
+    palabra: "demo day",
+    c: "#4a63f5",
+    cl: "#8fa2ff",
+    pos: "20%",
+    cuando: "Enero a marzo",
+    cuandoLargo: "Enero a marzo de 2027",
+    que: "Startups presentan ante inversionistas.",
+    quien: "Startups que buscan inversión e inversionistas",
+    viewBox: "0 0 4562 1524",
+    visible: true,
+  },
+  {
+    id: "dinner",
+    palabra: "dinner",
+    c: "#f2902b",
+    cl: "#ffb066",
+    pos: "80%",
+    cuando: "2027",
+    cuandoLargo: "2027, fecha por anunciar",
+    que: "Mesas pequeñas con founders e inversionistas.",
+    quien: "Founders e inversionistas",
+    viewBox: "0 0 3872 1524",
+    visible: true,
+  },
+  {
+    id: "wellness",
+    palabra: "wellness",
+    c: "#9a7cf2",
+    cl: "#c4b1ff",
+    pos: "35%",
+    cuando: "2027",
+    cuandoLargo: "2027, fecha por anunciar",
+    que: "Una carrera, un trail o una caminata entre founders.",
+    quien: "Founders",
+    viewBox: "0 0 4255 1524",
+    visible: true,
+  },
+  {
+    id: "hackathon",
+    palabra: "hackathon",
+    c: "#22b3c4",
+    cl: "#6fdde9",
+    pos: "65%",
+    cuando: "2027",
+    cuandoLargo: "2027, fecha por anunciar",
+    que: "Equipos construyen un producto en un fin de semana.",
+    quien: "Quien construye producto",
+    viewBox: "0 0 4699 1524",
+    visible: true,
+  },
+  {
+    id: "week",
+    palabra: "week",
+    c: "#e2508f",
+    cl: "#ff8fbd",
+    pos: "5%",
+    cuando: "2027",
+    cuandoLargo: "2027, fecha por anunciar",
+    que: "Una semana de eventos de toda la comunidad.",
+    quien: "Toda la comunidad",
+    viewBox: "0 0 3872 1524",
+    visible: true,
+  },
+];
+
+export type Rol2027 = { id: string; label: string };
+
+export const roles2027: readonly Rol2027[] = [
+  { id: "founder", label: "Founder" },
+  { id: "inversionista", label: "Inversionista" },
+  { id: "startup", label: "Trabajo en una startup" },
+  { id: "marca", label: "Empresa o marca" },
+  { id: "estudiante", label: "Estudiante" },
+  { id: "otro", label: "Otro" },
+];
