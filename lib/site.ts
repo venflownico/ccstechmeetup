@@ -325,7 +325,7 @@ export const team = [
     linkedin: "https://www.linkedin.com/in/anselmo-velazco",
     web: "https://www.somosrial.com/",
     proyecto: "Rial",
-    logo: "/team/proyectos/rial.png",
+    logo: "/team/proyectos/rial-hd.png",
   },
   {
     name: "Enderson Leal",
