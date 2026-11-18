@@ -107,6 +107,48 @@
   }
 }
 
+/* El botón queda por encima del velo oscuro mientras está activo. */
+.activo {
+  z-index: 91;
+}
+.activo::before {
+  opacity: 0.85;
+}
+
+/* Velo que oscurece toda la página salvo un halo alrededor del botón. */
+.velo {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.45s ease;
+}
+.veloOn {
+  opacity: 1;
+}
+
+/* Despegue: lienzo a pantalla completa, por encima de todo. */
+.despegue {
+  position: fixed;
+  inset: -12px;
+  z-index: 200;
+  pointer-events: none;
+  will-change: transform;
+}
+.lienzo {
+  position: absolute;
+  inset: 12px;
+  width: calc(100% - 24px);
+  height: calc(100% - 24px);
+}
+.destello {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, #ffffff 0%, #f1f7f1 35%, #050b12 100%);
+  opacity: 0;
+}
+
 .boton:focus-visible {
   outline: 2px solid #f1f7f1;
   outline-offset: 4px;
