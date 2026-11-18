@@ -510,8 +510,8 @@ export function Formatos2027() {
             <div className={styles.listo} ref={listo} tabIndex={-1}>
               <h3>Listo, quedaste anotado</h3>
               <p>
-                Te escribimos cuando abra cada formato que marcaste. Mientras tanto, el próximo meetup ya está en
-                Luma.
+                Te escribimos cuando abra cada formato que marcaste. Mientras tanto, los próximos eventos salen
+                primero en Luma.
               </p>
               <div className={styles.botones}>
                 <a href="https://luma.com/ccstech_" target="_blank" rel="noreferrer">

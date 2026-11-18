@@ -152,13 +152,13 @@ export async function POST(request: Request) {
     const formats = all ? FORMATS : cleanFormats(body.formatos);
 
     if (!email || !isEmail(email) || email.length > 200) {
-      return Response.json({ error: "Revisa tu correo, parece que no es válido." }, { status: 400 });
+      return Response.json({ error: "Revisa tu correo." }, { status: 400 });
     }
     if (!ROLES.includes(role)) {
-      return Response.json({ error: "Elige cómo te describes mejor." }, { status: 400 });
+      return Response.json({ error: "Elige qué haces." }, { status: 400 });
     }
     if (formats.length === 0) {
-      return Response.json({ error: "Elige al menos un formato." }, { status: 400 });
+      return Response.json({ error: "Marca al menos un formato." }, { status: 400 });
     }
 
     if (!rateLimit(noticeHits, ip, MAX_NOTICES)) {
