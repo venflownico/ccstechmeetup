@@ -11,9 +11,27 @@ import {
   supporters,
 } from "@/lib/site";
 
-function Logo({ name, src, tall }: { name: string; src: string; tall?: boolean }) {
+type Marca = { name: string; src: string; href?: string };
+
+/** Si la marca tiene sitio (o Instagram), el logo lleva a él en otra pestaña. */
+function Enlace({ name, href, className, children }: Omit<Marca, "src"> & { className: string; children: React.ReactNode }) {
+  if (!href) return <div className={className}>{children}</div>;
   return (
-    <div className="flex h-16 items-center justify-center px-6">
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={`${name} (abre su sitio en otra pestaña)`}
+      className={`${className} rounded-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-300`}
+    >
+      {children}
+    </a>
+  );
+}
+
+function Logo({ name, src, href, tall }: Marca & { tall?: boolean }) {
+  return (
+    <Enlace name={name} href={href} className="flex h-16 items-center justify-center px-6">
       <Image
         src={src}
         alt={name}
@@ -21,7 +39,7 @@ function Logo({ name, src, tall }: { name: string; src: string; tall?: boolean }
         height={40}
         className="h-10 w-auto max-w-[160px] object-contain opacity-80 transition hover:opacity-100"
       />
-    </div>
+    </Enlace>
   );
 }
 
@@ -79,15 +97,16 @@ export function Sponsors({ compact = false }: { compact?: boolean }) {
           Presentan
         </p>
         <div className="mt-6 flex flex-wrap items-center justify-center gap-10 sm:gap-14">
-          {presentingSponsors.map((sponsor) => (
-            <Image
-              key={sponsor.name}
-              src={sponsor.src}
-              alt={sponsor.name}
-              width={240}
-              height={80}
-              className="h-16 w-auto object-contain sm:h-[4.5rem]"
-            />
+          {presentingSponsors.map((sponsor: Marca) => (
+            <Enlace key={sponsor.name} name={sponsor.name} href={sponsor.href} className="inline-flex">
+              <Image
+                src={sponsor.src}
+                alt={sponsor.name}
+                width={240}
+                height={80}
+                className="h-16 w-auto object-contain sm:h-[4.5rem]"
+              />
+            </Enlace>
           ))}
         </div>
         {paidLogos.length > 0 ? (

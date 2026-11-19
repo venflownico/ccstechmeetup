@@ -55,8 +55,8 @@ export const stats = [
 ] as const;
 
 export const presentingSponsors = [
-  { name: "Banco Activo", src: "/sponsors/banco-activo.png" },
-  { name: "Impulsa VC", src: "/sponsors/impulsa-vc.png" },
+  { name: "Banco Activo", src: "/sponsors/banco-activo.png", href: "https://www.bancoactivo.com/" },
+  { name: "Impulsa VC", src: "/sponsors/impulsa-vc.png", href: "https://www.impulsa.vc/" },
 ] as const;
 
 /**
@@ -101,20 +101,20 @@ export const paidSponsorSlots = {
 } as const;
 
 export const supporters = [
-  { name: "Venecápital", src: "/sponsors/venecapital.png" },
+  { name: "Venecápital", src: "/sponsors/venecapital.png", href: "https://venecapital.org/" },
   { name: "Innoven", src: "/sponsors/innoven.png" },
-  { name: "Venflow", src: "/sponsors/venflow.png" },
-  { name: "Rial", src: "/sponsors/rial.png" },
-  { name: "Amalia", src: "/sponsors/amalia.png" },
-  { name: "Hango", src: "/sponsors/hango.png" },
-  { name: "Ecosistema Startup Venezuela", src: "/sponsors/ecosistema-startup-venezuela.png" },
-  { name: "Wave", src: "/sponsors/wave.png" },
+  { name: "Venflow", src: "/sponsors/venflow.png", href: "https://www.venflow.app/" },
+  { name: "Rial", src: "/sponsors/rial.png", href: "https://www.somosrial.com/" },
+  { name: "Amalia", src: "/sponsors/amalia.png", href: "https://amaliasalud.app/" },
+  { name: "Hango", src: "/sponsors/hango.png", href: "https://hango.live/" },
+  { name: "Ecosistema Startup Venezuela", src: "/sponsors/ecosistema-startup-venezuela.png", href: "https://www.startupvenezuela.tech/" },
+  { name: "Wave", src: "/sponsors/wave.png", href: "https://www.instagram.com/wavetechhub/" },
   { name: "En La Parada", src: "/sponsors/en-la-parada.png" },
-  { name: "Fina", src: "/sponsors/fina.png" },
+  { name: "Fina", src: "/sponsors/fina.png", href: "https://www.finapartner.com/" },
   { name: "Money", src: "/sponsors/money.png" },
-  { name: "UCAB", src: "/sponsors/ucab.png" },
-  { name: "Universidad Metropolitana", src: "/sponsors/unimet.png" },
-  { name: "UCV", src: "/sponsors/ucv.png" },
+  { name: "UCAB", src: "/sponsors/ucab.png", href: "https://www.ucab.edu.ve/" },
+  { name: "Universidad Metropolitana", src: "/sponsors/unimet.png", href: "https://www.unimet.edu.ve/" },
+  { name: "UCV", src: "/sponsors/ucv.png", href: "https://www.ucv.ve/" },
   { name: "ASAP", src: "/sponsors/asap.png" },
   { name: "Chapeau House", src: "/sponsors/chapeau-house.png" },
 ] as const;
