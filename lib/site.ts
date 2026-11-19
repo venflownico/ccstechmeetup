@@ -305,7 +305,7 @@ export const team = [
     linkedin: "https://www.linkedin.com/in/nicolaspassaro-product-manager",
     web: "https://www.venflow.app/",
     proyecto: "Venflow",
-    logo: "/team/proyectos/venflow.png",
+    logo: "/team/proyectos/venflow-hd.svg",
   },
   {
     name: "Amintore Confalonieri",
