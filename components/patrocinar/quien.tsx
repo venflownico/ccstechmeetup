@@ -2,6 +2,7 @@ import s from "./estilos.module.css";
 import { Revela, Titulo } from "./movimiento";
 
 const TIPOS = [
+  "Bancos",
   "Fondos",
   "Ángeles",
   "Aceleradoras",
@@ -18,7 +19,7 @@ export function Quien() {
       <div className={s.envoltura}>
         <Titulo id="t-quien" className={s.h2} texto="No solo tech." />
         <p className={s.sub}>
-          Fondos, ángeles, aceleradoras, HR, coworking, legal, pagos, infraestructura. Si ayudas a que una startup
+          Bancos, fondos, ángeles, aceleradoras, HR, coworking, legal, pagos, infraestructura. Si ayudas a que una startup
           nazca o crezca, este es tu lugar.
         </p>
         <ul className={s.chips} aria-hidden="true">

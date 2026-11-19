@@ -1,6 +1,7 @@
 "use client";
 
 import { animate, motion, useInView, useMotionValue, useTransform } from "motion/react";
+import type { ReactNode } from "react";
 import { useEffect, useRef } from "react";
 
 import { useQuieto } from "@/components/2027/quieto";
@@ -41,7 +42,8 @@ function Cifra({ valor }: { valor: number }) {
   );
 }
 
-export function SponsorWhy() {
+/** Cifras y fuente; `children` (los logos de apoyo) va en el mismo bloque. */
+export function SponsorWhy({ children }: { children?: ReactNode }) {
   return (
     <section className={s.seccion} aria-labelledby="t-cifras">
       <div className={s.envoltura}>
@@ -56,6 +58,7 @@ export function SponsorWhy() {
         </ul>
         <p className={s.fuente}>{sponsorWhy.source}</p>
       </div>
+      {children}
     </section>
   );
 }

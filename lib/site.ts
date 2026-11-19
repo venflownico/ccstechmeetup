@@ -120,9 +120,10 @@ export const supporters = [
 ] as const;
 
 export const sponsorWhy = {
-  title: "Lo que construimos desde agosto de 2025",
+  title: "Lo que hemos logrado hasta 2026",
   source:
     "Registros de Luma, de agosto de 2025 a octubre de 2026. Los asistentes le ponen 4,8 de 5.",
+  logosTitle: "Lo logramos con el apoyo de estas organizaciones.",
   stats: [
     { value: 1770, label: "personas distintas en 13 ediciones" },
     { value: 743, label: "founders y CEOs" },
@@ -132,27 +133,55 @@ export const sponsorWhy = {
 } as const;
 
 export const sponsorFit = {
-  title: "Para que nazcan más de 1.000 startups en Caracas y Venezuela.",
-  lead: "Caracas Tech existe para que la comunidad tenga acceso a la red, los recursos, el capital y las personas que necesita para crecer. Lo organizan founders de la propia comunidad, por el ecosistema y para el ecosistema.",
+  title: "Para que nazcan más de 1.000 startups en Venezuela en los próximos cinco años.",
+  lead: "Caracas Tech es una organización de founders de la propia comunidad, por el ecosistema y para el ecosistema. Existe para que quien construye tenga la red, los recursos, el capital y las personas que necesita.",
+  impactLabel: "Cómo medimos el impacto:",
+  impact: "por las startups que nacen.",
   pillarsLabel: "Lo que más le falta a un founder",
-  pillars: [
+  pillars: ["Capital", "Talento", "Recursos", "Mentoría"],
+} as const;
+
+/** Bloque «Qué gana tu marca» de /patrocinar. */
+export const sponsorGana = {
+  title: "Que la comunidad te vea como quien pone los rieles.",
+  donde: {
+    label: "Dónde vas a estar.",
+    text: "Tu marca va en los flyers, en el sitio y en cada evento, en todos los formatos del año.",
+    cuposLeyenda: "Patrocinadores principales 2027 · entre 4 y 6 cupos",
+    cupoTexto: "Tu logo aquí",
+    cupos: 6,
+  },
+  bloques: [
     {
-      title: "Capital",
-      body: "Acceso a inversión para construir.",
+      label: "Qué construyes.",
+      text: "Reconocimiento frente a founders, inversionistas y potenciales clientes. No prometemos ventas.",
     },
     {
-      title: "Talento",
-      body: "Las personas que una startup necesita para nacer y crecer.",
+      label: "Por qué no hay stands.",
+      text: "Los founders vienen a conectar con otros founders. Venderles en la sala rompe la razón por la que vienen, así que no hay stands ni promotoras.",
     },
     {
-      title: "Recursos",
-      body: "Créditos, herramientas e infraestructura.",
+      label: "Lo que ves después de cada edición.",
+      text: "Los datos de asistencia: cuántas personas vinieron y de qué perfil.",
     },
     {
-      title: "Mentoría",
-      body: "La red y la experiencia de quienes ya pasaron por esto.",
+      label: "Patrocinar o acompañar.",
+      text: "Startups, universidades y organizaciones sin fines de lucro acompañan con su logo. Quien patrocina está en todos los formatos, en los materiales de cada evento y primero en cada formato nuevo.",
     },
   ],
+  condicion: {
+    label: "La condición.",
+    text: "Todo patrocinador le da algo a los founders. Así llega tu aporte a cada pilar:",
+    pilares: [
+      {
+        title: "Capital:",
+        text: "sostienes el espacio donde un founder conoce a quien puede invertir. También puedes dar recursos no reembolsables, como un premio.",
+      },
+      { title: "Talento:", text: "en ese mismo espacio una startup encuentra a su próxima persona." },
+      { title: "Recursos:", text: "créditos e infraestructura, como APIs, servidores y pagos." },
+      { title: "Mentoría:", text: "office hours y horas de asesoría legal, de mercadeo o de diseño." },
+    ],
+  },
 } as const;
 
 export const resourceHub = {
@@ -414,13 +443,27 @@ export const faqs = [
 
 export const sponsorFaqs = [
   {
-    question: "¿Emiten factura fiscal?",
+    question: "¿Voy a conseguir clientes con el patrocinio?",
     answer:
-      "Sí, cada mes durante el año del acuerdo. Los montos van en dólares y se pagan a tasa BCV.",
+      "No lo prometemos. Lo que construyes es reconocimiento: tu marca queda entre las que ayudan a que nazcan startups.",
   },
   {
-    question: "¿Cuánto dura el acuerdo?",
-    answer: "Un año, con cuota mensual domiciliada.",
+    question: "¿Hasta cuándo puedo entrar como patrocinador principal?",
+    answer:
+      "Buscamos cerrar los cupos antes de enero de 2027. Los patrocinios por formato se abren cuando se anuncia cada formato.",
+  },
+  {
+    question: "Si soy patrocinador principal, ¿habrá otros patrocinadores?",
+    answer:
+      "Sí. Cada formato puede sumar 2 o 3 patrocinadores propios. Los principales están en todos los formatos y siempre van primero.",
+  },
+  {
+    question: "¿Puedo patrocinar solo un formato?",
+    answer: "Sí, en la fase 2.",
+  },
+  {
+    question: "¿Puedo aportar en especie?",
+    answer: "Sí, si resuelve una de las necesidades de la lista.",
   },
   {
     question: "¿Puedo tener un stand o promotoras?",
@@ -428,12 +471,12 @@ export const sponsorFaqs = [
       "No. La noche es para que la gente conecte. Tu marca está en flyers, sitio y evento, y tu aporte llega a los founders como recurso, infraestructura o mentoría.",
   },
   {
-    question: "¿Puedo patrocinar solo un formato?",
-    answer: "Sí, en la fase 2. Los patrocinadores principales tienen prioridad.",
+    question: "¿Emiten factura fiscal?",
+    answer: "Sí, cada mes. Los montos van en dólares y se pagan a tasa BCV.",
   },
   {
-    question: "¿Puedo aportar en especie?",
-    answer: "Sí, si resuelve una de las necesidades de la lista.",
+    question: "¿Cómo se paga?",
+    answer: "La cuota se domicilia cada mes. Los términos van en el contrato.",
   },
 ] as const;
 
