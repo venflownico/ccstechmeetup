@@ -28,8 +28,7 @@ export function Aviso({
   onEnviado,
   origen,
   busca,
-  conBusca = false,
-  buscaActual = [],
+  buscaActual,
   onBusca,
   secRef,
 }: {
@@ -40,10 +39,8 @@ export function Aviso({
   onEnviado: () => void;
   origen: () => string;
   busca: () => readonly string[];
-  /** Muestra la pregunta «¿A quién quieres conocer?» dentro del formulario. */
-  conBusca?: boolean;
-  buscaActual?: readonly BusquedaId[];
-  onBusca?: (id: BusquedaId) => void;
+  buscaActual: readonly BusquedaId[];
+  onBusca: (id: BusquedaId) => void;
   secRef: RefObject<HTMLElement | null>;
 }) {
   const quieto = useQuieto();
@@ -117,39 +114,37 @@ export function Aviso({
       </motion.div>
       {!enviado ? (
         <form className={s.form} noValidate onSubmit={enviar}>
-          {conBusca ? (
-            <fieldset className={s.grupo}>
-              <legend className={s.leyenda}>¿A quién quieres conocer?</legend>
-              <div className={s.chips}>
-                {BUSQUEDAS.map((b) => (
-                  <motion.label
-                    key={b.id}
-                    className={s.chip}
-                    style={{ "--c": b.c, "--cl": b.cl } as Estilo}
-                    whileTap={quieto ? undefined : { scale: 0.93 }}
-                    transition={{ type: "spring", stiffness: 500, damping: 16 }}
-                  >
-                    <input
-                      type="checkbox"
-                      name="busca"
-                      value={b.id}
-                      checked={buscaActual.includes(b.id)}
-                      onChange={() => onBusca?.(b.id)}
-                    />
-                    <span>
-                      <em className={s.chipIcono}>
-                        <b.Icono strokeWidth={1.75} aria-hidden="true" />
-                      </em>
-                      {b.etiqueta}
-                    </span>
-                  </motion.label>
-                ))}
-              </div>
-            </fieldset>
-          ) : null}
+          <fieldset className={s.grupo}>
+            <legend className={s.leyenda}>¿A quién quieres conocer?</legend>
+            <div className={s.chips}>
+              {BUSQUEDAS.map((b) => (
+                <motion.label
+                  key={b.id}
+                  className={s.chip}
+                  style={{ "--c": b.c, "--cl": b.cl } as Estilo}
+                  whileTap={quieto ? undefined : { scale: 0.93 }}
+                  transition={{ type: "spring", stiffness: 500, damping: 16 }}
+                >
+                  <input
+                    type="checkbox"
+                    name="busca"
+                    value={b.id}
+                    checked={buscaActual.includes(b.id)}
+                    onChange={() => onBusca(b.id)}
+                  />
+                  <span>
+                    <em className={s.chipIcono}>
+                      <b.Icono strokeWidth={1.75} aria-hidden="true" />
+                    </em>
+                    {b.etiqueta}
+                  </span>
+                </motion.label>
+              ))}
+            </div>
+          </fieldset>
           <fieldset className={s.grupo}>
             <legend className={s.leyenda} aria-live="polite">
-              {conBusca && buscaActual.length > 0 ? "Estos formatos te pueden interesar" : "Formatos"}
+              {buscaActual.length > 0 ? "Estos formatos te pueden interesar" : "Formatos"}
             </legend>
             <div className={s.chips}>
               <motion.label className={`${s.chip} ${s.todos}`} whileTap={quieto ? undefined : { scale: 0.93 }}>

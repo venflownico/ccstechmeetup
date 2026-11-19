@@ -9,25 +9,21 @@ import type { BusquedaId } from "@/lib/busquedas-2027";
 import { Aviso } from "./aviso";
 import { Luz, Progreso } from "./ambiente";
 import { Barra } from "./barra";
-import { Capitulos } from "./capitulos";
 import { Confeti, crearConfeti } from "./efectos";
 import type { Pieza } from "./efectos";
 import { Entrada } from "./entrada";
 import s from "./estilos.module.css";
 import { Lenis2027 } from "./lenis";
 import { useQuieto } from "./quieto";
-import { PerfilesUna } from "./perfiles-una";
 import { Resumen } from "./resumen";
 import { Tarjeta } from "./tarjeta";
 import { TextoTipeado } from "./texto-tipeado";
 import { FORMATOS } from "./tipos";
-import { useVariante } from "./variante";
 
 type Rafaga = { piezas: Pieza[]; y: string };
 
 export function Formatos2027() {
   const quieto = useQuieto();
-  const variante = useVariante();
   const [marcadas, setMarcadas] = useState<ReadonlySet<string>>(new Set());
   const [enviado, setEnviado] = useState(false);
   const [formVisible, setFormVisible] = useState(false);
@@ -138,26 +134,13 @@ export function Formatos2027() {
     });
   }
 
-  // Multiselección: cada capítulo marca o desmarca a la persona que busca; se guarda en el orden de los capítulos.
+  // Multiselección: cada chip marca o desmarca a la persona que busca; se guarda en el orden de la lista.
   function alternarBusca(id: BusquedaId) {
     const sig = IDS_BUSQUEDA.filter((x) => (x === id ? !buscaRef.current.includes(id) : buscaRef.current.includes(x)));
     buscaRef.current = sig;
     setBusca(sig);
-    // Sin sección de perfiles: la pregunta vive en el formulario y premarca los formatos sugeridos.
-    if (variante === "sin" && !tocadas.current) setMarcadas(new Set(idsVisibles(sig)));
-  }
-
-  /** Un solo perfil a la vez (variante `una`). */
-  function elegirUno(id: BusquedaId | null) {
-    const sig = id ? [id] : [];
-    buscaRef.current = sig;
-    setBusca(sig);
-  }
-
-  /** «Avísame de estos»: suma esos formatos a los marcados. */
-  function sumarFormatos(ids: string[]) {
-    tocadas.current = true;
-    setMarcadas((prev) => new Set([...prev, ...ids]));
+    // La pregunta vive en el formulario y premarca los formatos sugeridos.
+    if (!tocadas.current) setMarcadas(new Set(idsVisibles(sig)));
   }
 
   function marcarTodos(si: boolean) {
@@ -196,11 +179,6 @@ export function Formatos2027() {
             </ul>
           </section>
 
-          {variante === "una" ? (
-            <PerfilesUna elegido={busca[0] ?? null} onElegir={elegirUno} onAvisame={sumarFormatos} />
-          ) : null}
-          {variante === "completas" ? <Capitulos busca={busca} onBusca={alternarBusca} barra={verBarra} /> : null}
-
           <Aviso
             secRef={aviso}
             marcadas={marcadas}
@@ -213,7 +191,6 @@ export function Formatos2027() {
             }}
             origen={() => origenRef.current}
             busca={() => buscaRef.current}
-            conBusca={variante === "sin"}
             buscaActual={busca}
             onBusca={alternarBusca}
           />
