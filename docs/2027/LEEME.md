@@ -26,7 +26,7 @@ La hoja crea sola las pestañas `visitas` y `avisos` con la primera entrada.
 
 Ponlas en una pestaña nueva, por ejemplo `resumen`. Las pestañas guardan los formatos como texto separado por comas.
 
-Interés por formato (cambia `meetup` por `demo-day`, `dinner`, `wellness`, `hackathon` o `week`). Quien marca "todos" queda con los seis formatos, así que cuenta en cada uno:
+Interés por formato (cambia `meetup` por `demo-day`, `dinner`, `wellness` o `hackathon`). Quien marca "todos" queda con todos los formatos visibles, así que cuenta en cada uno:
 
 ```
 =COUNTIF(avisos!E:E; "*meetup*")
@@ -44,7 +44,7 @@ Porcentaje que marca 4 o más formatos (cuenta las comas: 3 comas son 4 formatos
 =SUMPRODUCT((LEN(avisos!E2:E)-LEN(SUBSTITUTE(avisos!E2:E; ","; ""))>=3)*1) / COUNTA(avisos!E2:E)
 ```
 
-Búsqueda por formato marcado. La columna `busca` guarda a quién quería conocer la persona en la sección de arriba. Puede marcar de cero a seis y se guardan separados por coma (`inversionista`, `cofounder`, `cliente`, `talento`, `yapaso` o `mentor`; vacía si no marcó ninguna). Cuántos que buscan inversionista marcaron `demo-day`:
+Búsqueda por formato marcado. La columna `busca` guarda a quién quiere conocer la persona, según lo que marca en el formulario. Puede marcar de cero a seis y se guardan separados por coma (`inversionista`, `cofounder`, `cliente`, `talento`, `yapaso` o `mentor`; vacía si no marcó ninguna). Cuántos que buscan inversionista marcaron `demo-day`:
 
 ```
 =COUNTIFS(visitas!F:F; "*inversionista*"; visitas!D:D; "*demo-day*")
