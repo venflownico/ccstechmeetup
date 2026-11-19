@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { BlurFade } from "@/components/ui/blur-fade";
 
 const pillars = [
@@ -23,6 +25,8 @@ export function Why() {
   return (
     <section id="por-que" className="mx-auto max-w-6xl px-4 py-24 sm:px-6">
       <BlurFade inView>
+        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_26rem] lg:gap-14">
+        <div>
         <p className="text-sm font-semibold tracking-[0.2em] text-teal-300 uppercase">
           Por qué existimos
         </p>
@@ -35,6 +39,17 @@ export function Why() {
           recursos, el capital y las personas que necesita para triunfar. Por el ecosistema,
           para el ecosistema.
         </p>
+        </div>
+        <div className="relative aspect-[3/2] overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03]">
+          <Image
+            src="/meetup/conversacion-noche.jpg"
+            alt="Asistentes conversando de noche en el patio del meetup, bajo guirnaldas de luces"
+            fill
+            sizes="(min-width: 1024px) 416px, calc(100vw - 2rem)"
+            className="object-cover"
+          />
+        </div>
+        </div>
       </BlurFade>
       <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {pillars.map((pillar, index) => (

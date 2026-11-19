@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { BlurFade } from "@/components/ui/blur-fade";
 
 const points = [
@@ -11,6 +13,8 @@ export function About() {
   return (
     <section id="comunidad" className="mx-auto max-w-6xl px-4 py-24 sm:px-6">
       <BlurFade inView>
+        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_24rem] lg:gap-14">
+        <div>
         <p className="text-sm font-semibold tracking-[0.2em] text-teal-300 uppercase">
           Qué es
         </p>
@@ -23,6 +27,17 @@ export function About() {
           conversaciones fluyen sin guion. Organizado por Ecosistema Startup Venezuela: 100%
           comunidad, hecho con cariño por quienes emprenden en el país.
         </p>
+        </div>
+        <div className="relative aspect-[16/9] overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] lg:aspect-[4/3]">
+          <Image
+            src="/meetup/charla-microfono.jpg"
+            alt="Dos personas frente al banner del Caracas Tech Meetup, una de ellas habla con un micrófono"
+            fill
+            sizes="(min-width: 1024px) 384px, calc(100vw - 2rem)"
+            className="object-cover object-[65%_30%]"
+          />
+        </div>
+        </div>
       </BlurFade>
       <div className="mt-12 grid gap-4 sm:grid-cols-2">
         {points.map((point, index) => (
