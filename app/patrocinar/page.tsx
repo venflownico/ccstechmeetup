@@ -21,7 +21,7 @@ const descripcion =
   "Patrocina Caracas Tech en 2027: cada mes, frente a quienes construyen las startups de Venezuela.";
 
 export const metadata: Metadata = {
-  title: "Patrocinar",
+  title: { absolute: "Patrocina Caracas Tech" },
   description: descripcion,
   openGraph: {
     title: "Patrocina Caracas Tech",

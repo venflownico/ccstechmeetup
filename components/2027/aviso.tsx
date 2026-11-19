@@ -149,7 +149,9 @@ export function Aviso({
             </fieldset>
           ) : null}
           <fieldset className={s.grupo}>
-            <legend className={s.leyenda}>Formatos</legend>
+            <legend className={s.leyenda} aria-live="polite">
+              {conBusca && buscaActual.length > 0 ? "Estos formatos te pueden interesar" : "Formatos"}
+            </legend>
             <div className={s.chips}>
               <motion.label className={`${s.chip} ${s.todos}`} whileTap={quieto ? undefined : { scale: 0.93 }}>
                 <input
