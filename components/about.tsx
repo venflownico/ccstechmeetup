@@ -28,13 +28,13 @@ export function About() {
           comunidad, hecho con cariño por quienes emprenden en el país.
         </p>
         </div>
-        <div className="relative aspect-[16/9] overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] lg:aspect-[4/3]">
+        <div className="relative aspect-[16/9] overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03]">
           <Image
             src="/meetup/charla-microfono.jpg"
             alt="Dos personas frente al banner del Caracas Tech Meetup, una de ellas habla con un micrófono"
             fill
             sizes="(min-width: 1024px) 384px, calc(100vw - 2rem)"
-            className="object-cover object-[65%_30%]"
+            className="object-cover"
           />
         </div>
         </div>
