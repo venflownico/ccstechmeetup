@@ -7,15 +7,16 @@ import { useRef } from "react";
 import { Foto } from "@/components/2027/foto";
 import type { Estilo } from "@/components/2027/tipos";
 
-import { Ancla } from "./ancla";
+import { site } from "@/lib/site";
+
 import s from "./estilos.module.css";
 
 export const PDF_PROPUESTA = "/patrocinar/caracas-tech-patrocinios-2027.pdf";
 
 const DATOS = [
   { Icono: CalendarDays, titulo: "Cuándo", valor: "Tercer jueves, 5:30 p. m." },
-  { Icono: MapPin, titulo: "Dónde", valor: "Chapeau House" },
-  { Icono: Users, titulo: "Por noche", valor: "120 a 175" },
+  { Icono: MapPin, titulo: "Dónde", valor: "Chapeau House, Caracas" },
+  { Icono: Users, titulo: "Por edición", valor: "+250 personas" },
 ] as const;
 
 export function Entrada() {
@@ -45,9 +46,9 @@ export function Entrada() {
       <div className={s.veloEntrada} aria-hidden="true" />
       <motion.div className={`${s.envoltura} ${s.titular}`} style={{ y: textoY, opacity: textoOpacidad }}>
         <h1 id="t-patrocinar" className={s.h1}>
-          Patrocina el Caracas Tech Meetup
+          Patrocina Caracas Tech
         </h1>
-        <p className={s.bajada}>Cada mes, frente a quienes construyen las startups de Caracas.</p>
+        <p className={s.bajada}>Cada mes, frente a quienes construyen las startups de Venezuela.</p>
         <ul className={s.datos}>
           {DATOS.map(({ Icono, titulo, valor }) => (
             <li key={titulo} className={s.dato}>
@@ -62,12 +63,12 @@ export function Entrada() {
           ))}
         </ul>
         <div className={s.botones}>
-          <Ancla id="formulario" className={s.primario}>
+          <a className={s.primario} href={site.sponsorshipCalendlyUrl} target="_blank" rel="noopener noreferrer">
             Conversemos
-          </Ancla>
+          </a>
           <a className={s.secundario} href={PDF_PROPUESTA} download>
             <FileDown strokeWidth={1.75} aria-hidden="true" />
-            Descargar la propuesta
+            Descargar propuesta
           </a>
         </div>
       </motion.div>

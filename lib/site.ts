@@ -98,10 +98,6 @@ export const sponsorshipIntakeOpen = !sponsorshipWindow.cohortFilled;
 /** Paid sponsor lockup under Presentan. Fill `paidSponsorsByPlan` as deals close. */
 export const paidSponsorSlots = {
   label: "Patrocinan",
-  lead: "Dos planes por un año.",
-  emptyHint: "Tu marca aquí",
-  reserveHint: "Reserva este cupo",
-  closedLead: "Estas son las marcas que apoyan el meetup este año.",
 } as const;
 
 export const supporters = [
@@ -122,38 +118,37 @@ export const supporters = [
 ] as const;
 
 export const sponsorWhy = {
-  title: "Quién viene al meetup",
+  title: "Lo que construimos desde agosto de 2025",
   source:
     "Registros de Luma, de agosto de 2025 a octubre de 2026. Los asistentes le ponen 4,8 de 5.",
   stats: [
     { value: 1770, label: "personas distintas en 13 ediciones" },
-    { value: 743, label: "founders y CEOs han venido" },
-    { value: 135, label: "de fondos, ángeles y aceleradoras" },
+    { value: 743, label: "founders y CEOs" },
+    { value: 135, label: "personas de fondos, ángeles y aceleradoras" },
     { value: 669, label: "pidieron entrar y no hubo cupo" },
   ],
 } as const;
 
 export const sponsorFit = {
-  eyebrow: "Qué buscamos",
-  title: "Impactar la creación y el crecimiento de startups es la meta",
-  lead: "El meetup existe para que la gente se conozca. Drinks, personas y espacio para construir relaciones: la noche no tiene agenda, para que esas conversaciones no se compriman, y se creen relaciones reales.",
-  body: "La presencia de marca — flyers, sitio, evento — es cómo esta comunidad te recuerda como alguien que los apoya. El recurso es un grant acotado, siempre disponible en un QR en el venue, y se canjea después ([ver cómo funciona](/recursos)). Comunidad y Recurso no toman el micrófono: el recurso se conoce por el QR.",
+  title: "Para que nazcan más de 1.000 startups en Caracas y Venezuela.",
+  lead: "Caracas Tech existe para que la comunidad tenga acceso a la red, los recursos, el capital y las personas que necesita para crecer. Lo organizan founders de la propia comunidad, por el ecosistema y para el ecosistema.",
+  pillarsLabel: "Lo que más le falta a un founder",
   pillars: [
     {
       title: "Capital",
-      body: "Acceso a inversión y capital para construir. No a productos financieros para quien aún no tiene flujo.",
+      body: "Acceso a inversión para construir.",
     },
     {
       title: "Talento",
-      body: "Acceso a las personas que las startups necesitan para nacer, operar y crecer.",
+      body: "Las personas que una startup necesita para nacer y crecer.",
     },
     {
       title: "Recursos",
-      body: "Créditos, herramientas e infraestructura que desbloquean el stack — no un catálogo de servicios.",
+      body: "Créditos, herramientas e infraestructura.",
     },
     {
-      title: "Red y mentoría",
-      body: "Acceso a la comunidad y a mentoría de quienes ya recorrieron el camino.",
+      title: "Mentoría",
+      body: "La red y la experiencia de quienes ya pasaron por esto.",
     },
   ],
 } as const;
@@ -214,17 +209,15 @@ export const packages = [
     price: 500,
     period: "/ mes",
     description:
-      "Tu marca en flyers, sitio y evento. En el venue hay un código QR con recursos gratis para startups — el tuyo incluido.",
+      "Tu marca en flyers, sitio y evento, con un recurso para los founders.",
     featured: false,
     available: true,
     slotCount: 2,
     slotsTaken: 0,
     benefits: [
       "Logo en flyers, sitio oficial y materiales del evento, cada edición",
-      "Tu recurso en el QR del venue: founders lo escanean y ven grants gratis",
-      "Grant acotado (pool o N cupos) que los founders aplican después",
+      "Grant acotado que los founders aplican después",
       "Mención en Instagram @caracastech_meetup",
-      "2 cupos reservados cada mes: gente de tu equipo u otros que invites, sin pasar por aprobación",
       "Recap anual del ecosistema: la data del año con tu marca presente, lista para compartir internamente.",
     ],
   },
@@ -234,16 +227,15 @@ export const packages = [
     price: 1000,
     period: "/ mes",
     description:
-      "Tu categoría, tu lugar destacado. Tu grant aparece en el QR del venue — el mismo código donde founders encuentran recursos gratis.",
+      "Tu categoría, tu lugar destacado, con un recurso para los founders.",
     featured: true,
     available: true,
     slotCount: 2,
     slotsTaken: 0,
     benefits: [
       "Todo lo de Comunidad",
-      "Lugar destacado en el QR del venue y en los flyers",
+      "Lugar destacado en los flyers",
       "Exclusividad de categoría (talento, recursos o mentoría)",
-      "6 cupos reservados cada mes: tu equipo o quien invites, sin pasar por aprobación",
       "Recap de asistencia post-evento — para seguir la conversación",
       "Recap anual del ecosistema: la data del año con tu marca presente, lista para compartir internamente.",
     ],
@@ -252,18 +244,15 @@ export const packages = [
     id: "presentan",
     name: "Presentan",
     priceOnRequest: true,
-    description: "Quien presenta el meetup. Este cupo ya está tomado.",
+    description: "Quien presenta el meetup.",
     featured: false,
     available: false,
-    takenLabel: "Tomado",
     slotCount: 1,
     slotsTaken: 1,
     benefits: [
       "Todo lo de Recurso",
       "Lockup Presentan en flyers, sitio y evento",
       "La marca que abre cada edición",
-      "Cupos ilimitados cada mes: tu equipo o quien invites, sin pasar por aprobación",
-      "Estacionamiento prioritario",
       "Cuando lo necesites, presentas lo que quieras a la comunidad: en los pitches o en el escenario",
     ],
   },
@@ -423,79 +412,26 @@ export const faqs = [
 
 export const sponsorFaqs = [
   {
-    question: "¿Cómo funciona el patrocinio anual?",
-    answer:
-      "Son compromisos de 12 meses con dos planes, Comunidad y Recurso (Presentan ya está tomado). Tu marca está en cada edición y los materiales — flyers, sitio, evento — quedan fijos sin sumar logos a mitad de año.",
-  },
-  {
     question: "¿Emiten factura fiscal?",
     answer:
-      "Sí. Emitimos factura fiscal cada mes, durante el año del acuerdo. Los precios están en USD a tasa BCV.",
+      "Sí, cada mes durante el año del acuerdo. Los montos van en dólares y se pagan a tasa BCV.",
   },
   {
-    question: "¿Cómo se paga?",
-    answer:
-      "La cuota del plan se domicilia cada mes, en USD a tasa BCV de esa fecha. Firmamos a 1 año: no es un cobro suelto por edición.",
+    question: "¿Cuánto dura el acuerdo?",
+    answer: "Un año, con cuota mensual domiciliada.",
   },
   {
-    question: "¿A qué se destina el patrocinio?",
+    question: "¿Puedo tener un stand o promotoras?",
     answer:
-      "Primero, a sostener el meetup cada mes: la noche del meetup (lugar y producción, valet parking, fotógrafo y baños), una persona a tiempo completo (sueldo, coworking y estacionamiento) y la estructura (registro de la empresa y la marca, dominio, correo y redes).",
+      "No. La noche es para que la gente conecte. Tu marca está en flyers, sitio y evento, y tu aporte llega a los founders como recurso, infraestructura o mentoría.",
   },
   {
-    question: "¿Qué tipo de patrocinador buscan?",
-    answer:
-      "Marcas que pueden ayudar a que un founder tenga éxito — con talento, recursos, mentoría o, en el formato correcto, capital — y que quieran que esa comunidad las recuerde cuando crezca.",
+    question: "¿Puedo patrocinar solo un formato?",
+    answer: "Sí, en la fase 2. Los patrocinadores principales tienen prioridad.",
   },
   {
-    question: "¿Puedo ser presentador del meetup?",
-    answer:
-      "El lockup Presentan es un solo cupo, y ya está tomado. Quien presenta abre cada edición y puede hablarle a la comunidad — en los pitches o en el escenario — cuando lo necesite. Si tu marca pone un recurso acotado, los paquetes abiertos son Comunidad y Recurso.",
-  },
-  {
-    question: "¿Puedo tener un stand, una mesa u office hours en el meetup?",
-    answer:
-      "El after office no se organiza alrededor de un stand: drinks, gente, conversaciones. Un stand, una mesa u office hours en el piso interrumpe el networking: la atracción pasa a ser el stand, no la gente — y ese networking es lo que hace que vuelvan. El recurso vive en un QR en el venue.",
-  },
-  {
-    question: "¿Puedo presentar mi marca o mi recurso en el meetup?",
-    answer:
-      "En Comunidad y Recurso, no. Tu marca está en flyers, sitio y evento; el recurso, en un QR. Presentar en los pitches o en el escenario es de Presentan, y ese cupo ya está tomado.",
-  },
-  {
-    question: "¿Qué es el QR del evento?",
-    answer:
-      "Un código QR solo accesible durante el evento que abre una página donde startups y fundadores pueden acceder a recursos gratis ofrecidos por los sponsors. La idea es que sean cosas que necesitan para escalar y que normalmente requieren capital: capacidad de servidores, créditos, procesamiento de pagos. [Ver cómo funciona](/recursos).",
-  },
-  {
-    question: "¿El recurso es una cuenta abierta por cada startup que aplique vía el QR?",
-    answer:
-      "Tú decides cuánto de los recursos le das a aquellos que aplican vía el QR para acceder a los recursos que tú ofreces.",
-  },
-  {
-    question: "¿Qué cuenta como recurso?",
-    answer:
-      "Algo que un founder puede usar después: créditos de infraestructura, capacidad de servidores, pagos, horas de oficio como grant, office hours que se agendan luego. Un catálogo o un préstamo para quien aún no tiene flujo no cuentan.",
-  },
-  {
-    question: "¿Cómo patrocino?",
-    answer:
-      "Elige un plan, completa el formulario y agenda una llamada de 30 minutos para cerrar el acuerdo a 1 año. Conversamos el recurso: qué es, cuál es el tope, y dónde aplican los founders.",
-  },
-  {
-    question: "¿Puedo patrocinar un solo mes o una sola edición?",
-    answer:
-      "No. Solo compromisos anuales, con cuota domiciliada. Así tu marca está en cada edición y no reabrimos materiales cada vez que entra una marca nueva.",
-  },
-  {
-    question: "¿Mi marca aparece desde el primer mes?",
-    answer:
-      "Sí. Logo en flyers, sitio y evento de esa edición. En Comunidad y Recurso el recurso se conoce por el QR y los materiales: no toman el micrófono.",
-  },
-  {
-    question: "¿Qué pasa si el grant todavía no está definido?",
-    answer:
-      "Podemos cerrar el cupo y publicar la marca, y dejar el QR listo cuando el tope y la vía de aplicación estén claros. El recurso no se anuncia en vacío.",
+    question: "¿Puedo aportar en especie?",
+    answer: "Sí, si resuelve una de las necesidades de la lista.",
   },
 ] as const;
 

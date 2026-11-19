@@ -6,20 +6,25 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { formatoMiles } from "@/components/patrocinar/formato";
-import { packages, sponsorshipCallUrl, type PackageId } from "@/lib/site";
+import { formatos2027, sponsorshipCallUrl } from "@/lib/site";
 
 type Status = "idle" | "loading" | "success" | "error";
 
-export function SponsorForm({
-  selectedPackage,
-  onPackageChange,
-}: {
-  selectedPackage: PackageId;
-  onPackageChange: (id: PackageId) => void;
-}) {
+const INTERESES = [
+  { id: "principal", label: "Patrocinador principal" },
+  { id: "formato", label: "Patrocinador de un formato" },
+  { id: "especie", label: "Aporte en especie" },
+] as const;
+
+const FORMATOS = formatos2027.filter((f) => f.visible);
+
+const selectClase =
+  "h-10 w-full rounded-[6px] border border-input bg-transparent px-2.5 text-sm text-white dark:bg-input/30";
+
+export function SponsorForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState("");
+  const [interes, setInteres] = useState<string>("principal");
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -37,7 +42,8 @@ export function SponsorForm({
           company: data.get("company"),
           email: data.get("email"),
           phone: data.get("phone"),
-          packageId: data.get("packageId"),
+          interes: data.get("interes"),
+          formato: data.get("interes") === "formato" ? data.get("formato") : undefined,
           message: data.get("message"),
           website: data.get("website"),
         }),
@@ -68,25 +74,37 @@ export function SponsorForm({
         <Field label="Teléfono" name="phone" required />
       </div>
       <div className="mt-4 space-y-2">
-        <Label htmlFor="packageId" className="text-white/80">
-          Paquete
+        <Label htmlFor="interes" className="text-white/80">
+          Interés
         </Label>
         <select
-          id="packageId"
-          name="packageId"
-          value={selectedPackage}
-          onChange={(event) => onPackageChange(event.target.value as PackageId)}
-          className="h-10 w-full rounded-[6px] border border-input bg-transparent px-2.5 text-sm text-white dark:bg-input/30"
+          id="interes"
+          name="interes"
+          value={interes}
+          onChange={(event) => setInteres(event.target.value)}
+          className={selectClase}
         >
-          {packages
-            .filter((pkg) => pkg.available)
-            .map((pkg) => (
-              <option key={pkg.id} value={pkg.id} className="bg-slate-950">
-                {`${pkg.name}, desde $${formatoMiles(pkg.price)} al mes`}
-              </option>
-            ))}
+          {INTERESES.map((i) => (
+            <option key={i.id} value={i.id} className="bg-slate-950">
+              {i.label}
+            </option>
+          ))}
         </select>
       </div>
+      {interes === "formato" ? (
+        <div className="mt-4 space-y-2">
+          <Label htmlFor="formato" className="text-white/80">
+            Formato
+          </Label>
+          <select id="formato" name="formato" defaultValue={FORMATOS[0]?.id} className={selectClase}>
+            {FORMATOS.map((f) => (
+              <option key={f.id} value={f.id} className="bg-slate-950">
+                {f.palabra.replace(/\b\w/g, (c) => c.toUpperCase())}
+              </option>
+            ))}
+          </select>
+        </div>
+      ) : null}
       <div className="mt-4 space-y-2">
         <Label htmlFor="message" className="text-white/80">
           Mensaje
@@ -95,11 +113,7 @@ export function SponsorForm({
           id="message"
           name="message"
           rows={4}
-          placeholder={
-            selectedPackage === "comunidad"
-              ? "Cuéntanos qué oferta llevarías a los founders."
-              : "Qué recurso acotado ofreces (créditos, pagos, capacidad…) y cómo lo canjean los founders..."
-          }
+          placeholder="Cuéntanos qué oferta llevarías a los founders."
           className="min-h-24 rounded-[6px] text-white"
         />
       </div>

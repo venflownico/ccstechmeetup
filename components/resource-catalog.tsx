@@ -108,9 +108,6 @@ export function ResourceCatalog() {
           <p className="text-xs font-semibold tracking-[0.18em] text-teal-300/80 uppercase">
             Para marcas
           </p>
-          <p className="font-heading mt-2 text-lg font-semibold text-white">
-            Cupos del ciclo tomados
-          </p>
           <p className="mt-2 text-sm text-white/60">{packagePitch.closedNote}</p>
         </aside>
       )}

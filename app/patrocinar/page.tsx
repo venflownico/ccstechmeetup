@@ -2,9 +2,12 @@ import type { Metadata } from "next";
 
 import { Lenis2027 } from "@/components/2027/lenis";
 import { Faq } from "@/components/faq";
-import { Packages } from "@/components/packages";
 import { Apoyan } from "@/components/patrocinar/apoyan";
+import { Busca } from "@/components/patrocinar/busca";
+import { Conversemos } from "@/components/patrocinar/conversemos";
 import { Destino } from "@/components/patrocinar/destino";
+import { Porque } from "@/components/patrocinar/porque";
+import { Quien } from "@/components/patrocinar/quien";
 import { Entrada } from "@/components/patrocinar/entrada";
 import s from "@/components/patrocinar/estilos.module.css";
 import { Formatos } from "@/components/patrocinar/formatos";
@@ -15,13 +18,13 @@ import { SponsorWhy } from "@/components/sponsor-why";
 import { site, sponsorFaqs } from "@/lib/site";
 
 const descripcion =
-  "Patrocina el Caracas Tech Meetup en 2027: dos planes por un año frente a founders, inversionistas y quienes construyen startups en Caracas.";
+  "Patrocina Caracas Tech en 2027: cada mes, frente a quienes construyen las startups de Venezuela.";
 
 export const metadata: Metadata = {
   title: "Patrocinar",
   description: descripcion,
   openGraph: {
-    title: "Patrocina el Caracas Tech Meetup",
+    title: "Patrocina Caracas Tech",
     description: descripcion,
     url: "/patrocinar",
     siteName: site.name,
@@ -43,17 +46,20 @@ export default function PatrocinarPage() {
         <Lenis2027>
           <main className={s.principal}>
             <Entrada />
+            <Porque />
             <SponsorWhy />
             <Apoyan />
-            <SponsorFit />
             <Formatos />
+            <SponsorFit />
+            <Busca />
             <Destino />
-            <Packages />
+            <Quien />
             <section className={`${s.seccion} ${s.faq}`}>
               <div className={s.envoltura}>
                 <Faq items={sponsorFaqs} title="Preguntas frecuentes" compact />
               </div>
             </section>
+            <Conversemos />
           </main>
         </Lenis2027>
       </div>

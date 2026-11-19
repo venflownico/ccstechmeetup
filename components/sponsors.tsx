@@ -4,32 +4,12 @@ import Link from "next/link";
 import { Marquee } from "@/components/ui/marquee";
 import {
   lockupPlanOrder,
-  packages,
   paidSponsorsByPlan,
   paidSponsorSlots,
   presentingSponsors,
   sponsorshipIntakeOpen,
   supporters,
-  type PackageId,
 } from "@/lib/site";
-
-const lockupSize: Record<
-  PackageId,
-  { slot: string; logo: string; logoWidth: number; logoHeight: number }
-> = {
-  recurso: {
-    slot: "h-[6.5rem] w-[14rem] sm:h-28 sm:w-60",
-    logo: "h-12 w-auto max-w-[180px] object-contain sm:h-14 sm:max-w-[200px]",
-    logoWidth: 200,
-    logoHeight: 56,
-  },
-  comunidad: {
-    slot: "h-[4.75rem] w-[10.5rem] sm:h-[5.25rem] sm:w-44",
-    logo: "h-8 w-auto max-w-[130px] object-contain sm:h-9 sm:max-w-[140px]",
-    logoWidth: 140,
-    logoHeight: 36,
-  },
-};
 
 function Logo({ name, src, tall }: { name: string; src: string; tall?: boolean }) {
   return (
@@ -45,117 +25,31 @@ function Logo({ name, src, tall }: { name: string; src: string; tall?: boolean }
   );
 }
 
-function OpenSponsorSlot({
-  href,
-  sizeClass,
-  plan,
-  slotNumber,
-  total,
-}: {
-  href: string;
-  sizeClass: string;
-  plan: string;
-  slotNumber: number;
-  total: number;
-}) {
-  const scarcity = `Cupo ${slotNumber} de ${total}`;
-  const className = `group flex ${sizeClass} flex-col items-center justify-center rounded-xl border border-dashed border-white/20 px-3 text-center transition hover:border-teal-300/50 hover:bg-white/[0.03]`;
-  const content = (
-    <>
-      <p>
-        <span className="sr-only">
-          {plan}, {scarcity}
-        </span>
-        <span
-          aria-hidden="true"
-          className="block text-[10px] font-semibold tracking-[0.16em] text-white/40 uppercase"
-        >
-          {plan}
-        </span>
-        <span aria-hidden="true" className="mt-0.5 block text-[10px] text-white/40">
-          {scarcity}
-        </span>
-      </p>
-      <span
-        aria-hidden="true"
-        className="relative mt-1 grid min-h-[1.25rem] w-full place-items-center text-[11px]"
-      >
-        <span className="col-start-1 row-start-1 text-white/45 transition-opacity duration-200 group-hover:opacity-0 group-focus-visible:opacity-0">
-          {paidSponsorSlots.emptyHint}
-        </span>
-        <span className="col-start-1 row-start-1 text-teal-300/90 opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100">
-          {paidSponsorSlots.reserveHint}
-        </span>
-      </span>
-    </>
-  );
-
-  if (href.startsWith("#")) {
-    return (
-      <a
-        href={href}
-        className={className}
-        aria-label={`${plan}, ${scarcity.toLowerCase()}. ${paidSponsorSlots.reserveHint}`}
-      >
-        {content}
-      </a>
-    );
-  }
-
-  return (
-    <Link
-      href={href}
-      className={className}
-      aria-label={`${plan}, ${scarcity.toLowerCase()}. ${paidSponsorSlots.reserveHint}`}
-    >
-      {content}
-    </Link>
-  );
-}
-
 export function Sponsors({ compact = false }: { compact?: boolean }) {
   const first = supporters.slice(0, Math.ceil(supporters.length / 2));
   const second = supporters.slice(Math.ceil(supporters.length / 2));
-  const slotHref = "/patrocinar#paquetes";
-  const lockupPlans = lockupPlanOrder.map((id) => {
-    const pkg = packages.find((item) => item.id === id);
-    if (!pkg || !pkg.available) {
-      throw new Error(`Missing lockup package: ${id}`);
-    }
-    return pkg;
-  });
+  const paidLogos = lockupPlanOrder.flatMap((id) => paidSponsorsByPlan[id]);
 
+  const wall = (fade: string) => (
+    <div className={`relative ${compact ? "mt-2" : "mt-6"}`}>
+      <Marquee pauseOnHover className="[--duration:40s]">
+        {first.map((sponsor) => (
+          <Logo key={sponsor.name} {...sponsor} />
+        ))}
+      </Marquee>
+      <Marquee reverse pauseOnHover className="[--duration:40s]">
+        {second.map((sponsor) => (
+          <Logo key={sponsor.name} {...sponsor} />
+        ))}
+      </Marquee>
+      <div className={`pointer-events-none absolute inset-y-0 left-0 w-1/6 bg-gradient-to-r ${fade}`} />
+      <div className={`pointer-events-none absolute inset-y-0 right-0 w-1/6 bg-gradient-to-l ${fade}`} />
+    </div>
+  );
+
+  // En /patrocinar solo va el muro de quienes han apoyado, sin destacar a ningún patrocinador pagado.
   if (compact) {
-    return (
-      <section>
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-10 px-4 sm:gap-14 sm:px-6">
-          {presentingSponsors.map((sponsor) => (
-            <Image
-              key={sponsor.name}
-              src={sponsor.src}
-              alt={sponsor.name}
-              width={240}
-              height={80}
-              className="h-14 w-auto object-contain sm:h-16"
-            />
-          ))}
-        </div>
-        <div className="relative mt-8">
-          <Marquee pauseOnHover className="[--duration:40s]">
-            {first.map((sponsor) => (
-              <Logo key={sponsor.name} {...sponsor} />
-            ))}
-          </Marquee>
-          <Marquee reverse pauseOnHover className="[--duration:40s]">
-            {second.map((sponsor) => (
-              <Logo key={sponsor.name} {...sponsor} />
-            ))}
-          </Marquee>
-          <div className="pointer-events-none absolute inset-y-0 left-0 w-1/6 bg-gradient-to-r from-[#050b12]" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-1/6 bg-gradient-to-l from-[#050b12]" />
-        </div>
-      </section>
-    );
+    return <section>{wall("from-[#050b12]")}</section>;
   }
 
   return (
@@ -196,70 +90,34 @@ export function Sponsors({ compact = false }: { compact?: boolean }) {
             />
           ))}
         </div>
-        <p className="mt-14 text-xs font-semibold tracking-[0.22em] text-white/40 uppercase">
-          {paidSponsorSlots.label}
-        </p>
-        <p className="mt-3 text-sm text-white/50">
-          {sponsorshipIntakeOpen ? paidSponsorSlots.lead : paidSponsorSlots.closedLead}
-        </p>
-        <div className="mt-8 flex flex-col items-center gap-8">
-          {lockupPlans.map((pkg) => {
-            const filled = paidSponsorsByPlan[pkg.id];
-            const size = lockupSize[pkg.id];
-            const openCount = sponsorshipIntakeOpen
-              ? Math.max(0, pkg.slotCount - filled.length)
-              : 0;
-            return (
-              <div
-                key={pkg.id}
-                className="flex flex-wrap items-center justify-center gap-3 sm:gap-4"
-              >
-                {filled.map((sponsor) => (
-                  <div
-                    key={sponsor.name}
-                    className={`flex ${size.slot} items-center justify-center rounded-xl border border-white/10 bg-white/[0.02] px-4`}
-                  >
-                    <Image
-                      src={sponsor.src}
-                      alt={sponsor.name}
-                      width={size.logoWidth}
-                      height={size.logoHeight}
-                      className={size.logo}
-                    />
-                  </div>
-                ))}
-                {Array.from({ length: openCount }, (_, index) => (
-                  <OpenSponsorSlot
-                    key={`${pkg.id}-open-${index}`}
-                    href={slotHref}
-                    sizeClass={size.slot}
-                    plan={pkg.name}
-                    slotNumber={filled.length + index + 1}
-                    total={pkg.slotCount}
+        {paidLogos.length > 0 ? (
+          <>
+            <p className="mt-14 text-xs font-semibold tracking-[0.22em] text-white/40 uppercase">
+              {paidSponsorSlots.label}
+            </p>
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+              {paidLogos.map((sponsor) => (
+                <div
+                  key={sponsor.name}
+                  className="flex h-24 w-48 items-center justify-center rounded-xl border border-white/10 bg-white/[0.02] px-4"
+                >
+                  <Image
+                    src={sponsor.src}
+                    alt={sponsor.name}
+                    width={160}
+                    height={48}
+                    className="h-10 w-auto max-w-[150px] object-contain"
                   />
-                ))}
-              </div>
-            );
-          })}
-        </div>
+                </div>
+              ))}
+            </div>
+          </>
+        ) : null}
         <p className="mt-14 text-xs font-semibold tracking-[0.22em] text-white/40 uppercase">
           Acompañan
         </p>
       </div>
-      <div className="relative mt-6">
-        <Marquee pauseOnHover className="[--duration:40s]">
-          {first.map((sponsor) => (
-            <Logo key={sponsor.name} {...sponsor} />
-          ))}
-        </Marquee>
-        <Marquee reverse pauseOnHover className="[--duration:40s]">
-          {second.map((sponsor) => (
-            <Logo key={sponsor.name} {...sponsor} />
-          ))}
-        </Marquee>
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-1/6 bg-gradient-to-r from-[#070b14]" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-1/6 bg-gradient-to-l from-[#070b14]" />
-      </div>
+      {wall("from-[#070b14]")}
     </section>
   );
 }
