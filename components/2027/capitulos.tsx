@@ -12,6 +12,7 @@ import s from "./estilos.module.css";
 import { useIrA } from "./lenis";
 import { useQuieto } from "./quieto";
 import { TextoTipeado } from "./texto-tipeado";
+import { CUENTA_PALABRA } from "./tipos";
 import type { Estilo } from "./tipos";
 
 /** Cuánto más abajo del inicio del capítulo se aterriza, para que el título ya esté a la vista. */
@@ -133,7 +134,7 @@ export function Capitulos({
       <section className={`${s.apertura} ${s.envoltura}`} aria-labelledby="t-apertura">
         <TextoTipeado as="h2" id="t-apertura" texto="¿A quién quieres conocer?" />
         <p className={s.aperturaBajada}>
-          En Caracas hay más gente construyendo de la que cabe en una noche. En 2027 hay seis maneras de coincidir.
+          En Caracas hay más gente construyendo de la que cabe en una noche. En 2027 hay {CUENTA_PALABRA} maneras de coincidir.
         </p>
         <ul className={s.perChips}>
           {BUSQUEDAS.map((b) => (
@@ -167,20 +168,20 @@ export function Capitulos({
         </div>
         <a
           className={s.saltar}
-          href="#formatos"
+          href="#avisame"
           data-ver={dentro ? "" : undefined}
           data-barra={barra ? "" : undefined}
           tabIndex={dentro ? undefined : -1}
           aria-hidden={dentro ? undefined : true}
           onClick={(e) => {
             e.preventDefault();
-            irA("formatos");
+            irA("avisame");
           }}
         >
           Saltar
         </a>
         <p className={s.capCierre} aria-live="polite">
-          {busca.length ? "Te marcamos las tarjetas donde es más fácil coincidir." : ""}
+          {busca.length ? "Anotado. Lo tendremos en cuenta cuando te avisemos." : ""}
         </p>
       </div>
     </>

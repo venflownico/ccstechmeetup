@@ -10,27 +10,32 @@ import { Aviso } from "./aviso";
 import { Luz, Progreso } from "./ambiente";
 import { Barra } from "./barra";
 import { Capitulos } from "./capitulos";
-import { DatosRapidos } from "./datos-rapidos";
 import { Confeti, crearConfeti } from "./efectos";
 import type { Pieza } from "./efectos";
 import { Entrada } from "./entrada";
 import s from "./estilos.module.css";
 import { Lenis2027 } from "./lenis";
 import { useQuieto } from "./quieto";
+import { PerfilesUna } from "./perfiles-una";
+import { Resumen } from "./resumen";
 import { Tarjeta } from "./tarjeta";
 import { TextoTipeado } from "./texto-tipeado";
 import { FORMATOS } from "./tipos";
+import { useVariante } from "./variante";
 
 type Rafaga = { piezas: Pieza[]; y: string };
 
 export function Formatos2027() {
   const quieto = useQuieto();
+  const variante = useVariante();
   const [marcadas, setMarcadas] = useState<ReadonlySet<string>>(new Set());
   const [enviado, setEnviado] = useState(false);
   const [formVisible, setFormVisible] = useState(false);
   const [confeti, setConfeti] = useState<Rafaga | null>(null);
   const [busca, setBusca] = useState<readonly BusquedaId[]>([]);
 
+  // Si la persona ya tocó los formatos, elegir un perfil no los cambia.
+  const tocadas = useRef(false);
   const volteadas = useRef(new Set<string>());
   const marcadasRef = useRef<ReadonlySet<string>>(marcadas);
   const buscaRef = useRef<readonly BusquedaId[]>([]);
@@ -123,6 +128,7 @@ export function Formatos2027() {
   }
 
   function marcar(id: string, si: boolean) {
+    tocadas.current = true;
     if (si && !marcadas.has(id) && marcadas.size === total - 1) lanzarConfeti("88%");
     setMarcadas((prev) => {
       const sig = new Set(prev);
@@ -134,12 +140,34 @@ export function Formatos2027() {
 
   // Multiselección: cada capítulo marca o desmarca a la persona que busca; se guarda en el orden de los capítulos.
   function alternarBusca(id: BusquedaId) {
-    setBusca((prev) => IDS_BUSQUEDA.filter((x) => (x === id ? !prev.includes(id) : prev.includes(x))));
+    const sig = IDS_BUSQUEDA.filter((x) => (x === id ? !buscaRef.current.includes(id) : buscaRef.current.includes(x)));
+    buscaRef.current = sig;
+    setBusca(sig);
+    // Sin sección de perfiles: la pregunta vive en el formulario y premarca los formatos sugeridos.
+    if (variante === "sin" && !tocadas.current) setMarcadas(new Set(idsVisibles(sig)));
+  }
+
+  /** Un solo perfil a la vez (variante `una`). */
+  function elegirUno(id: BusquedaId | null) {
+    const sig = id ? [id] : [];
+    buscaRef.current = sig;
+    setBusca(sig);
+  }
+
+  /** «Avísame de estos»: suma esos formatos a los marcados. */
+  function sumarFormatos(ids: string[]) {
+    tocadas.current = true;
+    setMarcadas((prev) => new Set([...prev, ...ids]));
   }
 
   function marcarTodos(si: boolean) {
+    tocadas.current = true;
     if (si && marcadas.size < total) lanzarConfeti("88%");
     setMarcadas(si ? new Set(FORMATOS.map((f) => f.id)) : new Set());
+  }
+
+  function idsVisibles(ids: readonly BusquedaId[]) {
+    return formatosDe(ids).filter((id) => FORMATOS.some((f) => f.id === id));
   }
 
   const verBarra = marcadas.size > 0 && !enviado && !formVisible;
@@ -151,8 +179,7 @@ export function Formatos2027() {
         <Progreso />
         <main className={s.principal}>
           <Entrada />
-          <Capitulos busca={busca} onBusca={alternarBusca} barra={verBarra} />
-          <DatosRapidos />
+          <Resumen />
 
           <section className={`${s.formatos} ${s.envoltura}`} id="formatos" aria-label="Formatos de 2027">
             <ul ref={lista} className={s.rejilla}>
@@ -169,6 +196,11 @@ export function Formatos2027() {
             </ul>
           </section>
 
+          {variante === "una" ? (
+            <PerfilesUna elegido={busca[0] ?? null} onElegir={elegirUno} onAvisame={sumarFormatos} />
+          ) : null}
+          {variante === "completas" ? <Capitulos busca={busca} onBusca={alternarBusca} barra={verBarra} /> : null}
+
           <Aviso
             secRef={aviso}
             marcadas={marcadas}
@@ -181,6 +213,9 @@ export function Formatos2027() {
             }}
             origen={() => origenRef.current}
             busca={() => buscaRef.current}
+            conBusca={variante === "sin"}
+            buscaActual={busca}
+            onBusca={alternarBusca}
           />
 
           <div className={`${s.marcas} ${s.envoltura}`}>
