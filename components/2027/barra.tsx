@@ -15,9 +15,7 @@ export function Barra({ marcadas, ver }: { marcadas: ReadonlySet<string>; ver: b
   const n = marcadas.size;
   const todas = n === total && n > 0;
   const texto = todas
-    ? total === 6
-      ? "Marcaste los seis formatos"
-      : "Marcaste todos los formatos"
+    ? "Marcaste todos los formatos"
     : `${n} ${n === 1 ? "formato marcado" : "formatos marcados"}`;
 
   return (

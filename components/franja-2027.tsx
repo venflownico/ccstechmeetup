@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
+import { CUENTA_PALABRA } from "@/components/2027/tipos";
 import { formatos2027 } from "@/lib/site";
 
 export function Franja2027() {
@@ -21,7 +22,7 @@ export function Franja2027() {
         <div className="flex flex-wrap items-center justify-between gap-4 px-5 pt-5 pb-6 sm:px-7">
           <div>
             <h2 className="font-heading text-2xl font-medium text-white sm:text-3xl">
-              En 2027 nos vemos de seis maneras
+              En 2027 nos vemos de {CUENTA_PALABRA} maneras
             </h2>
             <p className="mt-1 text-[#9aa59f]">Voltea las tarjetas y dinos cuáles te interesan.</p>
           </div>
