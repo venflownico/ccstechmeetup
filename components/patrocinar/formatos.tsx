@@ -15,7 +15,7 @@ const TEXTO: Record<string, { nombre: string; que: string }> = {
   dinner: { nombre: "Dinner", que: "Cenas pequeñas entre founders e inversionistas." },
   hackathon: { nombre: "Hackathon", que: "Un fin de semana construyendo." },
   "demo-day": { nombre: "Demo Day", que: "Startups presentan frente a inversionistas." },
-  wellness: { nombre: "Wellness", que: "Carreras y deporte con la comunidad." },
+  wellness: { nombre: "Wellness", que: "Carreras y deporte entre founders." },
 };
 
 const ESTADO = {
@@ -35,8 +35,8 @@ export function Formatos() {
       <div className={s.envoltura}>
         <Titulo id="t-formatos" className={`${s.h2} ${s.h2Ancho}`} texto="En 2027, el meetup crece a Caracas Tech." />
         <p className={s.sub}>
-          Para que nazcan más startups, en 2027 sumamos formatos alrededor del meetup. Cada uno tiene su propia
-          propuesta.
+          Para que nazcan más startups, en 2027 sumamos formatos alrededor del meetup. Cada formato tendrá su
+          propia propuesta de patrocinio.
         </p>
         <ul className={s.minis}>
           {LISTA.map((f, i) => {

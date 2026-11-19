@@ -5,10 +5,10 @@ import { Revela, Titulo } from "./movimiento";
 
 const FILAS = [
   { Icono: UserRound, texto: "Una persona dedicada a organizar todos los formatos." },
-  { Icono: Building2, texto: "Registrar la empresa y la marca, para firmar contigo y proteger tu patrocinio." },
+  { Icono: Building2, texto: "Registrar la empresa y la marca, para firmar contigo y proteger la marca que patrocinas." },
   { Icono: Camera, texto: "Fotografía y redes de cada edición." },
   { Icono: MapPin, texto: "Venue: baños, valet parking y producción." },
-  { Icono: ClipboardCheck, texto: "Ponernos al día con lo pendiente de este año." },
+  { Icono: ClipboardCheck, texto: "Pagar las deudas de este año." },
   { Icono: PiggyBank, texto: "Una reserva para ediciones más grandes." },
 ] as const;
 

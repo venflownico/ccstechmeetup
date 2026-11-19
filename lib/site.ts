@@ -133,7 +133,7 @@ export const sponsorWhy = {
 } as const;
 
 export const sponsorFit = {
-  title: "Para que nazcan más de 1.000 startups en Venezuela en los próximos cinco años.",
+  title: "Para que nazcan más de 1.000 startups en Caracas y Venezuela en los próximos cinco años.",
   lead: "Caracas Tech es una organización de founders de la propia comunidad, por el ecosistema y para el ecosistema. Existe para que quien construye tenga la red, los recursos, el capital y las personas que necesita.",
   impactLabel: "Cómo medimos el impacto:",
   impact: "por las startups que nacen.",
@@ -146,7 +146,7 @@ export const sponsorGana = {
   title: "Que la comunidad te vea como quien pone los rieles.",
   donde: {
     label: "Dónde vas a estar.",
-    text: "Tu marca va en los flyers, en el sitio y en cada evento, en todos los formatos del año.",
+    text: "Tu marca va en los flyers, en el sitio y en cada evento, en todos los formatos.",
     cuposLeyenda: "Patrocinadores principales 2027 · entre 4 y 6 cupos",
     cupoTexto: "Tu logo aquí",
     cupos: 6,
@@ -166,7 +166,7 @@ export const sponsorGana = {
     },
     {
       label: "Patrocinar o acompañar.",
-      text: "Startups, universidades y organizaciones sin fines de lucro acompañan con su logo. Quien patrocina está en todos los formatos, en los materiales de cada evento y primero en cada formato nuevo.",
+      text: "Startups, universidades y organizaciones sin fines de lucro acompañan con su logo. Quien patrocina está en todos los formatos y en los materiales de cada evento, por encima de los patrocinadores de un solo formato.",
     },
   ],
   condicion: {
@@ -450,20 +450,20 @@ export const sponsorFaqs = [
   {
     question: "¿Hasta cuándo puedo entrar como patrocinador principal?",
     answer:
-      "Buscamos cerrar los cupos antes de enero de 2027. Los patrocinios por formato se abren cuando se anuncia cada formato.",
+      "Buscamos cerrar los 4 a 6 patrocinadores principales de aquí a enero de 2027. Los patrocinios por formato se abren cuando se anuncia cada formato.",
   },
   {
     question: "Si soy patrocinador principal, ¿habrá otros patrocinadores?",
     answer:
-      "Sí. Cada formato puede sumar 2 o 3 patrocinadores propios. Los principales están en todos los formatos y siempre van primero.",
+      "Sí. Cada formato puede sumar 2 o 3 patrocinadores propios. Los principales están en todos los formatos y van por encima.",
   },
   {
     question: "¿Puedo patrocinar solo un formato?",
-    answer: "Sí, en la fase 2.",
+    answer: "Sí. Es la fase 2, durante 2027. Puedes dejarnos tus datos desde ahora.",
   },
   {
     question: "¿Puedo aportar en especie?",
-    answer: "Sí, si resuelve una de las necesidades de la lista.",
+    answer: "Sí, si resuelve una de las necesidades de «Lo que tu aporte resuelve».",
   },
   {
     question: "¿Puedo tener un stand o promotoras?",
@@ -472,11 +472,11 @@ export const sponsorFaqs = [
   },
   {
     question: "¿Emiten factura fiscal?",
-    answer: "Sí, cada mes. Los montos van en dólares y se pagan a tasa BCV.",
+    answer: "Sí, cada mes.",
   },
   {
     question: "¿Cómo se paga?",
-    answer: "La cuota se domicilia cada mes. Los términos van en el contrato.",
+    answer: "La cuota se fija en dólares y se domicilia cada mes en bolívares, a tasa BCV, en un banco que permita domiciliación. Los términos van en el contrato.",
   },
 ] as const;
 
