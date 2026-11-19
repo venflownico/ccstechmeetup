@@ -108,7 +108,6 @@ export const supporters = [
   { name: "Venecápital", src: "/sponsors/venecapital.png" },
   { name: "Innoven", src: "/sponsors/innoven.png" },
   { name: "Venflow", src: "/sponsors/venflow.png" },
-  { name: "Venezuela Mobility Ventures", src: "/sponsors/venezuela-mobility-ventures.png" },
   { name: "Rial", src: "/sponsors/rial.png" },
   { name: "Amalia", src: "/sponsors/amalia.png" },
   { name: "Wave", src: "/sponsors/wave.png" },
@@ -541,6 +540,8 @@ export type Formato2027 = {
   viewBox: string;
   /** Si es false, el formato desaparece de tarjetas, chips, barra y rotación. */
   visible: boolean;
+  /** «confirmado» va seguro en 2027; «en-camino» se está trabajando (no sobreprometer). */
+  estado: "confirmado" | "en-camino";
 };
 
 export const formatos2027: readonly Formato2027[] = [
@@ -560,6 +561,7 @@ export const formatos2027: readonly Formato2027[] = [
     quien: "Founders, builders e inversionistas",
     viewBox: "0 0 4042 1524",
     visible: true,
+    estado: "confirmado",
   },
   {
     id: "demo-day",
@@ -577,6 +579,7 @@ export const formatos2027: readonly Formato2027[] = [
     quien: "Startups que buscan inversión e inversionistas",
     viewBox: "0 0 4562 1524",
     visible: true,
+    estado: "en-camino",
   },
   {
     id: "dinner",
@@ -594,6 +597,7 @@ export const formatos2027: readonly Formato2027[] = [
     quien: "Founders e inversionistas",
     viewBox: "0 0 3872 1524",
     visible: true,
+    estado: "confirmado",
   },
   {
     id: "wellness",
@@ -611,6 +615,7 @@ export const formatos2027: readonly Formato2027[] = [
     quien: "Founders",
     viewBox: "0 0 4255 1524",
     visible: true,
+    estado: "en-camino",
   },
   {
     id: "hackathon",
@@ -628,6 +633,7 @@ export const formatos2027: readonly Formato2027[] = [
     quien: "Quien construye producto",
     viewBox: "0 0 4699 1524",
     visible: true,
+    estado: "confirmado",
   },
   {
     id: "week",
@@ -644,7 +650,8 @@ export const formatos2027: readonly Formato2027[] = [
     que: "Una semana de eventos de toda la comunidad.",
     quien: "Toda la comunidad",
     viewBox: "0 0 3872 1524",
-    visible: true,
+    visible: false,
+    estado: "en-camino",
   },
 ];
 

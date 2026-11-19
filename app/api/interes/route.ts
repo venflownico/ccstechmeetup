@@ -1,4 +1,5 @@
 import { limpiarBusquedas } from "@/lib/busquedas-2027";
+import { formatos2027 } from "@/lib/site";
 
 export const runtime = "nodejs";
 
@@ -8,7 +9,7 @@ const MAX_NOTICES = 5;
 const visitHits = new Map<string, number[]>();
 const noticeHits = new Map<string, number[]>();
 
-const FORMATS = ["meetup", "demo-day", "dinner", "wellness", "hackathon", "week"];
+const FORMATS = formatos2027.filter((f) => f.visible).map((f) => f.id);
 const ROLES = ["founder", "inversionista", "startup", "marca", "estudiante", "otro"];
 
 function rateLimit(store: Map<string, number[]>, ip: string, max: number) {

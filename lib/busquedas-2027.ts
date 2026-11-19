@@ -28,7 +28,7 @@ export const BUSQUEDAS = [
     etiqueta: "Un cofounder",
     frase: "Un fin de semana construyendo juntos dice más que diez cafés.",
     Icono: Handshake,
-    formatos: ["hackathon", "meetup", "week"],
+    formatos: ["hackathon", "meetup"],
     ...colorDe("hackathon"),
   },
   {
@@ -36,7 +36,7 @@ export const BUSQUEDAS = [
     etiqueta: "Tu próximo cliente",
     frase: "Está en la misma sala, buscando lo que vendes.",
     Icono: Target,
-    formatos: ["meetup", "week"],
+    formatos: ["meetup", "dinner"],
     ...colorDe("meetup"),
   },
   {
@@ -44,8 +44,8 @@ export const BUSQUEDAS = [
     etiqueta: "Talento para tu equipo",
     frase: "La persona que te falta puede estar en la sala.",
     Icono: UserSearch,
-    formatos: ["meetup", "hackathon", "week"],
-    ...colorDe("week"),
+    formatos: ["meetup", "hackathon"],
+    ...colorDe("hackathon"),
   },
   {
     id: "yapaso",

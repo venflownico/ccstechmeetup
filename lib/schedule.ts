@@ -3,6 +3,8 @@ export const MEETUP_TIMEZONE = "America/Caracas";
 const START_HOUR = 17;
 const START_MINUTE = 30;
 export const RSVP_LEAD_DAYS = 7;
+/** Meses sin meetup aunque tengan tercer jueves (diciembre: fiestas). Luma manda si publica uno. */
+const MESES_SIN_MEETUP = new Set([12]);
 
 const MONTHS_ES = [
   "Enero",
@@ -64,6 +66,7 @@ export function remainingScheduledMeetups(from = new Date()): ScheduledMeetup[] 
   const events: ScheduledMeetup[] = [];
 
   for (let month = 1; month <= 12; month += 1) {
+    if (MESES_SIN_MEETUP.has(month)) continue;
     const day = thirdThursdayDay(year, month);
     const startAt = caracasDateTime(year, month, day, START_HOUR, START_MINUTE);
     if (new Date(startAt).getTime() <= from.getTime()) continue;
