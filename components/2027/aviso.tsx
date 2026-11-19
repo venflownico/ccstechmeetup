@@ -5,7 +5,6 @@ import { BellRing, CalendarCheck, Camera, Check, LoaderCircle, Mail } from "luci
 import { useEffect, useRef, useState } from "react";
 import type { FormEvent, RefObject } from "react";
 
-import { LogotipoFormato } from "@/components/logotipo-formato";
 import { BUSQUEDAS } from "@/lib/busquedas-2027";
 import type { BusquedaId } from "@/lib/busquedas-2027";
 import { roles2027 } from "@/lib/site";
@@ -190,7 +189,7 @@ export function Aviso({
                       >
                         <Icono strokeWidth={1.75} aria-hidden="true" />
                       </motion.em>
-                      <LogotipoFormato palabra={f.palabra} color={f.cl} viewBox={f.viewBox} className={s.chipLogo} />
+                      <b className={s.chipPalabra}>{f.palabra}</b>
                     </span>
                   </motion.label>
                 );

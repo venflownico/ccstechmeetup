@@ -12,7 +12,7 @@ import { ICONOS_FORMATO } from "./iconos";
 import { useIrA } from "./lenis";
 import { useQuieto } from "./quieto";
 import { TextoTipeado } from "./texto-tipeado";
-import { CUENTA_PALABRA, FORMATOS } from "./tipos";
+import { FORMATOS, REPARTO_ESTADO } from "./tipos";
 import type { Estilo } from "./tipos";
 
 function Item({ f, k }: { f: Formato2027; k: number }) {
@@ -58,18 +58,17 @@ function Item({ f, k }: { f: Formato2027; k: number }) {
               {confirmado ? "Confirmado" : "En camino"}
             </span>
           </span>
-          <span className={s.rsQue}>{f.que}</span>
         </span>
       </a>
     </motion.li>
   );
 }
 
-/** Los formatos de 2027 de un vistazo: logotipo, ícono, una frase y su estado. Cada uno lleva a su tarjeta. */
+/** Índice de los formatos de 2027: logotipo, ícono y estado. La descripción vive en la tarjeta a la que lleva cada uno. */
 export function Resumen() {
   return (
     <section className={`${s.resumen} ${s.envoltura}`} id="resumen" aria-labelledby="t-resumen">
-      <TextoTipeado as="h2" id="t-resumen" texto={`${CUENTA_PALABRA[0].toUpperCase()}${CUENTA_PALABRA.slice(1)} formatos, de un vistazo`} />
+      <TextoTipeado as="h2" id="t-resumen" texto={REPARTO_ESTADO} />
       <ul className={s.rsLista}>
         {FORMATOS.map((f, k) => (
           <Item key={f.id} f={f} k={k} />

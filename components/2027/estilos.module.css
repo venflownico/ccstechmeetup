@@ -74,9 +74,9 @@
 .resumen{padding-block:40px 24px;scroll-margin-top:72px}
 .rsLista{list-style:none;display:grid;gap:10px;margin-top:22px;grid-template-columns:1fr}
 .rsItem{display:block}
-.rsEnlace{display:flex;gap:12px;align-items:flex-start;padding:12px 14px 12px 12px;height:100%;border-radius:var(--r);border:1px solid var(--linea);border-left:3px solid var(--c);background:color-mix(in srgb,var(--c) 8%,var(--panel));text-decoration:none;transition:border-color .2s ease,background-color .2s ease}
+.rsEnlace{display:flex;gap:12px;align-items:center;padding:12px 14px 12px 12px;height:100%;border-radius:var(--r);border:1px solid var(--linea);border-left:3px solid var(--c);background:color-mix(in srgb,var(--c) 8%,var(--panel));text-decoration:none;transition:border-color .2s ease,background-color .2s ease}
 .rsEnlace:active{transform:scale(.985)}
-.rsIcono{flex:none;width:36px;height:36px;border-radius:50%;border:1.5px solid var(--cl);color:var(--cl);display:grid;place-items:center;margin-top:2px}
+.rsIcono{flex:none;width:36px;height:36px;border-radius:50%;border:1.5px solid var(--cl);color:var(--cl);display:grid;place-items:center}
 .rsIcono svg{width:20px;height:20px}
 .rsCuerpo{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
 .rsCabeza{display:flex;align-items:center;justify-content:space-between;gap:10px}
@@ -85,17 +85,15 @@
 .rsEstado svg{width:14px;height:14px}
 .rsEstado[data-estado=confirmado]{background:var(--cl);color:#050b12}
 .rsEstado[data-estado=en-camino]{border:1.5px solid var(--cl);color:var(--cl);padding:3.5px 8px 3.5px 6px}
-.rsQue{font-size:14px;line-height:1.35;color:#c9d2cd;max-width:44ch}
 @media(min-width:720px){
   .rsLista{grid-template-columns:1fr 1fr;gap:14px}
   .rsItem:last-child:nth-child(odd){grid-column:1/-1}
   .rsEnlace{padding:16px 18px 16px 14px}
-  .rsQue{font-size:15px}
 }
 @media(min-width:1040px){
   .rsLista{grid-template-columns:repeat(5,1fr);gap:14px}
   .rsItem:last-child:nth-child(odd){grid-column:auto}
-  .rsEnlace{flex-direction:column;gap:14px;border-left-width:1px;border-top:3px solid var(--c);padding:18px 16px}
+  .rsEnlace{flex-direction:column;align-items:flex-start;gap:14px;border-left-width:1px;border-top:3px solid var(--c);padding:18px 16px}
   .rsCabeza{flex-direction:column;align-items:flex-start;gap:12px}
   .rsLogo{height:38px}
 }
@@ -235,8 +233,7 @@
 .chip span{display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 16px;border-radius:999px;border:1px solid var(--linea);background:var(--panel);font-size:15px;color:#d6ddd9;transition:background-color .2s ease,border-color .2s ease,color .2s ease}
 .chipIcono{display:inline-grid;place-items:center;font-style:normal;color:var(--c,var(--gris))}
 .chipIcono svg{width:18px;height:18px}
-.chipLogo{display:block;height:32px;width:auto;overflow:visible}
-.chip span:has(.chipLogo){height:52px;padding:0 14px 0 12px}
+.chipPalabra{font-family:var(--font-kalam),cursive;font-weight:400;font-size:21px;line-height:1;color:var(--cl);padding-top:2px}
 .chip input:checked+span{background:color-mix(in srgb,var(--c,var(--verde)) 22%,var(--panel));border-color:var(--c,var(--verde));color:var(--fg)}
 .chip input:checked+span .chipIcono{color:var(--cl,var(--fg))}
 .chip input:focus-visible+span{outline:2px solid var(--fg);outline-offset:2px}
