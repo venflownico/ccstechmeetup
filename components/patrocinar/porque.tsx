@@ -5,7 +5,7 @@ import { sponsorFit } from "@/lib/site";
 import s from "./estilos.module.css";
 import { Revela, Titulo } from "./movimiento";
 
-const ICONOS = [Landmark, UsersRound, Layers, Compass] as const;
+export const ICONOS_PILARES = [Landmark, UsersRound, Layers, Compass] as const;
 
 export function Porque() {
   return (
@@ -13,17 +13,19 @@ export function Porque() {
       <div className={s.envoltura}>
         <Titulo id="t-porque" className={`${s.h2} ${s.h2Ancho}`} texto={sponsorFit.title} />
         <p className={s.sub}>{sponsorFit.lead}</p>
+        <p className={s.etiquetaLista}>
+          <strong>{sponsorFit.impactLabel}</strong> {sponsorFit.impact}
+        </p>
         <p className={s.etiquetaLista}>{sponsorFit.pillarsLabel}</p>
         <ul className={s.pilares}>
-          {sponsorFit.pillars.map((p, i) => {
-            const Icono = ICONOS[i];
+          {sponsorFit.pillars.map((nombre, i) => {
+            const Icono = ICONOS_PILARES[i];
             return (
-              <Revela as="li" key={p.title} paso={i} className={s.pilar}>
+              <Revela as="li" key={nombre} paso={i} className={s.pilar}>
                 <span className={s.filaIcono} aria-hidden="true">
                   <Icono strokeWidth={1.75} />
                 </span>
-                <h3 className={s.pilarNombre}>{p.title}</h3>
-                <p className={s.pilarTexto}>{p.body}</p>
+                <h3 className={s.pilarNombre}>{nombre}</h3>
               </Revela>
             );
           })}

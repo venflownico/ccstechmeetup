@@ -1,46 +1,57 @@
-import { BookOpenCheck, Gift, MessagesSquare, Server } from "lucide-react";
+import { Compass, Landmark, Layers, UsersRound } from "lucide-react";
 
 import s from "@/components/patrocinar/estilos.module.css";
 import { Revela, Titulo } from "@/components/patrocinar/movimiento";
+import { sponsorGana } from "@/lib/site";
 
-const MANERAS = [
-  { Icono: Gift, texto: "Recursos no reembolsables, como créditos o un premio." },
-  { Icono: Server, texto: "Infraestructura: APIs, servidores, pagos." },
-  { Icono: MessagesSquare, texto: "Mentoría u office hours." },
-  { Icono: BookOpenCheck, texto: "Horas de asesoría legal, de mercadeo o de diseño." },
-] as const;
+const ICONOS = [Landmark, UsersRound, Layers, Compass] as const;
+
+const { donde, bloques, condicion } = sponsorGana;
 
 export function SponsorFit() {
   return (
     <section className={s.seccion} aria-labelledby="t-ganas">
       <div className={s.envoltura}>
-        <Titulo
-          id="t-ganas"
-          className={`${s.h2} ${s.h2Ancho}`}
-          texto="Que la comunidad te vea como quien pone los rieles."
-        />
-        <div className={s.parrafos}>
-          <p>Tu marca acompaña cada edición y cada formato, en flyers, sitio y evento.</p>
-          <p>Lo que construyes es reconocimiento frente a founders, inversionistas y potenciales clientes.</p>
-          <p>
-            Los founders vienen a conectar con otros founders. Por eso no hay stands ni promotoras: venderles en la
-            sala rompe la razón por la que vienen.
-          </p>
-        </div>
-        <p className={s.etiquetaLista}>
-          <strong>La condición:</strong> todo patrocinador le da algo a los founders, atado a uno de los cuatro
-          pilares:
-        </p>
-        <ul className={s.maneras}>
-          {MANERAS.map(({ Icono, texto }, i) => (
-            <Revela as="li" key={texto} paso={i} className={s.manera}>
-              <span className={s.filaIcono} aria-hidden="true">
-                <Icono strokeWidth={1.75} />
-              </span>
-              <span>{texto}</span>
+        <Titulo id="t-ganas" className={`${s.h2} ${s.h2Ancho}`} texto={sponsorGana.title} />
+        <div className={s.ganancias}>
+          <Revela className={`${s.ganaBloque} ${s.ganaAncho}`}>
+            <h3 className={s.ganaRotulo}>{donde.label}</h3>
+            <p className={s.ganaTexto}>{donde.text}</p>
+            <p className={s.cuposLeyenda}>{donde.cuposLeyenda}</p>
+            <ul className={s.cupos}>
+              {Array.from({ length: donde.cupos }, (_, i) => (
+                <li key={i} className={s.cupo}>
+                  {donde.cupoTexto}
+                </li>
+              ))}
+            </ul>
+          </Revela>
+          {bloques.map((b, i) => (
+            <Revela key={b.label} paso={i % 2} className={s.ganaBloque}>
+              <h3 className={s.ganaRotulo}>{b.label}</h3>
+              <p className={s.ganaTexto}>{b.text}</p>
             </Revela>
           ))}
-        </ul>
+          <Revela className={`${s.ganaBloque} ${s.ganaAncho}`}>
+            <h3 className={s.ganaRotulo}>{condicion.label}</h3>
+            <p className={s.ganaTexto}>{condicion.text}</p>
+            <ul className={s.maneras}>
+              {condicion.pilares.map((p, i) => {
+                const Icono = ICONOS[i];
+                return (
+                  <li key={p.title} className={s.manera}>
+                    <span className={s.filaIcono} aria-hidden="true">
+                      <Icono strokeWidth={1.75} />
+                    </span>
+                    <span>
+                      <strong>{p.title}</strong> {p.text}
+                    </span>
+                  </li>
+                );
+              })}
+            </ul>
+          </Revela>
+        </div>
       </div>
     </section>
   );

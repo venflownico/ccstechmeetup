@@ -1,18 +1,18 @@
 import { Sponsors } from "@/components/sponsors";
+import { sponsorWhy } from "@/lib/site";
 
 import s from "./estilos.module.css";
-import { Titulo } from "./movimiento";
 
+/** Parte del bloque de logros: el subtítulo y el carrusel de logos (no es una sección aparte). */
 export function Apoyan() {
   return (
-    <section className={s.seccion} aria-labelledby="t-apoyan">
+    <>
       <div className={s.envoltura}>
-        <Titulo id="t-apoyan" className={s.h2} texto="Quiénes han apoyado el meetup" />
-        <p className={s.sub}>Startups, universidades y organizaciones que ya creyeron en esto.</p>
+        <h3 className={s.subLogos}>{sponsorWhy.logosTitle}</h3>
       </div>
       <div className={s.logos}>
         <Sponsors compact />
       </div>
-    </section>
+    </>
   );
 }

@@ -47,8 +47,9 @@ export default function PatrocinarPage() {
           <main className={s.principal}>
             <Entrada />
             <Porque />
-            <SponsorWhy />
-            <Apoyan />
+            <SponsorWhy>
+              <Apoyan />
+            </SponsorWhy>
             <Formatos />
             <SponsorFit />
             <Busca />

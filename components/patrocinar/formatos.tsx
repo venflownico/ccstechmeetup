@@ -35,7 +35,8 @@ export function Formatos() {
       <div className={s.envoltura}>
         <Titulo id="t-formatos" className={`${s.h2} ${s.h2Ancho}`} texto="En 2027, el meetup crece a Caracas Tech." />
         <p className={s.sub}>
-          El meetup sigue cada mes. A su alrededor sumamos formatos nuevos, cada uno con su propia propuesta.
+          Para que nazcan más startups, en 2027 sumamos formatos alrededor del meetup. Cada uno tiene su propia
+          propuesta.
         </p>
         <ul className={s.minis}>
           {LISTA.map((f, i) => {
@@ -66,7 +67,7 @@ export function Formatos() {
           })}
         </ul>
         <p className={s.nota}>
-          «Confirmado» va seguro en 2027. «En camino» se está organizando. Las imágenes de Dinner, Hackathon, Demo Day
+          «Confirmado» va seguro en 2027. «En camino» se está organizando. Las fechas de cada formato se anuncian durante el año. Las imágenes de Dinner, Hackathon, Demo Day
           y Wellness son ilustrativas, generadas con IA.
         </p>
       </div>
