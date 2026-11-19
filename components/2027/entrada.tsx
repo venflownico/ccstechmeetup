@@ -10,7 +10,7 @@ import s from "./estilos.module.css";
 import { Foto } from "./foto";
 import { useIrA } from "./lenis";
 import { useQuieto } from "./quieto";
-import { FORMATOS, VIEWBOX_ANCHO } from "./tipos";
+import { CUENTA_PALABRA, FORMATOS, VIEWBOX_ANCHO } from "./tipos";
 import type { Estilo } from "./tipos";
 
 const ETIQUETA = `Caracas Tech: ${FORMATOS.map((f) => f.palabra).join(", ")}`;
@@ -122,17 +122,13 @@ export function Entrada() {
         ) : (
           <LogoTipeado activo={visible} onPalabra={setIdx} />
         )}
-        <h1 id="t-2027">En 2027 nos vemos de seis maneras</h1>
-        <p className={s.bajada}>
-          El meetup sigue cada mes y llegan <b>cinco formatos nuevos</b>. Voltea cada tarjeta y marca los que te
-          interesan.
-        </p>
+        <h1 id="t-2027">En 2027 nos vemos de {CUENTA_PALABRA} maneras</h1>
         <a
           className={s.ir}
-          href="#formatos"
+          href="#resumen"
           onClick={(e) => {
             e.preventDefault();
-            irA("formatos");
+            irA("resumen");
           }}
         >
           Ver los formatos
