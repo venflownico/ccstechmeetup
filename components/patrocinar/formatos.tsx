@@ -65,7 +65,10 @@ export function Formatos() {
             );
           })}
         </ul>
-        <p className={s.nota}>«Confirmado» va seguro en 2027. «En camino» se está organizando.</p>
+        <p className={s.nota}>
+          «Confirmado» va seguro en 2027. «En camino» se está organizando. Las imágenes de Dinner, Hackathon, Demo Day
+          y Wellness son ilustrativas, generadas con IA.
+        </p>
       </div>
     </section>
   );

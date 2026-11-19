@@ -464,7 +464,7 @@ export type Formato2027 = {
   foto: string;
   /** Encuadre de la foto (object-position), por dato para no depender del contenido. */
   foco: string;
-  /** Si es true, el dorso avisa «Foto de referencia». */
+  /** Si es true, la imagen no es de un evento real y el dorso avisa «Imagen ilustrativa, generada con IA». */
   referencia: boolean;
   /** Descripción breve de la foto. */
   alt: string;
@@ -506,10 +506,10 @@ export const formatos2027: readonly Formato2027[] = [
     palabra: "demo day",
     c: "#4a63f5",
     cl: "#8fa2ff",
-    foto: "/2027/fotos/demo-day-sin-marca.jpg",
-    foco: "50% 50%",
-    referencia: false,
-    alt: "Un founder presenta su startup en un escenario frente al público",
+    foto: "/2027/fotos/demo-day-ia.jpg",
+    foco: "50% 45%",
+    referencia: true,
+    alt: "Ilustración: una persona presenta en una tarima frente a un auditorio lleno",
     icono: "Presentation",
     cuando: "Enero a marzo",
     cuandoLargo: "Enero a marzo de 2027",
@@ -524,10 +524,10 @@ export const formatos2027: readonly Formato2027[] = [
     palabra: "dinner",
     c: "#f2902b",
     cl: "#ffb066",
-    foto: "/2027/fotos/dinner.jpg",
-    foco: "50% 55%",
+    foto: "/2027/fotos/dinner-ia.jpg",
+    foco: "50% 50%",
     referencia: true,
-    alt: "Mesa larga con invitados brindando en una cena",
+    alt: "Ilustración: una cena en una terraza de Caracas con el Ávila al fondo",
     icono: "UtensilsCrossed",
     cuando: "2027",
     cuandoLargo: "2027, fecha por anunciar",
@@ -542,10 +542,10 @@ export const formatos2027: readonly Formato2027[] = [
     palabra: "wellness",
     c: "#9a7cf2",
     cl: "#c4b1ff",
-    foto: "/2027/fotos/wellness-carrera.jpg",
-    foco: "48% 58%",
+    foto: "/2027/fotos/wellness-ia.jpg",
+    foco: "50% 50%",
     referencia: true,
-    alt: "Grupo de corredores con número en una carrera de calle",
+    alt: "Ilustración: un grupo trota por una avenida al pie del Ávila",
     icono: "Mountain",
     cuando: "2027",
     cuandoLargo: "2027, fecha por anunciar",
@@ -560,10 +560,10 @@ export const formatos2027: readonly Formato2027[] = [
     palabra: "hackathon",
     c: "#22b3c4",
     cl: "#6fdde9",
-    foto: "/2027/fotos/hackathon-neon.jpg",
+    foto: "/2027/fotos/hackathon-ia.jpg",
     foco: "50% 55%",
     referencia: true,
-    alt: "Equipo trabajando con laptops de noche bajo luces de neón",
+    alt: "Ilustración: un equipo trabaja de noche con laptops en una mesa compartida",
     icono: "CodeXml",
     cuando: "2027",
     cuandoLargo: "2027, fecha por anunciar",

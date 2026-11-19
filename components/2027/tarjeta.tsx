@@ -263,7 +263,7 @@ export function Tarjeta({
             </dl>
             {f.referencia ? (
               <p className={`${s.referencia} ${s.fila}`} style={{ "--k": 4 } as Estilo}>
-                Foto de referencia
+                Imagen ilustrativa, generada con IA
               </p>
             ) : null}
             <div className={`${s.acciones} ${s.fila}`} style={{ "--k": 5 } as Estilo}>
