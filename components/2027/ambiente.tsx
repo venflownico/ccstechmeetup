@@ -85,7 +85,7 @@ function Segmento({ p, k, total, color }: { p: MotionValue<number>; k: number; t
   return <motion.i style={{ scaleX, background: color }} />;
 }
 
-/** Seis segmentos de color bajo el header que se llenan con la lectura. */
+/** Un segmento de color por formato bajo el header que se llenan con la lectura. */
 export function Progreso() {
   const { scrollYProgress } = useScroll();
   const p = useSpring(scrollYProgress, { stiffness: 140, damping: 28, restDelta: 0.0005 });
