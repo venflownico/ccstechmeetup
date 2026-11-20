@@ -1,4 +1,4 @@
-import { packages, type PackageId } from "@/lib/site";
+import { formatos2027 } from "@/lib/site";
 
 export const runtime = "nodejs";
 
@@ -17,8 +17,16 @@ function rateLimit(ip: string) {
   return true;
 }
 
-function isPackageId(value: unknown): value is PackageId {
-  return packages.some((pkg) => pkg.available && pkg.id === value);
+const INTERESES = {
+  principal: "Patrocinador principal",
+  formato: "Patrocinador de un formato",
+  especie: "Aporte en especie",
+} as const;
+
+type Interes = keyof typeof INTERESES;
+
+function isInteres(value: unknown): value is Interes {
+  return typeof value === "string" && Object.hasOwn(INTERESES, value);
 }
 
 export async function POST(request: Request) {
@@ -47,7 +55,8 @@ export async function POST(request: Request) {
   const email = String(body.email ?? "").trim();
   const phone = String(body.phone ?? "").trim();
   const message = String(body.message ?? "").trim();
-  const packageId = body.packageId;
+  const interes = body.interes;
+  const formatoId = body.formato;
 
   if (!name || !company || !email || !phone) {
     return Response.json({ error: "Completa nombre, empresa, email y teléfono." }, { status: 400 });
@@ -57,11 +66,18 @@ export async function POST(request: Request) {
     return Response.json({ error: "Email inválido." }, { status: 400 });
   }
 
-  if (!isPackageId(packageId)) {
-    return Response.json({ error: "Selecciona un paquete válido." }, { status: 400 });
+  if (!isInteres(interes)) {
+    return Response.json({ error: "Selecciona un interés válido." }, { status: 400 });
   }
 
-  const pkg = packages.find((item) => item.id === packageId)!;
+  let formato: (typeof formatos2027)[number] | undefined;
+  if (interes === "formato") {
+    formato = formatos2027.find((f) => f.visible && f.id === formatoId);
+    if (!formato) {
+      return Response.json({ error: "Selecciona un formato válido." }, { status: 400 });
+    }
+  }
+
   const webhook = process.env.SLACK_WEBHOOK_URL;
   const mention = process.env.SLACK_MENTION_USER_ID || "U097WQWPUTV";
 
@@ -79,7 +95,7 @@ export async function POST(request: Request) {
     `*Contacto:* ${name}`,
     `*Email:* ${email}`,
     `*Teléfono:* ${phone}`,
-    `*Paquete:* ${pkg.name} (${"price" in pkg ? `$${pkg.price}/mes · 1 año, domiciliado` : "a consultar"})`,
+    `*Interés:* ${INTERESES[interes]}${formato ? ` (${formato.palabra})` : ""}`,
     message ? `*Mensaje:* ${message}` : "*Mensaje:* (sin notas)",
   ].join("\n");
 

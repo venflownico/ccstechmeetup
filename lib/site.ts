@@ -29,6 +29,7 @@ export const navItems = [
   { href: "/#como-asistir", label: "Cómo asistir" },
   { href: "/#por-que", label: "Por qué" },
   { href: "/#equipo", label: "Equipo" },
+  { href: "/2027", label: "2027" },
 ] as const;
 
 export const stats = [
@@ -54,108 +55,133 @@ export const stats = [
 ] as const;
 
 export const presentingSponsors = [
-  { name: "Banco Activo", src: "/sponsors/banco-activo.png" },
-  { name: "Impulsa VC", src: "/sponsors/impulsa-vc.png" },
+  { name: "Banco Activo", src: "/sponsors/banco-activo.png", href: "https://www.bancoactivo.com/" },
+  { name: "Impulsa VC", src: "/sponsors/impulsa-vc.png", href: "https://www.impulsa.vc/" },
 ] as const;
 
 /**
  * Annual sponsorship intake window.
- * Closes on the deadline (inclusive, America/Caracas), or earlier if
- * `cohortFilled` is flipped when all paid slots are taken.
+ *
+ * The form is ALWAYS available by default: `deadlineISO` is `null`.
+ *
+ * To close intake on a date again, set `deadlineISO` ("YYYY-MM-DD", inclusive,
+ * America/Caracas) and, if you want it shown, a label. Do NOT compare the date in
+ * a Server Component or at module level: /patrocinar is prerendered, so `new Date()`
+ * would be frozen at build time (that is exactly what hid the form in production).
+ * There is no client hook for the date yet: if a deadline is ever set, add one that
+ * renders "open" on the server and during hydration and re-checks the clock in an
+ * effect (so there is no hydration mismatch), and use `sponsorshipDeadlineEnd()`.
+ * Flip `cohortFilled` to true to close intake for everyone, no date needed.
  */
-export const sponsorshipWindow = {
-  deadlineISO: "2026-10-31",
-  deadlineLabel: "31 de octubre",
-  deadlineLabelLong: "31 de octubre de 2026",
-  /** Set true when the year cohort is full before the deadline. */
+export const sponsorshipWindow: {
+  deadlineISO: string | null;
+  /** Set true to close intake before (or without) a deadline. */
+  cohortFilled: boolean;
+} = {
+  deadlineISO: null,
   cohortFilled: false,
-} as const;
+};
 
-function isBeforeSponsorshipDeadline(now = new Date()) {
-  const deadlineEnd = new Date(
-    `${sponsorshipWindow.deadlineISO}T23:59:59.999-04:00`,
-  );
-  return now.getTime() <= deadlineEnd.getTime();
+/** End of the deadline day in Caracas (UTC-4), or null when there is no deadline. */
+export function sponsorshipDeadlineEnd(): number | null {
+  const iso = sponsorshipWindow.deadlineISO;
+  if (!iso) return null;
+  return new Date(`${iso}T23:59:59.999-04:00`).getTime();
 }
 
-/** Hide recruitment CTAs when the cohort is full or the deadline has passed. */
-export const sponsorshipIntakeOpen =
-  !sponsorshipWindow.cohortFilled && isBeforeSponsorshipDeadline();
+/**
+ * Static part of the check, safe in Server Components: no clock involved.
+ * Links to /patrocinar stay visible unless the cohort was closed by hand.
+ */
+export const sponsorshipIntakeOpen = !sponsorshipWindow.cohortFilled;
 
 /** Paid sponsor lockup under Presentan. Fill `paidSponsorsByPlan` as deals close. */
 export const paidSponsorSlots = {
   label: "Patrocinan",
-  lead: `Cuatro cupos anuales. Ventana abierta hasta el ${sponsorshipWindow.deadlineLabelLong}.`,
-  emptyHint: "Tu marca aquí",
-  reserveHint: "Reserva este cupo →",
-  closedLead: "Cupos del año tomados. Estas son las marcas del ciclo.",
 } as const;
 
 export const supporters = [
-  { name: "Venecápital", src: "/sponsors/venecapital.png" },
+  { name: "Venecápital", src: "/sponsors/venecapital.png", href: "https://venecapital.org/" },
   { name: "Innoven", src: "/sponsors/innoven.png" },
-  { name: "Venflow", src: "/sponsors/venflow.png" },
-  { name: "Venezuela Mobility Ventures", src: "/sponsors/venezuela-mobility-ventures.png" },
-  { name: "Rial", src: "/sponsors/rial.png" },
-  { name: "Amalia", src: "/sponsors/amalia.png" },
-  { name: "Wave", src: "/sponsors/wave.png" },
+  { name: "Venflow", src: "/sponsors/venflow.png", href: "https://www.venflow.app/" },
+  { name: "Rial", src: "/sponsors/rial.png", href: "https://www.somosrial.com/" },
+  { name: "Amalia", src: "/sponsors/amalia.png", href: "https://amaliasalud.app/" },
+  { name: "Hango", src: "/sponsors/hango.png", href: "https://hango.live/" },
+  { name: "Ecosistema Startup Venezuela", src: "/sponsors/ecosistema-startup-venezuela.png", href: "https://www.startupvenezuela.tech/" },
+  { name: "Wave", src: "/sponsors/wave.png", href: "https://www.instagram.com/wavetechhub/" },
   { name: "En La Parada", src: "/sponsors/en-la-parada.png" },
-  { name: "Fina", src: "/sponsors/fina.png" },
+  { name: "Fina", src: "/sponsors/fina.png", href: "https://www.finapartner.com/" },
   { name: "Money", src: "/sponsors/money.png" },
-  { name: "UCAB", src: "/sponsors/ucab.png" },
-  { name: "Universidad Metropolitana", src: "/sponsors/unimet.png" },
-  { name: "UCV", src: "/sponsors/ucv.png" },
+  { name: "UCAB", src: "/sponsors/ucab.png", href: "https://www.ucab.edu.ve/" },
+  { name: "Universidad Metropolitana", src: "/sponsors/unimet.png", href: "https://www.unimet.edu.ve/" },
+  { name: "UCV", src: "/sponsors/ucv.png", href: "https://www.ucv.ve/" },
   { name: "ASAP", src: "/sponsors/asap.png" },
   { name: "Chapeau House", src: "/sponsors/chapeau-house.png" },
 ] as const;
 
 export const sponsorWhy = {
-  title: "Por qué las marcas patrocinan el Caracas Tech Meetup",
-  footnote: "Datos de 9 ediciones · Agosto 2025 – Agosto 2026 · 1.320 asistentes únicos",
-  cta: "Quiero patrocinar",
-  ctaHref: "#paquetes",
+  title: "Lo que hemos logrado hasta 2026",
+  source:
+    "Registros de Luma, de agosto de 2025 a octubre de 2026. Los asistentes le ponen 4,8 de 5.",
+  logosTitle: "Lo logramos con el apoyo de estas organizaciones.",
   stats: [
-    {
-      value: "528",
-      label: "Founders y CEOs",
-      body: "El 40% de la comunidad dirige su propia empresa, junto a 74 inversionistas entre fondos, hubs y ángeles.",
-    },
-    {
-      value: "723",
-      label: "Personas en lista de espera",
-      body: "La demanda superó el aforo en cada edición del año. Tu patrocinio es la palanca directa para ampliar el cupo.",
-    },
-    {
-      value: "402",
-      label: "Asistentes recurrentes",
-      body: "3 de cada 10 vuelven a dos o más ediciones, y cada evento suma ~150 caras nuevas. Presencia repetida, no una sola noche.",
-    },
+    { value: 1770, label: "personas distintas en 13 ediciones" },
+    { value: 743, label: "founders y CEOs" },
+    { value: 135, label: "personas de fondos, ángeles y aceleradoras" },
+    { value: 669, label: "pidieron entrar y no hubo cupo" },
   ],
 } as const;
 
 export const sponsorFit = {
-  eyebrow: "Qué buscamos",
-  title: "Impactar la creación y el crecimiento de startups es la meta",
-  lead: "El meetup existe para que la gente se conozca. Drinks, personas y espacio para construir relaciones: la noche no tiene agenda, para que esas conversaciones no se compriman, y se creen relaciones reales.",
-  body: "La presencia de marca — flyers, sitio, evento — es cómo esta comunidad te recuerda como alguien que los apoya. El recurso es un grant acotado, siempre disponible en un QR en el venue, y se canjea después ([ver cómo funciona](/recursos)). Comunidad y Recurso no toman el micrófono: el recurso se conoce por el QR.",
-  pillars: [
+  title: "Para que nazcan más de 1.000 startups en Caracas y Venezuela en los próximos cinco años.",
+  lead: "Caracas Tech es una organización de founders de la propia comunidad, por el ecosistema y para el ecosistema. Existe para que quien construye tenga la red, los recursos, el capital y las personas que necesita.",
+  impactLabel: "Cómo medimos el impacto:",
+  impact: "por las startups que nacen.",
+  pillarsLabel: "Lo que más le falta a un founder",
+  pillars: ["Capital", "Talento", "Recursos", "Mentoría"],
+} as const;
+
+/** Bloque «Qué gana tu marca» de /patrocinar. */
+export const sponsorGana = {
+  title: "Que la comunidad te vea como quien pone los rieles.",
+  donde: {
+    label: "Dónde vas a estar.",
+    text: "Tu marca va en los flyers, en el sitio y en cada evento, en todos los formatos.",
+    cuposLeyenda: "Patrocinadores principales 2027 · entre 4 y 6 cupos",
+    cupoTexto: "Tu logo aquí",
+    cupos: 6,
+  },
+  bloques: [
     {
-      title: "Capital",
-      body: "Acceso a inversión y capital para construir. No a productos financieros para quien aún no tiene flujo.",
+      label: "Qué construyes.",
+      text: "Reconocimiento frente a founders, inversionistas y potenciales clientes. No prometemos ventas.",
     },
     {
-      title: "Talento",
-      body: "Acceso a las personas que las startups necesitan para nacer, operar y crecer.",
+      label: "Por qué no hay stands.",
+      text: "Los founders vienen a conectar con otros founders. Venderles en la sala rompe la razón por la que vienen, así que no hay stands ni promotoras.",
     },
     {
-      title: "Recursos",
-      body: "Créditos, herramientas e infraestructura que desbloquean el stack — no un catálogo de servicios.",
+      label: "Lo que ves después de cada edición.",
+      text: "Los datos de asistencia: cuántas personas vinieron y de qué perfil.",
     },
     {
-      title: "Red y mentoría",
-      body: "Acceso a la comunidad y a mentoría de quienes ya recorrieron el camino.",
+      label: "Patrocinar o acompañar.",
+      text: "Startups, universidades y organizaciones sin fines de lucro acompañan con su logo. Quien patrocina está en todos los formatos y en los materiales de cada evento, por encima de los patrocinadores de un solo formato.",
     },
   ],
+  condicion: {
+    label: "La condición.",
+    text: "Todo patrocinador le da algo a los founders. Así llega tu aporte a cada pilar:",
+    pilares: [
+      {
+        title: "Capital:",
+        text: "sostienes el espacio donde un founder conoce a quien puede invertir. También puedes dar recursos no reembolsables, como un premio.",
+      },
+      { title: "Talento:", text: "en ese mismo espacio una startup encuentra a su próxima persona." },
+      { title: "Recursos:", text: "créditos e infraestructura, como APIs, servidores y pagos." },
+      { title: "Mentoría:", text: "office hours y horas de asesoría legal, de mercadeo o de diseño." },
+    ],
+  },
 } as const;
 
 export const resourceHub = {
@@ -181,15 +207,15 @@ export const resourceExamples = [
 export const packagePitch = {
   eyebrow: "Patrocinio anual",
   title: "Apoyo para founders con impacto real.",
-  lead: `Abrimos una ventana al año para compromisos de 12 meses. Cierra el ${sponsorshipWindow.deadlineLabelLong}: cuando llenamos los cupos o llega la fecha, esas son las marcas del meetup.`,
+  lead: "Compromisos de 12 meses, con cuota domiciliada cada mes.",
   includedLabel: "Qué incluye",
   fitLabel: "A quién buscamos",
   fitLead:
     "No solo tech. Fondos, angels, HR, aceleradoras, coworking — si ayudas a que una startup nazca o escale, este es tu lugar.",
   priceNote: "Todos los precios en USD a tasa BCV.",
-  commitmentNote: `Acuerdo a 1 año, cuota domiciliada cada mes. Cupos limitados · cierra ${sponsorshipWindow.deadlineLabel}.`,
+  commitmentNote: "Acuerdo a 1 año, cuota domiciliada cada mes.",
   closedNote:
-    "Los cupos de este ciclo ya no están disponibles. Volvemos a abrir el próximo año.",
+    "Por ahora no recibimos nuevos patrocinios. Escríbenos desde Contacto y te avisamos cuando volvamos a abrir.",
 } as const;
 
 export const packagePromise = [
@@ -214,17 +240,15 @@ export const packages = [
     price: 500,
     period: "/ mes",
     description:
-      "Tu marca en flyers, sitio y evento. En el venue hay un código QR con recursos gratis para startups — el tuyo incluido.",
+      "Tu marca en flyers, sitio y evento, con un recurso para los founders.",
     featured: false,
     available: true,
     slotCount: 2,
     slotsTaken: 0,
     benefits: [
       "Logo en flyers, sitio oficial y materiales del evento, cada edición",
-      "Tu recurso en el QR del venue: founders lo escanean y ven grants gratis",
-      "Grant acotado (pool o N cupos) que los founders aplican después",
+      "Grant acotado que los founders aplican después",
       "Mención en Instagram @caracastech_meetup",
-      "2 cupos reservados cada mes: gente de tu equipo u otros que invites, sin pasar por aprobación",
       "Recap anual del ecosistema: la data del año con tu marca presente, lista para compartir internamente.",
     ],
   },
@@ -234,16 +258,15 @@ export const packages = [
     price: 1000,
     period: "/ mes",
     description:
-      "Tu categoría, tu lugar destacado. Tu grant aparece en el QR del venue — el mismo código donde founders encuentran recursos gratis.",
+      "Tu categoría, tu lugar destacado, con un recurso para los founders.",
     featured: true,
     available: true,
     slotCount: 2,
     slotsTaken: 0,
     benefits: [
       "Todo lo de Comunidad",
-      "Lugar destacado en el QR del venue y en los flyers",
+      "Lugar destacado en los flyers",
       "Exclusividad de categoría (talento, recursos o mentoría)",
-      "6 cupos reservados cada mes: tu equipo o quien invites, sin pasar por aprobación",
       "Recap de asistencia post-evento — para seguir la conversación",
       "Recap anual del ecosistema: la data del año con tu marca presente, lista para compartir internamente.",
     ],
@@ -252,18 +275,15 @@ export const packages = [
     id: "presentan",
     name: "Presentan",
     priceOnRequest: true,
-    description: "Quien presenta el meetup. Este cupo ya está tomado.",
+    description: "Quien presenta el meetup.",
     featured: false,
     available: false,
-    takenLabel: "Tomado",
     slotCount: 1,
     slotsTaken: 1,
     benefits: [
       "Todo lo de Recurso",
       "Lockup Presentan en flyers, sitio y evento",
       "La marca que abre cada edición",
-      "Cupos ilimitados cada mes: tu equipo o quien invites, sin pasar por aprobación",
-      "Estacionamiento prioritario",
       "Cuando lo necesites, presentas lo que quieras a la comunidad: en los pitches o en el escenario",
     ],
   },
@@ -279,6 +299,22 @@ export const paidSponsorsByPlan: Record<PackageId, { name: string; src: string }
 
 export const lockupPlanOrder: PackageId[] = ["recurso", "comunidad"];
 
+/** `web` es el sitio del proyecto de cada miembro; la tarjeta lo muestra solo si existe. */
+export type TeamMember = {
+  name: string;
+  role: string;
+  bio: string;
+  image: string;
+  linkedin: string;
+  web?: string;
+  /** Nombre del proyecto, para el texto alternativo del logo. */
+  proyecto?: string;
+  /** Logo del proyecto en versión para fondo oscuro (el sitio es solo oscuro). */
+  logo?: string;
+  /** Logo de proporción cuadrada (isotipo): se muestra más alto para pesar igual que los apaisados. */
+  logoCuadrado?: boolean;
+};
+
 export const team = [
   {
     name: "Nicolás Passaro",
@@ -286,13 +322,19 @@ export const team = [
     bio: "Co-founder & CEO de Venflow. Conecta producto, pagos y comunidad en Caracas.",
     image: "/team/nicolas-passaro.jpg",
     linkedin: "https://www.linkedin.com/in/nicolaspassaro-product-manager",
+    web: "https://www.venflow.app/",
+    proyecto: "Venflow",
+    logo: "/team/proyectos/venflow-hd.svg",
   },
   {
     name: "Amintore Confalonieri",
     role: "Co-organizador",
-    bio: "Founder & CEO de Amalia. Impulsa healthtech y el after-office del ecosistema.",
-    image: "/team/amintore-confalonieri.jpg",
+    bio: "Founder & CEO de Amalia. Impulsa healthtech.",
+    image: "/team/amintore-confalonieri-cuadro.jpg",
     linkedin: "https://www.linkedin.com/in/amintoreconfalonieri/",
+    web: "https://amaliasalud.app/",
+    proyecto: "Amalia",
+    logo: "/team/proyectos/amalia-hd.png",
   },
   {
     name: "Anselmo Velazco",
@@ -300,15 +342,32 @@ export const team = [
     bio: "Co-founder de Rial y embajador del Ecosistema Startup Venezuela.",
     image: "/team/anselmo-velazco.jpg",
     linkedin: "https://www.linkedin.com/in/anselmo-velazco",
+    web: "https://www.somosrial.com/",
+    proyecto: "Rial",
+    logo: "/team/proyectos/rial-hd.png",
   },
   {
     name: "Enderson Leal",
     role: "Co-organizador",
     bio: "Founder de Ecosistema Startup Venezuela. Conecta founders, VCs y operadores.",
-    image: "/team/enderson-leal.jpg",
+    image: "/team/enderson-leal-perfil.jpg",
     linkedin: "https://www.linkedin.com/in/lealabreu",
+    web: "https://www.startupvenezuela.tech/",
+    proyecto: "Ecosistema Startup Venezuela",
+    logo: "/team/proyectos/ecosistema-startup-venezuela.png",
+    logoCuadrado: true,
   },
-] as const;
+  {
+    name: "Sebastián Lobo",
+    role: "Co-organizador",
+    bio: "Founder de Hango.",
+    image: "/team/sebastian-lobo.jpg",
+    linkedin: "https://www.linkedin.com/in/sebastianlobot/",
+    web: "https://hango.live/",
+    proyecto: "Hango",
+    logo: "/team/proyectos/hango.svg",
+  },
+] as const satisfies readonly TeamMember[];
 
 export const howToAttend = {
   eyebrow: "Cómo asistir",
@@ -384,83 +443,206 @@ export const faqs = [
 
 export const sponsorFaqs = [
   {
-    question: "¿Cómo funciona el patrocinio anual?",
+    question: "¿Voy a conseguir clientes con el patrocinio?",
     answer:
-      `Abrimos una ventana al año para compromisos de 12 meses. Hay cuatro cupos pagos: dos Recurso y dos Comunidad (Presentan ya está tomado). La ventana cierra el ${sponsorshipWindow.deadlineLabelLong}, o antes si se llenan los cupos. Esas son las marcas del ciclo, y los materiales — flyers, sitio, evento — quedan fijos sin sumar logos a mitad de año.`,
+      "No lo prometemos. Lo que construyes es reconocimiento: tu marca queda entre las que ayudan a que nazcan startups.",
   },
   {
-    question: "¿Hasta cuándo puedo patrocinar?",
+    question: "¿Hasta cuándo puedo entrar como patrocinador principal?",
     answer:
-      `Hasta el ${sponsorshipWindow.deadlineLabelLong}, o hasta que se llenen los cuatro cupos pagos — lo que ocurra primero. Después de esa fecha no abrimos más marcas hasta el próximo ciclo.`,
+      "Buscamos cerrar los 4 a 6 patrocinadores principales de aquí a enero de 2027. Los patrocinios por formato se abren cuando se anuncia cada formato.",
+  },
+  {
+    question: "Si soy patrocinador principal, ¿habrá otros patrocinadores?",
+    answer:
+      "Sí. Cada formato puede sumar 2 o 3 patrocinadores propios. Los principales están en todos los formatos y van por encima.",
+  },
+  {
+    question: "¿Puedo patrocinar solo un formato?",
+    answer: "Sí. Es la fase 2, durante 2027. Puedes dejarnos tus datos desde ahora.",
+  },
+  {
+    question: "¿Puedo aportar en especie?",
+    answer: "Sí, si resuelve una de las necesidades de «Lo que tu aporte resuelve».",
+  },
+  {
+    question: "¿Puedo tener un stand o promotoras?",
+    answer:
+      "No. La noche es para que la gente conecte. Tu marca está en flyers, sitio y evento, y tu aporte llega a los founders como recurso, infraestructura o mentoría.",
   },
   {
     question: "¿Emiten factura fiscal?",
-    answer:
-      "Sí. Emitimos factura fiscal cada mes, durante el año del acuerdo. Los precios están en USD a tasa BCV.",
+    answer: "Sí, cada mes.",
   },
   {
     question: "¿Cómo se paga?",
-    answer:
-      "La cuota del plan se domicilia cada mes, en USD a tasa BCV de esa fecha. Firmamos a 1 año: no es un cobro suelto por edición.",
-  },
-  {
-    question: "¿A qué se destina el patrocinio?",
-    answer:
-      "A crecer el evento: más capacidad en el venue (baños portátiles, sonido, iluminación) y, aparte del after office mensual, formatos nuevos — speed dating entre founders y CTOs, matchmaking de talento y ferias de empleo startup.",
-  },
-  {
-    question: "¿Qué tipo de patrocinador buscan?",
-    answer:
-      "Marcas que pueden ayudar a que un founder tenga éxito — con talento, recursos, mentoría o, en el formato correcto, capital — y que quieran que esa comunidad las recuerde cuando crezca.",
-  },
-  {
-    question: "¿Puedo ser presentador del meetup?",
-    answer:
-      "El lockup Presentan es un solo cupo, y ya está tomado. Quien presenta abre cada edición y puede hablarle a la comunidad — en los pitches o en el escenario — cuando lo necesite. Si tu marca pone un recurso acotado, los paquetes abiertos son Comunidad y Recurso.",
-  },
-  {
-    question: "¿Puedo tener un stand, una mesa u office hours en el meetup?",
-    answer:
-      "El after office no se organiza alrededor de un stand: drinks, gente, conversaciones. Un stand, una mesa u office hours en el piso interrumpe el networking: la atracción pasa a ser el stand, no la gente — y ese networking es lo que hace que vuelvan. El recurso vive en un QR en el venue.",
-  },
-  {
-    question: "¿Puedo presentar mi marca o mi recurso en el meetup?",
-    answer:
-      "En Comunidad y Recurso, no. Tu marca está en flyers, sitio y evento; el recurso, en un QR. Presentar en los pitches o en el escenario es de Presentan, y ese cupo ya está tomado.",
-  },
-  {
-    question: "¿Qué es el QR del evento?",
-    answer:
-      "Un código QR solo accesible durante el evento que abre una página donde startups y fundadores pueden acceder a recursos gratis ofrecidos por los sponsors. La idea es que sean cosas que necesitan para escalar y que normalmente requieren capital: capacidad de servidores, créditos, procesamiento de pagos. [Ver cómo funciona](/recursos).",
-  },
-  {
-    question: "¿El recurso es una cuenta abierta por cada startup que aplique vía el QR?",
-    answer:
-      "Tú decides cuánto de los recursos le das a aquellos que aplican vía el QR para acceder a los recursos que tú ofreces.",
-  },
-  {
-    question: "¿Qué cuenta como recurso?",
-    answer:
-      "Algo que un founder puede usar después: créditos de infraestructura, capacidad de servidores, pagos, horas de oficio como grant, office hours que se agendan luego. Un catálogo o un préstamo para quien aún no tiene flujo no cuentan.",
-  },
-  {
-    question: "¿Cómo patrocino?",
-    answer:
-      `Mientras la ventana esté abierta (hasta el ${sponsorshipWindow.deadlineLabelLong}): elige un paquete, completa el formulario y agenda una llamada de 30 minutos con Nicolas para cerrar el acuerdo a 1 año. Conversamos el recurso: qué es, cuál es el tope, y dónde aplican los founders.`,
-  },
-  {
-    question: "¿Puedo patrocinar un solo mes o una sola edición?",
-    answer:
-      "No. Solo compromisos anuales, con cuota domiciliada. Así tu marca está en cada edición y no reabrimos materiales cada vez que entra una marca nueva.",
-  },
-  {
-    question: "¿Mi marca aparece desde el primer mes?",
-    answer:
-      "Sí. Logo en flyers, sitio y evento de esa edición. En Comunidad y Recurso el recurso se conoce por el QR y los materiales: no toman el micrófono.",
-  },
-  {
-    question: "¿Qué pasa si el grant todavía no está definido?",
-    answer:
-      "Podemos cerrar el cupo y publicar la marca, y dejar el QR listo cuando el tope y la vía de aplicación estén claros. El recurso no se anuncia en vacío.",
+    answer: "La cuota se fija en dólares y se domicilia cada mes en bolívares, a tasa BCV, en un banco que permita domiciliación. Los términos van en el contrato.",
   },
 ] as const;
+
+export type IconoFormato2027 =
+  | "Users"
+  | "Presentation"
+  | "UtensilsCrossed"
+  | "Mountain"
+  | "CodeXml"
+  | "CalendarRange";
+
+export type IconoRol2027 =
+  | "Rocket"
+  | "HandCoins"
+  | "BriefcaseBusiness"
+  | "Building2"
+  | "GraduationCap"
+  | "UserRound";
+
+export type Formato2027 = {
+  id: string;
+  palabra: string;
+  /** Color base del formato. */
+  c: string;
+  /** Color claro del formato (texto y acentos). */
+  cl: string;
+  /** Foto en public/2027/fotos (se puede reemplazar por otra con el mismo nombre). */
+  foto: string;
+  /** Encuadre de la foto (object-position), por dato para no depender del contenido. */
+  foco: string;
+  /** Si es true, la imagen no es de un evento real y el dorso avisa «Imagen ilustrativa, generada con IA». */
+  referencia: boolean;
+  /** Descripción breve de la foto. */
+  alt: string;
+  /** Nombre del ícono de lucide-react (ver components/2027/iconos.ts). */
+  icono: IconoFormato2027;
+  cuando: string;
+  cuandoLargo: string;
+  que: string;
+  quien: string;
+  /** viewBox del logotipo con la palabra ya medida. */
+  viewBox: string;
+  /** Si es false, el formato desaparece de tarjetas, chips, barra y rotación. */
+  visible: boolean;
+  /** «confirmado» va seguro en 2027; «en-camino» se está trabajando (no sobreprometer). */
+  estado: "confirmado" | "en-camino";
+};
+
+export const formatos2027: readonly Formato2027[] = [
+  {
+    id: "meetup",
+    palabra: "meetup",
+    c: "#46c536",
+    cl: "#7fe36f",
+    foto: "/2027/fotos/meetup.jpg",
+    foco: "35% 62%",
+    referencia: false,
+    alt: "Gente conversando de noche bajo luces en un meetup de Caracas Tech",
+    icono: "Users",
+    cuando: "Cada mes",
+    cuandoLargo: "Cada mes",
+    que: "El after office mensual de founders, builders e inversionistas en Caracas. Sigue igual en 2027.",
+    quien: "Founders, builders e inversionistas",
+    viewBox: "0 0 4042 1524",
+    visible: true,
+    estado: "confirmado",
+  },
+  {
+    id: "demo-day",
+    palabra: "demo day",
+    c: "#4a63f5",
+    cl: "#8fa2ff",
+    foto: "/2027/fotos/demo-day-ia.jpg",
+    foco: "50% 45%",
+    referencia: true,
+    alt: "Ilustración: una persona presenta en una tarima frente a un auditorio lleno",
+    icono: "Presentation",
+    cuando: "2027",
+    cuandoLargo: "2027, fecha por anunciar",
+    que: "Startups presentan ante inversionistas.",
+    quien: "Startups que buscan inversión e inversionistas",
+    viewBox: "0 0 4562 1524",
+    visible: true,
+    estado: "en-camino",
+  },
+  {
+    id: "dinner",
+    palabra: "dinner",
+    c: "#f2902b",
+    cl: "#ffb066",
+    foto: "/2027/fotos/dinner-ia.jpg",
+    foco: "50% 50%",
+    referencia: true,
+    alt: "Ilustración: una cena en una terraza de Caracas con el Ávila al fondo",
+    icono: "UtensilsCrossed",
+    cuando: "2027",
+    cuandoLargo: "2027, fecha por anunciar",
+    que: "Mesas pequeñas con founders e inversionistas.",
+    quien: "Founders e inversionistas",
+    viewBox: "0 0 3872 1524",
+    visible: true,
+    estado: "confirmado",
+  },
+  {
+    id: "wellness",
+    palabra: "wellness",
+    c: "#9a7cf2",
+    cl: "#c4b1ff",
+    foto: "/2027/fotos/wellness-ia.jpg",
+    foco: "50% 50%",
+    referencia: true,
+    alt: "Ilustración: un grupo trota por una avenida al pie del Ávila",
+    icono: "Mountain",
+    cuando: "2027",
+    cuandoLargo: "2027, fecha por anunciar",
+    que: "Una carrera, un trail o una caminata entre founders.",
+    quien: "Founders",
+    viewBox: "0 0 4255 1524",
+    visible: true,
+    estado: "en-camino",
+  },
+  {
+    id: "hackathon",
+    palabra: "hackathon",
+    c: "#22b3c4",
+    cl: "#6fdde9",
+    foto: "/2027/fotos/hackathon-ia.jpg",
+    foco: "50% 55%",
+    referencia: true,
+    alt: "Ilustración: un equipo trabaja de noche con laptops en una mesa compartida",
+    icono: "CodeXml",
+    cuando: "2027",
+    cuandoLargo: "2027, fecha por anunciar",
+    que: "Equipos construyen un producto en un fin de semana.",
+    quien: "Quien construye producto",
+    viewBox: "0 0 4699 1524",
+    visible: true,
+    estado: "confirmado",
+  },
+  {
+    id: "week",
+    palabra: "week",
+    c: "#e2508f",
+    cl: "#ff8fbd",
+    foto: "/2027/fotos/week-convencion.jpg",
+    foco: "50% 58%",
+    referencia: true,
+    alt: "Multitud recorriendo una convención de tecnología",
+    icono: "CalendarRange",
+    cuando: "2027",
+    cuandoLargo: "2027, fecha por anunciar",
+    que: "Una semana de eventos de toda la comunidad.",
+    quien: "Toda la comunidad",
+    viewBox: "0 0 3872 1524",
+    visible: false,
+    estado: "en-camino",
+  },
+];
+
+export type Rol2027 = { id: string; label: string; icono: IconoRol2027 };
+
+export const roles2027: readonly Rol2027[] = [
+  { id: "founder", label: "Founder", icono: "Rocket" },
+  { id: "inversionista", label: "Inversionista", icono: "HandCoins" },
+  { id: "startup", label: "Trabajo en una startup", icono: "BriefcaseBusiness" },
+  { id: "marca", label: "Empresa o marca", icono: "Building2" },
+  { id: "estudiante", label: "Estudiante", icono: "GraduationCap" },
+  { id: "otro", label: "Otro", icono: "UserRound" },
+];
