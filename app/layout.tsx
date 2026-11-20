@@ -1,4 +1,4 @@
-import type { Metadata, Viewport } from "next";
+import type { Metadata } from "next";
 import { Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
 
@@ -18,16 +18,6 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
-
-// viewport-fit=cover pinta bajo la muesca y la barra inferior, así Safari tiñe sus barras con el
-// color del sitio; el header y los contenedores respetan env(safe-area-inset-*).
-export const viewport: Viewport = {
-  width: "device-width",
-  initialScale: 1,
-  viewportFit: "cover",
-  themeColor: "#050b12",
-  colorScheme: "dark",
-};
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -58,7 +48,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${satoshi.variable} ${geistMono.variable} dark h-full antialiased`}
       suppressHydrationWarning
     >
-      <body className="flex min-h-full flex-col bg-[#050b12] text-foreground">
+      <body className="flex min-h-full flex-col bg-background text-foreground">
         <Providers>{children}</Providers>
       </body>
     </html>

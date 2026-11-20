@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 
-import { Boton2027 } from "@/components/boton-2027";
 import { BrandMark } from "@/components/brand-mark";
 import { AnimatedGradientText } from "@/components/ui/animated-gradient-text";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
@@ -16,9 +15,6 @@ export function Hero() {
     >
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(7,11,20,0.55)_0%,rgba(7,11,20,0.2)_45%,transparent_70%)]" />
       <div className="relative mx-auto flex w-full max-w-6xl flex-col items-center px-4 py-24 text-center sm:px-6">
-        <div className="mb-8">
-          <Boton2027 />
-        </div>
         <p className="mb-6 max-w-3xl text-xs font-semibold tracking-[0.22em] text-white/90 uppercase [text-shadow:0_2px_18px_rgba(0,0,0,0.7)]">
           Ecosistema Startup Venezuela, Impulsa VC, y Banco Activo presentan
         </p>

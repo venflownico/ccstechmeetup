@@ -95,9 +95,9 @@ export function Events({
             : "No encontramos eventos pasados por ahora."}
         </p>
       ) : (
-        <div className="rounded-2xl border border-white/10">
-          <table className="w-full text-left max-md:block">
-            <thead className="max-md:sr-only border-b border-white/10 text-xs font-semibold tracking-[0.16em] text-white/40 uppercase">
+        <div className="overflow-x-auto rounded-2xl border border-white/10">
+          <table className="w-full min-w-[36rem] text-left">
+            <thead className="border-b border-white/10 text-xs font-semibold tracking-[0.16em] text-white/40 uppercase">
               <tr>
                 <th className="px-5 py-3 font-semibold">Fecha</th>
                 <th className="px-5 py-3 font-semibold">Hora</th>
@@ -107,19 +107,19 @@ export function Events({
                 </th>
               </tr>
             </thead>
-            <tbody className="max-md:block">
+            <tbody>
               {events.map((event) => (
                 <tr
                   key={event.id}
-                  className="border-b border-white/8 last:border-0 max-md:grid max-md:grid-cols-[auto_1fr] max-md:items-center max-md:gap-x-3 max-md:gap-y-1 max-md:px-4 max-md:py-4"
+                  className="border-b border-white/8 last:border-0"
                 >
-                  <td className="px-5 py-4 whitespace-nowrap text-white max-md:p-0">
+                  <td className="px-5 py-4 whitespace-nowrap text-white">
                     {formatDate(event.startAt, event.timezone)}
                   </td>
-                  <td className="px-5 py-4 whitespace-nowrap text-teal-300 max-md:p-0 max-md:text-right">
+                  <td className="px-5 py-4 whitespace-nowrap text-teal-300">
                     {formatTime(event.startAt, event.timezone)}
                   </td>
-                  <td className="px-5 py-4 max-md:col-span-2 max-md:p-0">
+                  <td className="px-5 py-4">
                     <p className="font-medium text-white">{event.name}</p>
                     <p className="mt-0.5 text-sm text-white/45">
                       {event.city ?? "Caracas"}
@@ -128,7 +128,7 @@ export function Events({
                         : ""}
                     </p>
                   </td>
-                  <td className="px-5 py-4 text-right max-md:col-span-2 max-md:mt-2 max-md:p-0 max-md:text-left">
+                  <td className="px-5 py-4 text-right">
                     <EventAction event={event} period={period} />
                   </td>
                 </tr>
