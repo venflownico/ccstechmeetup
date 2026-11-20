@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "motion/react";
-import { FileDown, Layers, MapPin, Users } from "lucide-react";
+import { CalendarDays, FileDown, Layers, MapPin } from "lucide-react";
 import { useRef } from "react";
 
 import { Foto } from "@/components/2027/foto";
@@ -16,9 +16,9 @@ export const PDF_PROPUESTA = "/patrocinar/caracas-tech-patrocinios-2027.pdf";
 
 // Datos de la organización. Los del meetup (día, lugar, asistencia) van en su fila de formato.
 const DATOS = [
+  { Icono: CalendarDays, titulo: "Qué hacemos", valor: "Eventos para startups" },
   { Icono: Layers, titulo: "En 2027", valor: `${CUENTA_PALABRA[0].toUpperCase()}${CUENTA_PALABRA.slice(1)} formatos` },
   { Icono: MapPin, titulo: "Dónde", valor: "Caracas" },
-  { Icono: Users, titulo: "Quiénes van", valor: "Founders, builders e inversionistas" },
 ] as const;
 
 export function Entrada() {

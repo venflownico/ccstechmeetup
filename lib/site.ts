@@ -124,7 +124,7 @@ export const supporters = [
 export const sponsorWhy = {
   title: "Lo que hemos logrado hasta 2026",
   source:
-    "Registros de Luma, de agosto de 2025 a octubre de 2026. Los asistentes le ponen 4,8 de 5.",
+    "Registros de Luma del meetup, de agosto de 2025 a octubre de 2026. Los asistentes le ponen 4,8 de 5.",
   logosTitle: "Lo logramos con el apoyo de estas organizaciones.",
   stats: [
     { value: 1770, label: "personas distintas en 13 ediciones" },
@@ -180,7 +180,7 @@ export const sponsorGana = {
         text: "sostienes el espacio donde un founder conoce a quien puede invertir. También puedes dar recursos no reembolsables, como un premio.",
       },
       { title: "Talento:", text: "en ese mismo espacio una startup encuentra a su próxima persona." },
-      { title: "Recursos:", text: "créditos e infraestructura, como APIs, servidores y pagos." },
+      { title: "Recursos:", text: "infraestructura, como APIs, servidores y pagos." },
       { title: "Mentoría:", text: "office hours y horas de asesoría legal, de mercadeo o de diseño." },
     ],
   },
@@ -470,7 +470,7 @@ export const sponsorFaqs = [
   {
     question: "¿Puedo tener un stand o promotoras?",
     answer:
-      "No. La noche es para que la gente conecte. Tu marca está en flyers, sitio y evento, y tu aporte llega a los founders como recurso, infraestructura o mentoría.",
+      "No. Los eventos son para que la gente conecte. Tu marca está en flyers, sitio y evento, y tu aporte llega a los founders como recurso, infraestructura o mentoría.",
   },
   {
     question: "¿Emiten factura fiscal?",
