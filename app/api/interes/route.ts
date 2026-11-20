@@ -94,7 +94,7 @@ async function notifySlack(options: {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         text: [
-          `<@${mention}> Nuevo aviso 2027 — Caracas Tech Meetup`,
+          `<@${mention}> Nuevo aviso 2027 — Caracas Tech`,
           `*Rol:* ${options.role}`,
           `*Formatos:* ${options.all ? "todos" : options.formats.join(", ")}`,
           `*Origen:* ${options.origin}`,

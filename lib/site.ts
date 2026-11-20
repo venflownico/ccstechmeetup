@@ -1,5 +1,7 @@
 export const site = {
   name: "Caracas Tech Meetup",
+  /** La marca. El meetup es uno de sus formatos. */
+  marca: "Caracas Tech",
   shortName: "CCS Tech Meetup",
   domain: "ccstechmeetup.com",
   url: "https://ccstechmeetup.com",

@@ -1,10 +1,11 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "motion/react";
-import { CalendarDays, FileDown, MapPin, Users } from "lucide-react";
+import { FileDown, Layers, MapPin, Users } from "lucide-react";
 import { useRef } from "react";
 
 import { Foto } from "@/components/2027/foto";
+import { CUENTA_PALABRA } from "@/components/2027/tipos";
 import type { Estilo } from "@/components/2027/tipos";
 
 import { site } from "@/lib/site";
@@ -13,10 +14,11 @@ import s from "./estilos.module.css";
 
 export const PDF_PROPUESTA = "/patrocinar/caracas-tech-patrocinios-2027.pdf";
 
+// Datos de la organización. Los del meetup (día, lugar, asistencia) van en su fila de formato.
 const DATOS = [
-  { Icono: CalendarDays, titulo: "Cuándo", valor: "Tercer jueves, 5:30 p. m." },
-  { Icono: MapPin, titulo: "Dónde", valor: "Chapeau House, Caracas" },
-  { Icono: Users, titulo: "Por edición", valor: "+250 personas" },
+  { Icono: Layers, titulo: "En 2027", valor: `${CUENTA_PALABRA[0].toUpperCase()}${CUENTA_PALABRA.slice(1)} formatos` },
+  { Icono: MapPin, titulo: "Dónde", valor: "Caracas" },
+  { Icono: Users, titulo: "Quiénes van", valor: "Founders, builders e inversionistas" },
 ] as const;
 
 export function Entrada() {
@@ -48,7 +50,7 @@ export function Entrada() {
         <h1 id="t-patrocinar" className={s.h1}>
           Patrocina Caracas Tech
         </h1>
-        <p className={s.bajada}>Cada mes, frente a quienes construyen las startups de Venezuela.</p>
+        <p className={s.bajada}>Tu marca frente a quienes construyen las startups de Venezuela.</p>
         <ul className={s.datos}>
           {DATOS.map(({ Icono, titulo, valor }) => (
             <li key={titulo} className={s.dato}>
