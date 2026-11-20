@@ -2,7 +2,7 @@ import { CircleCheck, Hourglass } from "lucide-react";
 
 import { Foto } from "@/components/2027/foto";
 import { ICONOS_FORMATO } from "@/components/2027/iconos";
-import { FORMATOS } from "@/components/2027/tipos";
+import { CUENTA_PALABRA, FORMATOS } from "@/components/2027/tipos";
 import type { Estilo } from "@/components/2027/tipos";
 import { LogotipoFormato } from "@/components/logotipo-formato";
 
@@ -11,7 +11,7 @@ import { Revela, Titulo } from "./movimiento";
 
 /** Textos de la historia de patrocinio 2027, por formato. */
 const TEXTO: Record<string, { nombre: string; que: string }> = {
-  meetup: { nombre: "Meetup", que: "Cada mes." },
+  meetup: { nombre: "Meetup", que: "Tercer jueves de cada mes, 5:30 p. m., en Chapeau House. +250 personas por edición." },
   dinner: { nombre: "Dinner", que: "Cenas pequeñas entre founders e inversionistas." },
   hackathon: { nombre: "Hackathon", que: "Un fin de semana construyendo." },
   "demo-day": { nombre: "Demo Day", que: "Startups presentan frente a inversionistas." },
@@ -33,10 +33,10 @@ export function Formatos() {
   return (
     <section className={s.seccion} aria-labelledby="t-formatos">
       <div className={s.envoltura}>
-        <Titulo id="t-formatos" className={`${s.h2} ${s.h2Ancho}`} texto="En 2027, el meetup crece a Caracas Tech." />
+        <Titulo id="t-formatos" className={`${s.h2} ${s.h2Ancho}`} texto={`En 2027, Caracas Tech tiene ${CUENTA_PALABRA} formatos.`} />
         <p className={s.sub}>
-          Para que nazcan más startups, en 2027 sumamos formatos alrededor del meetup. Cada formato tendrá su
-          propia propuesta de patrocinio.
+          El meetup fue el primero. En 2027 se suman más formatos para que nazcan más startups, y cada uno
+          tendrá su propia propuesta de patrocinio.
         </p>
         <ul className={s.minis}>
           {LISTA.map((f, i) => {
@@ -67,7 +67,7 @@ export function Formatos() {
           })}
         </ul>
         <p className={s.nota}>
-          «Confirmado» va seguro en 2027. «En camino» se está organizando. Las fechas de cada formato se anuncian durante el año. Las imágenes de Dinner, Hackathon, Demo Day
+          «Confirmado» va seguro en 2027. «En camino» se está organizando. Las fechas de los demás formatos se anuncian durante el año. Las imágenes de Dinner, Hackathon, Demo Day
           y Wellness son ilustrativas, generadas con IA.
         </p>
       </div>

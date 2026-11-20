@@ -11,7 +11,7 @@ import { navItems, sponsorshipIntakeOpen } from "@/lib/site";
 const filaMovil =
   "flex min-h-11 items-center rounded-md px-3 text-base text-white/85 transition hover:bg-white/5 hover:text-white";
 
-export function SiteHeader() {
+export function SiteHeader({ soloMarca = false }: { soloMarca?: boolean }) {
   const [abierto, setAbierto] = useState(false);
   const boton = useRef<HTMLButtonElement>(null);
 
@@ -33,7 +33,7 @@ export function SiteHeader() {
     <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[#050b12]/80 pt-[env(safe-area-inset-top)] backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-2 pr-[max(1rem,env(safe-area-inset-right))] pl-[max(1rem,env(safe-area-inset-left))] sm:gap-4 sm:pr-[max(1.5rem,env(safe-area-inset-right))] sm:pl-[max(1.5rem,env(safe-area-inset-left))]">
         <Link href="/" className="flex shrink-0 items-center" onClick={cerrar}>
-          <BrandMark size="sm" />
+          <BrandMark size="sm" soloMarca={soloMarca} />
         </Link>
         <nav className="hidden items-center gap-6 text-sm text-white/70 md:flex">
           {navItems.map((item) => (

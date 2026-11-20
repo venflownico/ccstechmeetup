@@ -13,9 +13,12 @@ const sizes: Record<Size, string> = {
 export function BrandMark({
   size = "sm",
   align = "left",
+  soloMarca = false,
   className,
 }: {
   size?: Size;
+  /** Logo de la organización, sin la palabra «meetup»: para páginas que hablan de todos los formatos. */
+  soloMarca?: boolean;
   align?: "left" | "center";
   className?: string;
 }) {
@@ -28,8 +31,8 @@ export function BrandMark({
       )}
     >
       <Image
-        src="/brand/logo.png"
-        alt={site.name}
+        src={soloMarca ? "/brand/caracas-tech.png" : "/brand/logo.png"}
+        alt={soloMarca ? site.marca : site.name}
         width={968}
         height={381}
         priority={size === "hero"}

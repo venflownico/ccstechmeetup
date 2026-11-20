@@ -16,16 +16,16 @@ const kalam = Kalam({
 });
 
 const cuenta = CUENTA_PALABRA;
-const descripcion = `${cuenta[0].toUpperCase()}${cuenta.slice(1)} formatos del Caracas Tech Meetup para 2027. Voltea cada tarjeta y dinos cuáles te interesan.`;
+const descripcion = `${cuenta[0].toUpperCase()}${cuenta.slice(1)} formatos de Caracas Tech para 2027. Voltea cada tarjeta y dinos cuáles te interesan.`;
 
 export const metadata: Metadata = {
-  title: "2027",
+  title: { absolute: `2027 · ${site.marca}` },
   description: descripcion,
   openGraph: {
     title: `En 2027 nos vemos de ${cuenta} maneras`,
     description: descripcion,
     url: "/2027",
-    siteName: site.name,
+    siteName: site.marca,
     locale: "es_VE",
     type: "website",
   },
@@ -46,14 +46,14 @@ const sinJs = `
 export default function Pagina2027() {
   return (
     <>
-      <SiteHeader />
+      <SiteHeader soloMarca />
       <div className={`${kalam.variable} ${styles.pagina}`} data-pagina>
         <Formatos2027 />
       </div>
       <noscript>
         <style>{sinJs}</style>
       </noscript>
-      <SiteFooter />
+      <SiteFooter soloMarca />
     </>
   );
 }

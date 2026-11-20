@@ -18,7 +18,7 @@ import { SponsorWhy } from "@/components/sponsor-why";
 import { site, sponsorFaqs } from "@/lib/site";
 
 const descripcion =
-  "Patrocina Caracas Tech en 2027: cada mes, frente a quienes construyen las startups de Venezuela.";
+  "Patrocina Caracas Tech en 2027: tu marca frente a quienes construyen las startups de Venezuela.";
 
 export const metadata: Metadata = {
   title: { absolute: "Patrocina Caracas Tech" },
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     title: "Patrocina Caracas Tech",
     description: descripcion,
     url: "/patrocinar",
-    siteName: site.name,
+    siteName: site.marca,
     locale: "es_VE",
     type: "website",
   },
@@ -41,7 +41,7 @@ const sinJs = `
 export default function PatrocinarPage() {
   return (
     <>
-      <SiteHeader />
+      <SiteHeader soloMarca />
       <div className={s.pagina} data-pagina>
         <Lenis2027>
           <main className={s.principal}>
@@ -67,7 +67,7 @@ export default function PatrocinarPage() {
       <noscript>
         <style>{sinJs}</style>
       </noscript>
-      <SiteFooter />
+      <SiteFooter soloMarca />
     </>
   );
 }
