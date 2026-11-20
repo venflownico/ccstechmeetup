@@ -14,7 +14,7 @@ import {
   type FounderResource,
   type ResourceFilterId,
 } from "@/lib/resources";
-import { packagePitch, sponsorshipIntakeOpen } from "@/lib/site";
+import { packagePitch, sponsorshipIntakeOpen, sponsorshipWindow } from "@/lib/site";
 
 type Status = "idle" | "loading" | "success" | "error";
 
@@ -97,7 +97,8 @@ export function ResourceCatalog() {
             ¿Quieres que tu recurso aparezca aquí?
           </p>
           <p className="mt-2 text-sm text-white/60">
-            Los founders canjean grants acotados desde esta página.
+            Los founders canjean grants acotados desde esta página. Cupos anuales limitados —
+            ventana abierta hasta el {sponsorshipWindow.deadlineLabelLong}.
           </p>
           <Button className="mt-4 h-10 w-full bg-teal-400 text-slate-950 hover:bg-teal-200" asChild>
             <Link href="/patrocinar">Ir a Patrocinar</Link>
@@ -107,6 +108,9 @@ export function ResourceCatalog() {
         <aside className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 lg:sticky lg:top-24">
           <p className="text-xs font-semibold tracking-[0.18em] text-teal-300/80 uppercase">
             Para marcas
+          </p>
+          <p className="font-heading mt-2 text-lg font-semibold text-white">
+            Cupos del ciclo tomados
           </p>
           <p className="mt-2 text-sm text-white/60">{packagePitch.closedNote}</p>
         </aside>
